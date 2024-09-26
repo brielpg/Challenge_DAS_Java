@@ -59,7 +59,7 @@ public class RelatorioService {
         if (relatorioRepository.existsById(dados.id())){
             var relatorio = relatorioRepository.getReferenceById(dados.id());
             relatorio.atualizarRelatorio(dados);
-            return ResponseEntity.status(HttpStatus.OK).body("Relatório ATUALIZADO com Sucesso!");
+            return ResponseEntity.status(HttpStatus.OK).body(relatorio);
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: Relatório não encontrado.");
     }
@@ -72,7 +72,7 @@ public class RelatorioService {
 
             if (!relatorio.getStatus().equals(status)){
                 relatorio.setStatus(status);
-                return ResponseEntity.status(HttpStatus.OK).body("Relatório RECUSADO com Sucesso!");
+                return ResponseEntity.status(HttpStatus.OK).body("Relatório "+relatorio.getStatus()+" com Sucesso!");
             }
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: Relatório já foi RECUSADO.");
@@ -88,7 +88,7 @@ public class RelatorioService {
 
             if (!relatorio.getStatus().equals(status)){
                 relatorio.setStatus(status);
-                return ResponseEntity.status(HttpStatus.OK).body("Relatório APROVADO com Sucesso!");
+                return ResponseEntity.status(HttpStatus.OK).body("Relatório "+relatorio.getStatus()+" com Sucesso!");
             }
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: Relatório já foi APROVADO.");
