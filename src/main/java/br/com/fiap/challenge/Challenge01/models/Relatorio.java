@@ -28,8 +28,10 @@ public class Relatorio {
     private String status; // APROVADO, RECUSADO, ANALISE
     private String imagem;
     @ManyToOne
+    @JoinColumn(name = "clinica_id")
     private Clinica clinica;
     @ManyToOne
+    @JoinColumn(name = "cliente_id")
     private ClienteDaClinica cliente;
 
     public Relatorio(DadosCriarRelatorio dados) {

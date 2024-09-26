@@ -46,12 +46,12 @@ public class RelatorioService {
         return relatorioRepository.findAll(paginacao).map(DadosListagemRelatorio::new);
     }
 
-    public Page<DadosListagemRelatorio> listarRelatoriosPorClinica(Long clinicaId, Pageable paginacao){
-        return relatorioRepository.findByClinicaId(clinicaId, paginacao).map(DadosListagemRelatorio::new);
+    public Page<DadosListagemRelatorio> listarRelatoriosPorClinica(Long clinica_id, Pageable paginacao){
+        return relatorioRepository.findByClinica_Id(clinica_id, paginacao).map(DadosListagemRelatorio::new);
     }
 
-    public Page<DadosListagemRelatorio> listarRelatoriosPorCliente(Long idCliente, Pageable paginacao) {
-        return relatorioRepository.findByClienteId(idCliente, paginacao).map(DadosListagemRelatorio::new);
+    public Page<DadosListagemRelatorio> listarRelatoriosPorCliente(Long cliente_id, Pageable paginacao) {
+        return relatorioRepository.findByCliente_Id(cliente_id, paginacao).map(DadosListagemRelatorio::new);
     }
 
     @Transactional

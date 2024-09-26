@@ -36,14 +36,14 @@ public class RelatorioController {
         return relatorioService.listarTodosRelatorios(paginacao);
     }
 
-    @GetMapping("/clinica/{clinicaId}")
-    public Page<DadosListagemRelatorio> listarRelatoriosPorClinica(@PathVariable Long id_clinica, Pageable paginacao) {
-        return relatorioService.listarRelatoriosPorClinica(id_clinica, paginacao);
+    @GetMapping("/clinica/{clinica_id}")
+    public Page<DadosListagemRelatorio> listarRelatoriosPorClinica(@PathVariable Long clinica_id, Pageable paginacao) {
+        return relatorioService.listarRelatoriosPorClinica(clinica_id, paginacao);
     }
 
-    @GetMapping("/cliente/{clienteId}")
-    public Page<DadosListagemRelatorio> listarRelatoriosPorCliente(@PathVariable Long id_cliente, Pageable paginacao) {
-        return relatorioService.listarRelatoriosPorCliente(id_cliente, paginacao);
+    @GetMapping("/cliente/{cliente_id}")
+    public Page<DadosListagemRelatorio> listarRelatoriosPorCliente(@PathVariable Long cliente_id, Pageable paginacao) {
+        return relatorioService.listarRelatoriosPorCliente(cliente_id, paginacao);
     }
 
     @DeleteMapping("/negar/{id}")
