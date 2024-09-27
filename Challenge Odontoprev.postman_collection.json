@@ -1,0 +1,383 @@
+{
+	"info": {
+		"_postman_id": "ebc23bff-5010-43b6-b21e-e3f093b37e64",
+		"name": "Challenge Odontoprev",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34121595"
+	},
+	"item": [
+		{
+			"name": "Clinica",
+			"item": [
+				{
+					"name": "criarClinica",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"nome clinica\",\r\n    \"cnpj\": \"99.999.999/9999-99\",\r\n    \"telefone\": \"11 871219768\",\r\n    \"email\": \"clinica@email.com\",\r\n    \"razaoSocial\": \"razao clinica\",\r\n    \"senha\": \"124\",\r\n    \"endereco\": {\r\n        \"logradouro\": \"Rua 2\",\r\n        \"bairro\": \"bairro\",\r\n        \"cep\": \"00000-000\",\r\n        \"cidade\": \"Rio de Janeiro\",\r\n        \"complemento\": \"Complemento\",\r\n        \"uf\": \"RJ\",\r\n        \"numero\": \"15\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/clinica",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clinica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logarClinica",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cnpj\": \"99.111.333/0000-77\",\r\n    \"senha\": \"1234567\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/clinica/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clinica",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizarInformacoesClinica",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"nome\": \"Clinica Dentista\",\r\n    \"razaoSocial\": \"razao clinica dentista\",\r\n    \"endereco\": {\r\n        \"cidade\": \"Sao Paulo\",\r\n        \"uf\": \"SP\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/clinica",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clinica"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarTodasClinicas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/clinica",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"clinica"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Paciente",
+			"item": [
+				{
+					"name": "criarPaciente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Paciente 1\",\r\n    \"cpf\": \"12345678901\",\r\n    \"telefone\": \"11 871219768\",\r\n    \"dataNascimento\": \"25/01/2000\",\r\n    \"nmrCarteiraOdonto\": \"123456\",\r\n    \"fotoCliente\": \"https://image.freepik.com/fotos-gratis/boca-masculina-de-close-up-com-um-grande-sorriso-e-dentes-saudaveis-cosmetologia-odontologia-e-beleza-emocoes_155003-5510.jpg\",\r\n    \"endereco\": {\r\n        \"logradouro\": \"Rua 2\",\r\n        \"bairro\": \"bairro\",\r\n        \"cep\": \"00000-000\",\r\n        \"cidade\": \"Rio de Janeiro\",\r\n        \"complemento\": \"Complemento\",\r\n        \"uf\": \"RJ\",\r\n        \"numero\": \"15\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/cliente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizarInformacoesPaciente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Joao dos Santos\",\r\n    \"cpf\": \"12345678901\",\r\n    \"endereco\": {\r\n        \"logradouro\": \"Rua 1\",\r\n        \"cidade\": \"Salvador\",\r\n        \"uf\": \"BA\",\r\n        \"numero\": \"73\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/cliente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarTodosPacientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cliente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarPacientePorCPF",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/cliente/12345678901",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente",
+								"12345678901"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Relatorio",
+			"item": [
+				{
+					"name": "criarRelatorio",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"titulo do relatorio\",\r\n    \"descricao\": \"descricao do relatorio\",\r\n    \"imagem\": \"url imagem da consulta\",\r\n    \"dataConsulta\": \"24/03/2024\",\r\n    \"valorConsulta\": 195.49,\r\n    \"medico\": \"Joao Carlos\",\r\n    \"clinica_id\": 1,\r\n    \"cliente_cpf\": \"12345678901\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/relatorio",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"relatorio"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "atualizarInformacoesRelatorio",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"dataConsulta\": \"24/05/2024\",\r\n    \"valorConsulta\": 195.00,\r\n    \"medico\": \"Joao Carlos Pessoa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/relatorio",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"relatorio"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarTodosRelatorios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/relatorio",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"relatorio"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarRelatoriosPorClinica",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/relatorio/clinica/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"relatorio",
+								"clinica",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listarRelatoriosPorCliente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/relatorio/cliente/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"relatorio",
+								"cliente",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "recusarRelatorio",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/relatorio/negar/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"relatorio",
+								"negar",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "aprovarRelatorio",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/relatorio/aprovar/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"relatorio",
+								"aprovar",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
