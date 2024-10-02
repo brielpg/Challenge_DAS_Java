@@ -27,6 +27,10 @@ public class Clinica {
     private String fotoClinica;
     @Embedded
     private Endereco endereco;
+    @ManyToMany(mappedBy = "clinicas", cascade = CascadeType.ALL)
+    private List<ClienteDaClinica> clientes;
+    @OneToMany(mappedBy = "clinica", cascade = CascadeType.ALL)
+    private List<Relatorio> relatorios;
 
     public Clinica(DadosCriarClinica dados) {
         this.nome = dados.nome();

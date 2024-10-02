@@ -5,7 +5,6 @@ import br.com.fiap.challenge.Challenge01.dto.cliente.DadosCriarCliente;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -28,6 +27,11 @@ public class ClienteDaClinica {
     private String fotoCliente;
     @Embedded
     private Endereco endereco;
+    @ManyToMany
+    @JoinTable(name = "cliente_clinica", joinColumns = @JoinColumn(name = "cliente_id"), inverseJoinColumns = @JoinColumn(name = "clinica_id"))
+    private List<Clinica> clinicas;
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Relatorio> relatorios;
 
     public ClienteDaClinica(DadosCriarCliente dados) {
         this.nome = dados.nome();
