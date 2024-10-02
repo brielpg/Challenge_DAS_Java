@@ -3,6 +3,7 @@ package br.com.fiap.challenge.Challenge01.services;
 import br.com.fiap.challenge.Challenge01.dto.relatorio.DadosAtualizarRelatorio;
 import br.com.fiap.challenge.Challenge01.dto.relatorio.DadosCriarRelatorio;
 import br.com.fiap.challenge.Challenge01.dto.relatorio.DadosListagemRelatorio;
+import br.com.fiap.challenge.Challenge01.models.DasStatus;
 import br.com.fiap.challenge.Challenge01.models.Relatorio;
 import br.com.fiap.challenge.Challenge01.repositories.ClienteDaClinicaRepository;
 import br.com.fiap.challenge.Challenge01.repositories.ClinicaRepository;
@@ -35,21 +36,30 @@ public class RelatorioService {
         var clinica = clinicaRepository.findById(dados.clinica_id())
                 .orElseThrow(() -> new RuntimeException("Erro: Clínica não encontrada"));
 
-        var relatorio = relatorioRepository.save(new Relatorio(dados));
-        cliente.setQtdConsultas(cliente.getQtdConsultas()+1);
+        // Criei um novo relatorio e setei nele os respectivos cliente e clinica.
+        var relatorio = new Relatorio(dados);
         relatorio.setCliente(cliente);
         relatorio.setClinica(clinica);
+
+        cliente.setQtdConsultas(cliente.getQtdConsultas()+1);
+        cliente.adicionarClinica(clinica);
+        clinica.adicionarCliente(cliente);
+
+        relatorioRepository.save(relatorio);
         return ResponseEntity.status(HttpStatus.CREATED).body(relatorio);
     }
 
+    @Transactional
     public Page<DadosListagemRelatorio> listarTodosRelatorios(Pageable paginacao){
         return relatorioRepository.findAll(paginacao).map(DadosListagemRelatorio::new);
     }
 
+    @Transactional
     public Page<DadosListagemRelatorio> listarRelatoriosPorClinica(Long clinica_id, Pageable paginacao){
         return relatorioRepository.findByClinica_Id(clinica_id, paginacao).map(DadosListagemRelatorio::new);
     }
 
+    @Transactional
     public Page<DadosListagemRelatorio> listarRelatoriosPorCliente(Long cliente_id, Pageable paginacao) {
         return relatorioRepository.findByCliente_Id(cliente_id, paginacao).map(DadosListagemRelatorio::new);
     }
@@ -66,13 +76,12 @@ public class RelatorioService {
 
     @Transactional
     public ResponseEntity<?> recusarRelatorio(Long id) {
-        var status = "RECUSADO";
         if (relatorioRepository.existsById(id)){
             var relatorio = relatorioRepository.getReferenceById(id);
 
-            if (!relatorio.getStatus().equals(status)){
-                relatorio.setStatus(status);
-                return ResponseEntity.status(HttpStatus.OK).body("Relatório "+relatorio.getStatus()+" com Sucesso!");
+            if (!relatorio.getStatus().equals(DasStatus.RECUSADO)){
+                relatorio.setStatus(DasStatus.RECUSADO);
+                return ResponseEntity.status(HttpStatus.OK).body("Relatório RECUSADO com Sucesso!");
             }
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: Relatório já foi RECUSADO.");
@@ -82,13 +91,12 @@ public class RelatorioService {
 
     @Transactional
     public ResponseEntity<?> aprovarRelatorio(Long id) {
-        var status = "APROVADO";
         if (relatorioRepository.existsById(id)){
             var relatorio = relatorioRepository.getReferenceById(id);
 
-            if (!relatorio.getStatus().equals(status)){
-                relatorio.setStatus(status);
-                return ResponseEntity.status(HttpStatus.OK).body("Relatório "+relatorio.getStatus()+" com Sucesso!");
+            if (!relatorio.getStatus().equals(DasStatus.APROVADO)){
+                relatorio.setStatus(DasStatus.APROVADO);
+                return ResponseEntity.status(HttpStatus.OK).body("Relatório APROVADO com Sucesso!");
             }
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: Relatório já foi APROVADO.");

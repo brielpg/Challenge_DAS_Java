@@ -2,9 +2,11 @@ package br.com.fiap.challenge.Challenge01.models;
 
 import br.com.fiap.challenge.Challenge01.dto.clinica.DadosAtualizarClinica;
 import br.com.fiap.challenge.Challenge01.dto.clinica.DadosCriarClinica;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,14 +25,14 @@ public class Clinica {
     private String telefone;
     private String email;
     private String razaoSocial;
+    @JsonIgnore
     private String senha;
     private String fotoClinica;
     @Embedded
     private Endereco endereco;
-    @ManyToMany(mappedBy = "clinicas", cascade = CascadeType.ALL)
-    private List<ClienteDaClinica> clientes;
-    @OneToMany(mappedBy = "clinica", cascade = CascadeType.ALL)
-    private List<Relatorio> relatorios;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "clinicas", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<ClienteDaClinica> clientes = new ArrayList<>();
 
     public Clinica(DadosCriarClinica dados) {
         this.nome = dados.nome();
@@ -60,6 +62,12 @@ public class Clinica {
         }
         if (dados.endereco() != null) {
             this.endereco.atualizarEndereco(dados.endereco());
+        }
+    }
+
+    public void adicionarCliente(ClienteDaClinica cliente) {
+        if (!this.clientes.contains(cliente)) {
+            this.clientes.add(cliente);
         }
     }
 }

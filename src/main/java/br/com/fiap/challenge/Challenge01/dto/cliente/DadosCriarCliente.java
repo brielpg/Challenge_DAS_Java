@@ -19,8 +19,8 @@ public record DadosCriarCliente(
         @NotBlank(message = "Telefone é obrigatório")
         String telefone,
 
-        @NotBlank(message = "Data de nascimento é obrigatória")
-        String dataNascimento,
+        @NotNull(message = "Data de nascimento é obrigatória")
+        LocalDate dataNascimento,
 
         @NotBlank(message = "Número da Carteirinha Odonto é obrigatória")
         String nmrCarteiraOdonto,

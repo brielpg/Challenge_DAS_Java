@@ -14,7 +14,7 @@ public record DadosCriarRelatorio(
     @NotBlank(message = "Imagem é obrigatório")
     String imagem,
     @NotNull(message = "Data da Consulta é obrigatória")
-    String dataConsulta,
+    LocalDate dataConsulta,
     @NotNull(message = "Valor da Consulta é obrigatória")
     BigDecimal valorConsulta,
     @NotBlank(message = "Médico/Profissional é obrigatório")

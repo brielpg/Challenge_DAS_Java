@@ -2,6 +2,7 @@ package br.com.fiap.challenge.Challenge01.dto.relatorio;
 
 import br.com.fiap.challenge.Challenge01.models.ClienteDaClinica;
 import br.com.fiap.challenge.Challenge01.models.Clinica;
+import br.com.fiap.challenge.Challenge01.models.DasStatus;
 import br.com.fiap.challenge.Challenge01.models.Relatorio;
 
 import java.math.BigDecimal;
@@ -11,9 +12,9 @@ public record DadosListagemRelatorio(
         Long id,
         String titulo,
         String descricao,
-        String status,
+        DasStatus status,
         String medico,
-        String dataConsulta,
+        LocalDate dataConsulta,
         LocalDate dataEnvioRelatorio,
         BigDecimal valorConsulta,
         String imagem,

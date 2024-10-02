@@ -47,6 +47,7 @@ public class ClinicaService {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: Clínica não encontrado.");
     }
 
+    @Transactional
     public Page<DadosListagemClinica> listarTodasClinicas(Pageable paginacao) {
         return clinicaRepository.findAll(paginacao).map(DadosListagemClinica::new);
     }

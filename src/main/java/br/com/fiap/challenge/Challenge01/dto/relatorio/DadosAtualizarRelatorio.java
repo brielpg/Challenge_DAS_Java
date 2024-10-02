@@ -10,7 +10,7 @@ public record DadosAtualizarRelatorio(
         Long id,
         String titulo,
         String descricao,
-        String dataConsulta,
+        LocalDate dataConsulta,
         BigDecimal valorConsulta,
         String medico,
         String imagem

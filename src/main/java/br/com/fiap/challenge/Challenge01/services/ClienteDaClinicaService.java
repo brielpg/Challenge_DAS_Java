@@ -29,10 +29,12 @@ public class ClienteDaClinicaService {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: já existe um cliente cadastrado com esse CPF");
     }
 
+    @Transactional
     public Page<DadosListagemCliente> listarTodosClientes(Pageable paginacao) {
         return clienteDaClinicaRepository.findAll(paginacao).map(DadosListagemCliente::new);
     }
 
+    @Transactional
     public ResponseEntity<?> listarClientePorCPF(String cpf) {
         var cliente = clienteDaClinicaRepository.findByCpf(cpf);
         if (cliente != null) {

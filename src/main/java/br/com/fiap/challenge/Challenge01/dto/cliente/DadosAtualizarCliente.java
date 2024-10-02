@@ -13,7 +13,7 @@ public record DadosAtualizarCliente(
         @Pattern(regexp = "\\d{11}", message = "CPF inválido, deve conter 11 dígitos")
         String cpf,
         String telefone,
-        String dataNascimento,
+        LocalDate dataNascimento,
         String nmrCarteiraOdonto,
         String fotoCliente,
         DadosEndereco endereco

@@ -2,9 +2,12 @@ package br.com.fiap.challenge.Challenge01.models;
 
 import br.com.fiap.challenge.Challenge01.dto.cliente.DadosAtualizarCliente;
 import br.com.fiap.challenge.Challenge01.dto.cliente.DadosCriarCliente;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,16 +25,15 @@ public class ClienteDaClinica {
     private String cpf;
     private String telefone;
     private String nmrCarteiraOdonto;
-    private String dataNascimento;
+    private LocalDate dataNascimento;
     private Integer qtdConsultas;
     private String fotoCliente;
     @Embedded
     private Endereco endereco;
-    @ManyToMany
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "cliente_clinica", joinColumns = @JoinColumn(name = "cliente_id"), inverseJoinColumns = @JoinColumn(name = "clinica_id"))
-    private List<Clinica> clinicas;
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private List<Relatorio> relatorios;
+    private List<Clinica> clinicas = new ArrayList<>();
 
     public ClienteDaClinica(DadosCriarCliente dados) {
         this.nome = dados.nome();
@@ -65,6 +67,12 @@ public class ClienteDaClinica {
         }
         if (dados.endereco() != null){
             this.endereco.atualizarEndereco(dados.endereco());
+        }
+    }
+
+    public void adicionarClinica(Clinica clinica) {
+        if (!this.clinicas.contains(clinica)) {
+            this.clinicas.add(clinica);
         }
     }
 

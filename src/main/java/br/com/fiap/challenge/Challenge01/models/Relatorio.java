@@ -22,10 +22,10 @@ public class Relatorio {
     private String titulo;
     private String descricao;
     private String medico;
-    private String dataConsulta;
+    private LocalDate dataConsulta;
     private LocalDate dataEnvioRelatorio;
     private BigDecimal valorConsulta;
-    private String status; // APROVADO, RECUSADO, ANALISE
+    private DasStatus status;
     private String imagem;
     @ManyToOne
     @JoinColumn(name = "clinica_id")
@@ -37,7 +37,7 @@ public class Relatorio {
     public Relatorio(DadosCriarRelatorio dados) {
         this.titulo = dados.titulo();
         this.descricao = dados.descricao();
-        this.status = "ANALISE";
+        this.status = DasStatus.ANALISE;
         this.medico = dados.medico();
         this.dataConsulta = dados.dataConsulta();
         this.dataEnvioRelatorio = LocalDate.now();;
