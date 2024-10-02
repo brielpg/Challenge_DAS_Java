@@ -5,6 +5,7 @@ import br.com.fiap.challenge.Challenge01.models.Clinica;
 import br.com.fiap.challenge.Challenge01.models.Endereco;
 import br.com.fiap.challenge.Challenge01.models.Relatorio;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public record DadosListagemClinica(
@@ -14,11 +15,12 @@ public record DadosListagemClinica(
         String telefone,
         String email,
         String razaoSocial,
+        LocalDate dataCadastro,
         String fotoClinica,
         Endereco endereco,
         List<ClienteDaClinica> clientes
 ) {
     public DadosListagemClinica(Clinica clinica){
-        this(clinica.getId(), clinica.getNome(), clinica.getCnpj(), clinica.getTelefone(), clinica.getEmail(), clinica.getRazaoSocial(), clinica.getFotoClinica(), clinica.getEndereco(), clinica.getClientes());
+        this(clinica.getId(), clinica.getNome(), clinica.getCnpj(), clinica.getTelefone(), clinica.getEmail(), clinica.getRazaoSocial(), clinica.getDataCadastro(), clinica.getFotoClinica(), clinica.getEndereco(), clinica.getClientes());
     }
 }

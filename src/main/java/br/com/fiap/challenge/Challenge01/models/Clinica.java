@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class Clinica {
     private String telefone;
     private String email;
     private String razaoSocial;
+    private LocalDate dataCadastro;
     @JsonIgnore
     private String senha;
     private String fotoClinica;
@@ -40,6 +42,7 @@ public class Clinica {
         this.telefone = dados.telefone();
         this.email = dados.email();
         this.razaoSocial = dados.razaoSocial();
+        this.dataCadastro = LocalDate.now();
         this.senha = dados.senha();
         this.endereco = new Endereco(dados.endereco());
     }
