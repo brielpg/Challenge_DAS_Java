@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"nome clinica\",\r\n    \"cnpj\": \"99.999.999/9999-99\",\r\n    \"telefone\": \"11 871219768\",\r\n    \"email\": \"clinica@email.com\",\r\n    \"razaoSocial\": \"razao clinica\",\r\n    \"senha\": \"124\",\r\n    \"endereco\": {\r\n        \"logradouro\": \"Rua 2\",\r\n        \"bairro\": \"bairro\",\r\n        \"cep\": \"00000-000\",\r\n        \"cidade\": \"Rio de Janeiro\",\r\n        \"complemento\": \"Complemento\",\r\n        \"uf\": \"RJ\",\r\n        \"numero\": \"15\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"nome\": \"Clinica DAS\",\r\n    \"cnpj\": \"99.999.999/9999-99\",\r\n    \"telefone\": \"11 871219768\",\r\n    \"email\": \"clinica@email.com\",\r\n    \"razaoSocial\": \"razao clinica\",\r\n    \"senha\": \"124\",\r\n    \"endereco\": {\r\n        \"logradouro\": \"Rua 2\",\r\n        \"bairro\": \"bairro\",\r\n        \"cep\": \"00000-000\",\r\n        \"cidade\": \"Rio de Janeiro\",\r\n        \"complemento\": \"Complemento\",\r\n        \"uf\": \"RJ\",\r\n        \"numero\": \"15\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -44,7 +44,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"cnpj\": \"99.111.333/0000-77\",\r\n    \"senha\": \"1234567\"\r\n}",
+							"raw": "{\r\n    \"cnpj\": \"99.999.999/9999-99\",\r\n    \"senha\": \"124\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -125,7 +125,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nome\": \"Paciente 1\",\r\n    \"cpf\": \"12345678901\",\r\n    \"telefone\": \"11 871219768\",\r\n    \"dataNascimento\": \"25/01/2000\",\r\n    \"nmrCarteiraOdonto\": \"123456\",\r\n    \"fotoCliente\": \"https://image.freepik.com/fotos-gratis/boca-masculina-de-close-up-com-um-grande-sorriso-e-dentes-saudaveis-cosmetologia-odontologia-e-beleza-emocoes_155003-5510.jpg\",\r\n    \"endereco\": {\r\n        \"logradouro\": \"Rua 2\",\r\n        \"bairro\": \"bairro\",\r\n        \"cep\": \"00000-000\",\r\n        \"cidade\": \"Rio de Janeiro\",\r\n        \"complemento\": \"Complemento\",\r\n        \"uf\": \"RJ\",\r\n        \"numero\": \"15\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"nome\": \"Paciente 1\",\r\n    \"cpf\": \"12345678901\",\r\n    \"telefone\": \"11 871219768\",\r\n    \"dataNascimento\": \"2000-01-25\",\r\n    \"nmrCarteiraOdonto\": \"123456\",\r\n    \"fotoCliente\": \"https://image.freepik.com/fotos-gratis/boca-masculina-de-close-up-com-um-grande-sorriso-e-dentes-saudaveis-cosmetologia-odontologia-e-beleza-emocoes_155003-5510.jpg\",\r\n    \"endereco\": {\r\n        \"logradouro\": \"Rua 2\",\r\n        \"bairro\": \"bairro\",\r\n        \"cep\": \"00000-000\",\r\n        \"cidade\": \"Rio de Janeiro\",\r\n        \"complemento\": \"Complemento\",\r\n        \"uf\": \"RJ\",\r\n        \"numero\": \"15\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -225,7 +225,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"titulo\": \"titulo do relatorio\",\r\n    \"descricao\": \"descricao do relatorio\",\r\n    \"imagem\": \"url imagem da consulta\",\r\n    \"dataConsulta\": \"24/03/2024\",\r\n    \"valorConsulta\": 195.49,\r\n    \"medico\": \"Joao Carlos\",\r\n    \"clinica_id\": 1,\r\n    \"cliente_cpf\": \"12345678901\"\r\n}",
+							"raw": "{\r\n    \"titulo\": \"titulo do relatorio\",\r\n    \"descricao\": \"descricao do relatorio\",\r\n    \"imagem\": \"url imagem da consulta\",\r\n    \"dataConsulta\": \"2024-03-24\",\r\n    \"valorConsulta\": 195.49,\r\n    \"medico\": \"Joao Carlos\",\r\n    \"clinica_id\": 1,\r\n    \"cliente_cpf\": \"12345678901\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -253,7 +253,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 1,\r\n    \"dataConsulta\": \"24/05/2024\",\r\n    \"valorConsulta\": 195.00,\r\n    \"medico\": \"Joao Carlos Pessoa\"\r\n}",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"dataConsulta\": \"2024-05-24\",\r\n    \"valorConsulta\": 195.00,\r\n    \"medico\": \"Joao Carlos Pessoa\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
