@@ -42,12 +42,12 @@ Nosso projeto consiste em uma API desenvolvida em Java utilizando o framework Sp
 
 ### 3.2 Breve explicação dos Relacionamentos e Constraints:
 
-3.2.1 Relacionamentos:  
+#### 3.2.1 Relacionamentos:  
 Um cliente pode estar relacionado a vários relatórios, mas cada relatório pertence a apenas um cliente.  
 Uma clínica pode estar relacionado a vários relatórios, mas cada relatório pertence a apenas uma clínica.  
 Um cliente pode estar relacionado a várias clínicas e uma clínica pode estar relacionada a vários clientes.  
 
-3.2.2 Chaves Estrangeiras:  
+#### 3.2.2 Chaves Estrangeiras:  
 cliente_id e clinica_id no relatório referenciam as tabelas Cliente e Clínica, garantindo que um relatório sempre esteja associado a um cliente e a uma clínica.  
 Clinica e Cliente possuem uma tabela de junçao com os IDs cliente_id e clinica_id que são chaves estrangeiras que referenciam Cliente e Clínica, respectivamente.  
 
@@ -56,23 +56,23 @@ Link do vídeo: https://www.youtube.com/watch?v=FlKK-erlEGM&t=4s
 
 ## 5. Endpoints Disponíveis
 
-### 5.1. Endpoints de Clinica - /clinica
+### 5.1. Endpoint de Clinica - /clinica
 **POST** /clinica - cria uma clínica  
 **POST** /clinica/login - login da clínica  
 **PUT**  /clinica - atualiza informacoes da clinica  
 **GET**  /clinica - lista todas as clinicas
 
-### 5.2. Endpoints de Cliente - /cliente
+### 5.2. Endpoint de Cliente - /cliente
 **POST** /cliente - cria um cliente/paciente  
 **PUT** /cliente - atualiza informacoes do cliente/paciente  
 **GET** /cliente - lista todos os clientes/pacientes  
 **GET** /cliente/cpf - lista um cliente por cpf  
 
-### 5.3. Endpoints de Relatorio - /relatorio
+### 5.3. Endpoint de Relatorio - /relatorio
 **POST** /relatorio - cria um relatorio  
 **PUT** /relatorio - atualiza informacoes de um relatorio  
 **GET** /relatorio - lista todos os relatorios  
 **GET** /relatorio/clinica/id - lista os relatorios de uma clinica  
 **GET** /relatorio/cliente/id - lista os relatorios de um cliente/paciente  
-**DEL** /relatorio/negar/id - nega o pedido de um relatorio
-**DEL** /relatorio/aprovar/id - aprova o pedido de um relatorio
+**DEL** /relatorio/negar/id - nega o pedido de um relatorio  
+**DEL** /relatorio/aprovar/id - aprova o pedido de um relatorio  
