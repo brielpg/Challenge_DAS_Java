@@ -4,24 +4,33 @@ package br.com.fiap.challenge.Challenge01.dto.cliente;
 import br.com.fiap.challenge.Challenge01.models.ClienteDaClinica;
 import br.com.fiap.challenge.Challenge01.models.Clinica;
 import br.com.fiap.challenge.Challenge01.models.Endereco;
-import br.com.fiap.challenge.Challenge01.models.Relatorio;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public record DadosListagemCliente(
-        Long id,
-        String nome,
-        String cpf,
-        String telefone,
-        String nmrCarteiraOdonto,
-        LocalDate dataNascimento,
-        Integer qtdConsultas,
-        String fotoCliente,
-        Endereco endereco,
-        List<Clinica> clinicas
-) {
+public class DadosListagemCliente extends RepresentationModel<DadosListagemCliente> {
+        public Long id;
+        public String nome;
+        public String cpf;
+        public String telefone;
+        public String nmrCarteiraOdonto;
+        public LocalDate dataNascimento;
+        public Integer qtdConsultas;
+        public String fotoCliente;
+        public Endereco endereco;
+        public List<Clinica> clinicas;
+
     public DadosListagemCliente(ClienteDaClinica cliente){
-        this(cliente.getId(), cliente.getNome(), cliente.getCpf(), cliente.getTelefone(), cliente.getNmrCarteiraOdonto(), cliente.getDataNascimento(), cliente.getQtdConsultas(), cliente.getFotoCliente(), cliente.getEndereco(), cliente.getClinicas());
+        this.id = cliente.getId();
+        this.nome = cliente.getNome();
+        this.cpf = cliente.getCpf();
+        this.telefone = cliente.getTelefone();
+        this.nmrCarteiraOdonto = cliente.getNmrCarteiraOdonto();
+        this.dataNascimento = cliente.getDataNascimento();
+        this.qtdConsultas = cliente.getQtdConsultas();
+        this.fotoCliente = cliente.getFotoCliente();
+        this.endereco = cliente.getEndereco();
+        this.clinicas = cliente.getClinicas();
     }
 }

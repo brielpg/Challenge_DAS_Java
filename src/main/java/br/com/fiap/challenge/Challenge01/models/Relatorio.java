@@ -4,6 +4,7 @@ import br.com.fiap.challenge.Challenge01.dto.relatorio.DadosAtualizarRelatorio;
 import br.com.fiap.challenge.Challenge01.dto.relatorio.DadosCriarRelatorio;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -15,7 +16,7 @@ import java.time.LocalDate;
 @Data
 @ToString
 @EqualsAndHashCode(of = "id")
-public class Relatorio {
+public class Relatorio extends RepresentationModel<Relatorio> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

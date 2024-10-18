@@ -4,25 +4,34 @@ import br.com.fiap.challenge.Challenge01.models.ClienteDaClinica;
 import br.com.fiap.challenge.Challenge01.models.Clinica;
 import br.com.fiap.challenge.Challenge01.models.DasStatus;
 import br.com.fiap.challenge.Challenge01.models.Relatorio;
-
+import org.springframework.hateoas.RepresentationModel;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public record DadosListagemRelatorio(
-        Long id,
-        String titulo,
-        String descricao,
-        DasStatus status,
-        String medico,
-        LocalDate dataConsulta,
-        LocalDate dataEnvioRelatorio,
-        BigDecimal valorConsulta,
-        String imagem,
-        Clinica clinica,
-        ClienteDaClinica cliente
-) {
+public class DadosListagemRelatorio extends RepresentationModel<DadosListagemRelatorio>{
+        public Long id;
+        public String titulo;
+        public String descricao;
+        public DasStatus status;
+        public String medico;
+        public LocalDate dataConsulta;
+        public LocalDate dataEnvioRelatorio;
+        public BigDecimal valorConsulta;
+        public String imagem;
+        public Clinica clinica;
+        public ClienteDaClinica cliente;
 
     public DadosListagemRelatorio(Relatorio relatorio){
-        this(relatorio.getId(), relatorio.getTitulo(), relatorio.getDescricao(), relatorio.getStatus(), relatorio.getMedico(), relatorio.getDataConsulta(), relatorio.getDataEnvioRelatorio(), relatorio.getValorConsulta(), relatorio.getImagem(), relatorio.getClinica(), relatorio.getCliente());
+        this.id = relatorio.getId();
+        this.titulo = relatorio.getTitulo();
+        this.descricao = relatorio.getDescricao();
+        this.status = relatorio.getStatus();
+        this.medico = relatorio.getMedico();
+        this.dataConsulta = relatorio.getDataConsulta();
+        this.dataEnvioRelatorio = relatorio.getDataEnvioRelatorio();
+        this.valorConsulta = relatorio.getValorConsulta();
+        this.imagem = relatorio.getImagem();
+        this.clinica = relatorio.getClinica();
+        this.cliente = relatorio.getCliente();
     }
 }

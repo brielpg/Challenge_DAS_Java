@@ -21,29 +21,34 @@ public class RelatorioController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<?> criarRelatorio(@RequestBody @Valid DadosCriarRelatorio dados) {
-        return relatorioService.criarRelatorio(dados);
+    public ResponseEntity<?> createRelatorio(@RequestBody @Valid DadosCriarRelatorio dados) {
+        return relatorioService.createRelatorio(dados);
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity<?> atualizarInformacoesRelatorio(@RequestBody @Valid DadosAtualizarRelatorio dados) {
-        return relatorioService.atualizarInformacoesRelatorio(dados);
+    public ResponseEntity<?> updateRelatorio(@RequestBody @Valid DadosAtualizarRelatorio dados) {
+        return relatorioService.updateRelatorio(dados);
     }
 
     @GetMapping
-    public Page<DadosListagemRelatorio> listarTodosRelatorios(Pageable paginacao) {
-        return relatorioService.listarTodosRelatorios(paginacao);
+    public Page<DadosListagemRelatorio> getAllRelatorio(Pageable paginacao) {
+        return relatorioService.getAllRelatorio(paginacao);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getRelatorio(@PathVariable Long id) {
+        return relatorioService.getRelatorio(id);
     }
 
     @GetMapping("/clinica/{clinica_id}")
-    public Page<DadosListagemRelatorio> listarRelatoriosPorClinica(@PathVariable Long clinica_id, Pageable paginacao) {
-        return relatorioService.listarRelatoriosPorClinica(clinica_id, paginacao);
+    public Page<DadosListagemRelatorio> getRelatorioByClinica(@PathVariable Long clinica_id, Pageable paginacao) {
+        return relatorioService.getRelatorioByClinica(clinica_id, paginacao);
     }
 
     @GetMapping("/cliente/{cliente_id}")
-    public Page<DadosListagemRelatorio> listarRelatoriosPorCliente(@PathVariable Long cliente_id, Pageable paginacao) {
-        return relatorioService.listarRelatoriosPorCliente(cliente_id, paginacao);
+    public Page<DadosListagemRelatorio> getRelatorioByCliente(@PathVariable Long cliente_id, Pageable paginacao) {
+        return relatorioService.getRelatorioByCliente(cliente_id, paginacao);
     }
 
     @DeleteMapping("/negar/{id}")

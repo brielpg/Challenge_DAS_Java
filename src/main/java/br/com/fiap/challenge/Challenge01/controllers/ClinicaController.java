@@ -41,4 +41,9 @@ public class ClinicaController {
     public Page<DadosListagemClinica> listarTodasClinicas(Pageable paginacao) {
         return clinicaService.listarTodasClinicas(paginacao);
     }
+
+    @GetMapping("/{cnpj}")
+    public ResponseEntity<?> listarClinicaPorCnpj(@PathVariable String cnpj) {
+        return clinicaService.listarClinicaPorCnpj(cnpj);
+    }
 }

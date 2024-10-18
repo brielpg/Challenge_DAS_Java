@@ -5,6 +5,7 @@ import br.com.fiap.challenge.Challenge01.dto.cliente.DadosCriarCliente;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.List;
 @Data
 @ToString
 @EqualsAndHashCode(of = "id")
-public class ClienteDaClinica {
+public class ClienteDaClinica extends RepresentationModel<ClienteDaClinica> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
