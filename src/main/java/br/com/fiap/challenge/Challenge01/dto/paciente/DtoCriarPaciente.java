@@ -1,4 +1,4 @@
-package br.com.fiap.challenge.Challenge01.dto.cliente;
+package br.com.fiap.challenge.Challenge01.dto.paciente;
 
 import br.com.fiap.challenge.Challenge01.dto.DadosEndereco;
 import jakarta.validation.Valid;
@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Pattern;
 
 import java.time.LocalDate;
 
-public record DadosCriarCliente(
+public record DtoCriarPaciente(
         @NotBlank(message = "Nome é obrigatório")
         String nome,
 

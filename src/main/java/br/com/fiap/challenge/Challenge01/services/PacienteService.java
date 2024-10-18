@@ -1,13 +1,12 @@
 package br.com.fiap.challenge.Challenge01.services;
 
-import br.com.fiap.challenge.Challenge01.controllers.ClienteDaClinicaController;
+import br.com.fiap.challenge.Challenge01.controllers.PacienteController;
 import br.com.fiap.challenge.Challenge01.controllers.ClinicaController;
-import br.com.fiap.challenge.Challenge01.controllers.RelatorioController;
-import br.com.fiap.challenge.Challenge01.dto.cliente.DadosAtualizarCliente;
-import br.com.fiap.challenge.Challenge01.dto.cliente.DadosCriarCliente;
-import br.com.fiap.challenge.Challenge01.dto.cliente.DadosListagemCliente;
-import br.com.fiap.challenge.Challenge01.models.ClienteDaClinica;
-import br.com.fiap.challenge.Challenge01.repositories.ClienteDaClinicaRepository;
+import br.com.fiap.challenge.Challenge01.dto.paciente.DtoAtualizarPaciente;
+import br.com.fiap.challenge.Challenge01.dto.paciente.DtoCriarPaciente;
+import br.com.fiap.challenge.Challenge01.dto.paciente.DtoListarPaciente;
+import br.com.fiap.challenge.Challenge01.models.Paciente;
+import br.com.fiap.challenge.Challenge01.repositories.PacienteRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,19 +21,19 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
-public class ClienteDaClinicaService {
+public class PacienteService {
     @Autowired
-    private ClienteDaClinicaRepository clienteDaClinicaRepository;
+    private PacienteRepository clienteDaClinicaRepository;
 
     @Transactional
-    public ResponseEntity<?> criarCliente(@Valid @RequestBody DadosCriarCliente dados) {
+    public ResponseEntity<?> criarCliente(@Valid @RequestBody DtoCriarPaciente dados) {
         if (!clienteDaClinicaRepository.existsByCpf(dados.cpf())){
-            var cliente = clienteDaClinicaRepository.save(new ClienteDaClinica(dados));
-            var retorno = new DadosListagemCliente(cliente);
+            var cliente = clienteDaClinicaRepository.save(new Paciente(dados));
+            var retorno = new DtoListarPaciente(cliente);
 
             retorno.add(
-                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClienteDaClinicaController.class).listarTodosClientes(PageRequest.of(0, 10))).withRel(IanaLinkRelations.COLLECTION),
-                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClienteDaClinicaController.class).listarClientePorCPF(cliente.getCpf())).withSelfRel()
+                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).listarTodosClientes(PageRequest.of(0, 10))).withRel(IanaLinkRelations.COLLECTION),
+                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).listarClientePorCPF(cliente.getCpf())).withSelfRel()
             );
 
             return ResponseEntity.status(HttpStatus.CREATED).body(retorno);
@@ -43,10 +42,10 @@ public class ClienteDaClinicaService {
     }
 
     @Transactional
-    public Page<DadosListagemCliente> listarTodosClientes(Pageable paginacao) {
-        var clientes = clienteDaClinicaRepository.findAll(paginacao).map(DadosListagemCliente::new);
+    public Page<DtoListarPaciente> listarTodosClientes(Pageable paginacao) {
+        var clientes = clienteDaClinicaRepository.findAll(paginacao).map(DtoListarPaciente::new);
 
-        clientes.forEach(i -> i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClienteDaClinicaController.class).listarClientePorCPF(i.cpf)).withSelfRel()));
+        clientes.forEach(i -> i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).listarClientePorCPF(i.cpf)).withSelfRel()));
 
         return clientes;
     }
@@ -55,10 +54,10 @@ public class ClienteDaClinicaService {
     public ResponseEntity<?> listarClientePorCPF(String cpf) {
         var cliente = clienteDaClinicaRepository.findByCpf(cpf);
         if (cliente != null) {
-            var retorno = new DadosListagemCliente(cliente);
+            var retorno = new DtoListarPaciente(cliente);
 
             retorno.add(
-                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClienteDaClinicaController.class).listarTodosClientes(PageRequest.of(0, 10))).withRel(IanaLinkRelations.COLLECTION)
+                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).listarTodosClientes(PageRequest.of(0, 10))).withRel(IanaLinkRelations.COLLECTION)
             );
 
             for (var i: retorno.clinicas) {
@@ -71,15 +70,15 @@ public class ClienteDaClinicaService {
     }
 
     @Transactional
-    public ResponseEntity<?> atualizarInformacoesCliente(DadosAtualizarCliente dados) {
+    public ResponseEntity<?> atualizarInformacoesCliente(DtoAtualizarPaciente dados) {
         if (clienteDaClinicaRepository.existsByCpf(dados.cpf())){
             var cliente = clienteDaClinicaRepository.getReferenceByCpf(dados.cpf());
             cliente.atualizarCliente(dados);
 
-            var retorno = new DadosListagemCliente(cliente);
+            var retorno = new DtoListarPaciente(cliente);
 
             retorno.add(
-                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClienteDaClinicaController.class).listarClientePorCPF(cliente.getCpf())).withSelfRel()
+                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).listarClientePorCPF(cliente.getCpf())).withSelfRel()
             );
 
             for (var i : retorno.clinicas) {

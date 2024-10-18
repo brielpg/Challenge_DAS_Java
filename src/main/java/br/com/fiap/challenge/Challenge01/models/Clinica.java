@@ -1,8 +1,7 @@
 package br.com.fiap.challenge.Challenge01.models;
 
-import br.com.fiap.challenge.Challenge01.dto.clinica.DadosAtualizarClinica;
-import br.com.fiap.challenge.Challenge01.dto.clinica.DadosCriarClinica;
-import br.com.fiap.challenge.Challenge01.dto.relatorio.DadosListagemRelatorio;
+import br.com.fiap.challenge.Challenge01.dto.clinica.DtoAtualizarClinica;
+import br.com.fiap.challenge.Challenge01.dto.clinica.DtoCriarClinica;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -36,9 +35,9 @@ public class Clinica extends RepresentationModel<Clinica> {
     private Endereco endereco;
     @JsonIgnore
     @ManyToMany(mappedBy = "clinicas", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<ClienteDaClinica> clientes = new ArrayList<>();
+    private List<Paciente> clientes = new ArrayList<>();
 
-    public Clinica(DadosCriarClinica dados) {
+    public Clinica(DtoCriarClinica dados) {
         this.nome = dados.nome();
         this.cnpj = dados.cnpj();
         this.telefone = dados.telefone();
@@ -49,7 +48,7 @@ public class Clinica extends RepresentationModel<Clinica> {
         this.endereco = new Endereco(dados.endereco());
     }
 
-    public void atualizarClinica(DadosAtualizarClinica dados) {
+    public void atualizarClinica(DtoAtualizarClinica dados) {
         if (dados.nome() != null) {
             this.nome = dados.nome();
         }
@@ -70,7 +69,7 @@ public class Clinica extends RepresentationModel<Clinica> {
         }
     }
 
-    public void adicionarCliente(ClienteDaClinica cliente) {
+    public void adicionarCliente(Paciente cliente) {
         if (!this.clientes.contains(cliente)) {
             this.clientes.add(cliente);
         }

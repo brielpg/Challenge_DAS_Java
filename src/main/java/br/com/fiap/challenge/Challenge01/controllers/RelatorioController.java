@@ -1,8 +1,8 @@
 package br.com.fiap.challenge.Challenge01.controllers;
 
-import br.com.fiap.challenge.Challenge01.dto.relatorio.DadosAtualizarRelatorio;
-import br.com.fiap.challenge.Challenge01.dto.relatorio.DadosCriarRelatorio;
-import br.com.fiap.challenge.Challenge01.dto.relatorio.DadosListagemRelatorio;
+import br.com.fiap.challenge.Challenge01.dto.relatorio.DtoAtualizarRelatorio;
+import br.com.fiap.challenge.Challenge01.dto.relatorio.DtoCriarRelatorio;
+import br.com.fiap.challenge.Challenge01.dto.relatorio.DtoListarRelatorio;
 import br.com.fiap.challenge.Challenge01.services.RelatorioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +21,18 @@ public class RelatorioController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<?> createRelatorio(@RequestBody @Valid DadosCriarRelatorio dados) {
+    public ResponseEntity<?> createRelatorio(@RequestBody @Valid DtoCriarRelatorio dados) {
         return relatorioService.createRelatorio(dados);
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity<?> updateRelatorio(@RequestBody @Valid DadosAtualizarRelatorio dados) {
+    public ResponseEntity<?> updateRelatorio(@RequestBody @Valid DtoAtualizarRelatorio dados) {
         return relatorioService.updateRelatorio(dados);
     }
 
     @GetMapping
-    public Page<DadosListagemRelatorio> getAllRelatorio(Pageable paginacao) {
+    public Page<DtoListarRelatorio> getAllRelatorio(Pageable paginacao) {
         return relatorioService.getAllRelatorio(paginacao);
     }
 
@@ -42,12 +42,12 @@ public class RelatorioController {
     }
 
     @GetMapping("/clinica/{clinica_id}")
-    public Page<DadosListagemRelatorio> getRelatorioByClinica(@PathVariable Long clinica_id, Pageable paginacao) {
+    public Page<DtoListarRelatorio> getRelatorioByClinica(@PathVariable Long clinica_id, Pageable paginacao) {
         return relatorioService.getRelatorioByClinica(clinica_id, paginacao);
     }
 
     @GetMapping("/cliente/{cliente_id}")
-    public Page<DadosListagemRelatorio> getRelatorioByCliente(@PathVariable Long cliente_id, Pageable paginacao) {
+    public Page<DtoListarRelatorio> getRelatorioByCliente(@PathVariable Long cliente_id, Pageable paginacao) {
         return relatorioService.getRelatorioByCliente(cliente_id, paginacao);
     }
 

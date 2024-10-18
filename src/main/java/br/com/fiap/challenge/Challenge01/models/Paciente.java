@@ -1,7 +1,7 @@
 package br.com.fiap.challenge.Challenge01.models;
 
-import br.com.fiap.challenge.Challenge01.dto.cliente.DadosAtualizarCliente;
-import br.com.fiap.challenge.Challenge01.dto.cliente.DadosCriarCliente;
+import br.com.fiap.challenge.Challenge01.dto.paciente.DtoAtualizarPaciente;
+import br.com.fiap.challenge.Challenge01.dto.paciente.DtoCriarPaciente;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -18,7 +18,7 @@ import java.util.List;
 @Data
 @ToString
 @EqualsAndHashCode(of = "id")
-public class ClienteDaClinica extends RepresentationModel<ClienteDaClinica> {
+public class Paciente extends RepresentationModel<Paciente> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,7 +36,7 @@ public class ClienteDaClinica extends RepresentationModel<ClienteDaClinica> {
     @JoinTable(name = "cliente_clinica", joinColumns = @JoinColumn(name = "cliente_id"), inverseJoinColumns = @JoinColumn(name = "clinica_id"))
     private List<Clinica> clinicas = new ArrayList<>();
 
-    public ClienteDaClinica(DadosCriarCliente dados) {
+    public Paciente(DtoCriarPaciente dados) {
         this.nome = dados.nome();
         this.cpf = dados.cpf();
         this.telefone = dados.telefone();
@@ -47,7 +47,7 @@ public class ClienteDaClinica extends RepresentationModel<ClienteDaClinica> {
         this.endereco = new Endereco(dados.endereco());
     }
 
-    public void atualizarCliente(DadosAtualizarCliente dados) {
+    public void atualizarCliente(DtoAtualizarPaciente dados) {
         if (dados.nome() != null){
             this.nome = dados.nome();
         }

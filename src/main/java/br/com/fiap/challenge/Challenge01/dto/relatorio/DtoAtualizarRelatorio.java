@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public record DadosAtualizarRelatorio(
+public record DtoAtualizarRelatorio(
         @NotNull(message = "ID é obrigatório")
         Long id,
         String titulo,

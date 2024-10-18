@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public record DadosCriarRelatorio(
+public record DtoCriarRelatorio(
     @NotBlank(message = "Título é obrigatório")
     String titulo,
     @NotBlank(message = "Descrição é obrigatório")

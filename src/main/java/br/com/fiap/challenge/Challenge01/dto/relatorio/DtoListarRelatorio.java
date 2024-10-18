@@ -1,6 +1,6 @@
 package br.com.fiap.challenge.Challenge01.dto.relatorio;
 
-import br.com.fiap.challenge.Challenge01.models.ClienteDaClinica;
+import br.com.fiap.challenge.Challenge01.models.Paciente;
 import br.com.fiap.challenge.Challenge01.models.Clinica;
 import br.com.fiap.challenge.Challenge01.models.DasStatus;
 import br.com.fiap.challenge.Challenge01.models.Relatorio;
@@ -8,7 +8,7 @@ import org.springframework.hateoas.RepresentationModel;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class DadosListagemRelatorio extends RepresentationModel<DadosListagemRelatorio>{
+public class DtoListarRelatorio extends RepresentationModel<DtoListarRelatorio>{
         public Long id;
         public String titulo;
         public String descricao;
@@ -19,9 +19,9 @@ public class DadosListagemRelatorio extends RepresentationModel<DadosListagemRel
         public BigDecimal valorConsulta;
         public String imagem;
         public Clinica clinica;
-        public ClienteDaClinica cliente;
+        public Paciente cliente;
 
-    public DadosListagemRelatorio(Relatorio relatorio){
+    public DtoListarRelatorio(Relatorio relatorio){
         this.id = relatorio.getId();
         this.titulo = relatorio.getTitulo();
         this.descricao = relatorio.getDescricao();

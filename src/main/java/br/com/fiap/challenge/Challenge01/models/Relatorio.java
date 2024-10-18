@@ -1,7 +1,7 @@
 package br.com.fiap.challenge.Challenge01.models;
 
-import br.com.fiap.challenge.Challenge01.dto.relatorio.DadosAtualizarRelatorio;
-import br.com.fiap.challenge.Challenge01.dto.relatorio.DadosCriarRelatorio;
+import br.com.fiap.challenge.Challenge01.dto.relatorio.DtoAtualizarRelatorio;
+import br.com.fiap.challenge.Challenge01.dto.relatorio.DtoCriarRelatorio;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.hateoas.RepresentationModel;
@@ -33,9 +33,9 @@ public class Relatorio extends RepresentationModel<Relatorio> {
     private Clinica clinica;
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    private ClienteDaClinica cliente;
+    private Paciente cliente;
 
-    public Relatorio(DadosCriarRelatorio dados) {
+    public Relatorio(DtoCriarRelatorio dados) {
         this.titulo = dados.titulo();
         this.descricao = dados.descricao();
         this.status = DasStatus.ANALISE;
@@ -46,7 +46,7 @@ public class Relatorio extends RepresentationModel<Relatorio> {
         this.imagem = dados.imagem();
     }
 
-    public void atualizarRelatorio(DadosAtualizarRelatorio dados) {
+    public void atualizarRelatorio(DtoAtualizarRelatorio dados) {
         if (dados.titulo() != null){
             this.titulo = dados.titulo();
         }

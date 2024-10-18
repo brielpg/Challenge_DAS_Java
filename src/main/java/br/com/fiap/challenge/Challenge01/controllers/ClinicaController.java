@@ -1,9 +1,9 @@
 package br.com.fiap.challenge.Challenge01.controllers;
 
-import br.com.fiap.challenge.Challenge01.dto.clinica.DadosAtualizarClinica;
-import br.com.fiap.challenge.Challenge01.dto.clinica.DadosCriarClinica;
-import br.com.fiap.challenge.Challenge01.dto.clinica.DadosListagemClinica;
-import br.com.fiap.challenge.Challenge01.dto.clinica.DadosRequestLogin;
+import br.com.fiap.challenge.Challenge01.dto.clinica.DtoAtualizarClinica;
+import br.com.fiap.challenge.Challenge01.dto.clinica.DtoCriarClinica;
+import br.com.fiap.challenge.Challenge01.dto.clinica.DtoListarClinica;
+import br.com.fiap.challenge.Challenge01.dto.clinica.DtoRequestLogin;
 import br.com.fiap.challenge.Challenge01.services.ClinicaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,24 +21,24 @@ public class ClinicaController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<?> criarConta(@RequestBody @Valid DadosCriarClinica dados) {
+    public ResponseEntity<?> criarConta(@RequestBody @Valid DtoCriarClinica dados) {
         return clinicaService.criarConta(dados);
     }
 
     @PostMapping("/login")
     @Transactional
-    public ResponseEntity<?> logarConta(@RequestBody @Valid DadosRequestLogin dados) {
+    public ResponseEntity<?> logarConta(@RequestBody @Valid DtoRequestLogin dados) {
         return clinicaService.logarConta(dados);
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity<?> atualizarInformacoesConta(@RequestBody @Valid DadosAtualizarClinica dados) {
+    public ResponseEntity<?> atualizarInformacoesConta(@RequestBody @Valid DtoAtualizarClinica dados) {
         return clinicaService.atualizarInformacoesConta(dados);
     }
 
     @GetMapping
-    public Page<DadosListagemClinica> listarTodasClinicas(Pageable paginacao) {
+    public Page<DtoListarClinica> listarTodasClinicas(Pageable paginacao) {
         return clinicaService.listarTodasClinicas(paginacao);
     }
 

@@ -1,9 +1,9 @@
 package br.com.fiap.challenge.Challenge01.controllers;
 
-import br.com.fiap.challenge.Challenge01.dto.cliente.DadosAtualizarCliente;
-import br.com.fiap.challenge.Challenge01.dto.cliente.DadosCriarCliente;
-import br.com.fiap.challenge.Challenge01.dto.cliente.DadosListagemCliente;
-import br.com.fiap.challenge.Challenge01.services.ClienteDaClinicaService;
+import br.com.fiap.challenge.Challenge01.dto.paciente.DtoAtualizarPaciente;
+import br.com.fiap.challenge.Challenge01.dto.paciente.DtoCriarPaciente;
+import br.com.fiap.challenge.Challenge01.dto.paciente.DtoListarPaciente;
+import br.com.fiap.challenge.Challenge01.services.PacienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,24 +14,24 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/cliente")
-public class ClienteDaClinicaController {
+public class PacienteController {
     @Autowired
-    private ClienteDaClinicaService clienteService;
+    private PacienteService clienteService;
 
     @PostMapping
     @Transactional
-    public ResponseEntity<?> criarCliente(@Valid @RequestBody DadosCriarCliente dados) {
+    public ResponseEntity<?> criarCliente(@Valid @RequestBody DtoCriarPaciente dados) {
         return clienteService.criarCliente(dados);
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity<?> atualizarInformacoesCliente(@Valid @RequestBody DadosAtualizarCliente dados) {
+    public ResponseEntity<?> atualizarInformacoesCliente(@Valid @RequestBody DtoAtualizarPaciente dados) {
         return clienteService.atualizarInformacoesCliente(dados);
     }
 
     @GetMapping
-    public Page<DadosListagemCliente> listarTodosClientes(Pageable paginacao) {
+    public Page<DtoListarPaciente> listarTodosClientes(Pageable paginacao) {
         return clienteService.listarTodosClientes(paginacao);
     }
 

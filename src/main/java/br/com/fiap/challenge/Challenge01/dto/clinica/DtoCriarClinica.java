@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
-public record DadosCriarClinica(
+public record DtoCriarClinica(
         @NotBlank(message = "Nome da clínica é obrigatório")
         String nome,
 
