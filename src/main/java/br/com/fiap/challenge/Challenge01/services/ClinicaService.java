@@ -7,7 +7,9 @@ import br.com.fiap.challenge.Challenge01.dto.clinica.DtoCriarClinica;
 import br.com.fiap.challenge.Challenge01.dto.clinica.DtoListarClinica;
 import br.com.fiap.challenge.Challenge01.dto.clinica.DtoRequestLogin;
 import br.com.fiap.challenge.Challenge01.models.Clinica;
+import br.com.fiap.challenge.Challenge01.models.Endereco;
 import br.com.fiap.challenge.Challenge01.repositories.ClinicaRepository;
+import br.com.fiap.challenge.Challenge01.repositories.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,14 +22,21 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class ClinicaService {
+public class ConsultaService {
     @Autowired
     private ClinicaRepository clinicaRepository;
 
+    @Autowired
+    private EnderecoRepository enderecoRepository;
+
     @Transactional
-    public ResponseEntity<?> criarConta(DtoCriarClinica dados) {
+    public ResponseEntity<?> createClinica(DtoCriarClinica dados) {
         if (!clinicaRepository.existsByCnpj(dados.cnpj())){
-            var clinica = clinicaRepository.save(new Clinica(dados));
+            var endereco = enderecoRepository.save(new Endereco(dados.endereco()));
+            var clinica = new Clinica(dados);
+            clinica.setEndereco(endereco);
+            clinicaRepository.save(clinica);
+
             var retorno = new DtoListarClinica(clinica);
 
             retorno.add(
@@ -41,7 +50,7 @@ public class ClinicaService {
     }
 
     @Transactional
-    public ResponseEntity<?> logarConta(DtoRequestLogin dados) {
+    public ResponseEntity<?> authClinica(DtoRequestLogin dados) {
         var clinica = clinicaRepository.findByCnpj(dados.cnpj());
         if (clinica != null && clinica.getSenha().equals(dados.senha())) {
             var retorno = new DtoListarClinica(clinica);
@@ -53,7 +62,7 @@ public class ClinicaService {
     }
 
     @Transactional
-    public ResponseEntity<?> atualizarInformacoesConta(DtoAtualizarClinica dados) {
+    public ResponseEntity<?> updateClinica(DtoAtualizarClinica dados) {
         if (clinicaRepository.existsById(dados.id())){
             var clinica = clinicaRepository.getReferenceById(dados.id());
             clinica.atualizarClinica(dados);
@@ -65,7 +74,7 @@ public class ClinicaService {
             );
 
             for (var i : retorno.clientes) {
-                i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).listarClientePorCPF(i.getCpf())).withRel("cliente"));
+                i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).listarClientePorCPF(i.getCpf())).withRel("pacientes"));
             }
 
             return ResponseEntity.status(HttpStatus.OK).body(retorno);
@@ -74,7 +83,7 @@ public class ClinicaService {
     }
 
     @Transactional
-    public Page<DtoListarClinica> listarTodasClinicas(Pageable paginacao) {
+    public Page<DtoListarClinica> getAllClinicas(Pageable paginacao) {
         var clinicas = clinicaRepository.findAll(paginacao).map(DtoListarClinica::new);
 
         clinicas.forEach(i -> i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).listarClinicaPorCnpj(i.cnpj)).withSelfRel()));
@@ -83,7 +92,7 @@ public class ClinicaService {
     }
 
     @Transactional
-    public ResponseEntity<?> listarClinicaPorCnpj(String cnpj) {
+    public ResponseEntity<?> getClinicaByCnpj(String cnpj) {
         var clinica = clinicaRepository.findByCnpj(cnpj);
         if (clinica != null) {
             var retorno = new DtoListarClinica(clinica);
@@ -93,7 +102,7 @@ public class ClinicaService {
             );
 
             for (var i: retorno.clientes) {
-                i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).listarClientePorCPF(i.getCpf())).withRel("cliente"));
+                i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).listarClientePorCPF(i.getCpf())).withRel("pacientes"));
             }
 
             return ResponseEntity.status(HttpStatus.OK).body(retorno);

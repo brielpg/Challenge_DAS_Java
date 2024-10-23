@@ -36,11 +36,11 @@ Nosso projeto consiste em uma API desenvolvida em Java utilizando o framework Sp
 
 ![Diagrama de Arquitetura Geral](./imagens/diagramaArquiteturaGeral.png)
 
-![Diagrama Relacional](./imagens/diagramaRelacional.png.png)
+![Diagrama Relacional](./imagens/diagramaRelacional.png)
 
-![Diagrama Logico](./imagens/diagramaLogico.png.png)
+![Diagrama Logico](./imagens/diagramaLogico.png)
 
-![Diagrama de Classe](./imagens/diagramaDeClasses.jpg.png)
+![Diagrama de Classe](./imagens/diagramaDeClasses.PNG)
 
 ### 3.2 Breve explicação dos Relacionamentos e Constraints:
 
@@ -62,19 +62,26 @@ Link do vídeo: https://www.youtube.com/watch?v=FlKK-erlEGM&t=4s
 **POST** /clinica - cria uma clínica  
 **POST** /clinica/login - login da clínica  
 **PUT**  /clinica - atualiza informacoes da clinica  
-**GET**  /clinica - lista todas as clinicas
+**GET**  /clinica - lista todas as clinicas  
+**GET**  /clinica/cnpj - lista clinica por cnpj
 
-### 5.2. Endpoint de Cliente - /cliente
+### 5.2. Endpoint de Paciente - /paciente
 **POST** /cliente - cria um cliente/paciente  
 **PUT** /cliente - atualiza informacoes do cliente/paciente  
 **GET** /cliente - lista todos os clientes/pacientes  
 **GET** /cliente/cpf - lista um cliente por cpf  
 
 ### 5.3. Endpoint de Relatorio - /relatorio
-**POST** /relatorio - cria um relatorio  
 **PUT** /relatorio - atualiza informacoes de um relatorio  
 **GET** /relatorio - lista todos os relatorios  
+**GET** /relatorio/id - lista um relatorio por id  
 **GET** /relatorio/clinica/id - lista os relatorios de uma clinica  
-**GET** /relatorio/cliente/id - lista os relatorios de um cliente/paciente  
+**GET** /relatorio/paciente/id - lista os relatorios de um cliente/paciente  
 **DEL** /relatorio/negar/id - nega o pedido de um relatorio  
 **DEL** /relatorio/aprovar/id - aprova o pedido de um relatorio  
+
+### 5.4. Endpoint de Consulta - /consulta
+**POST** /consulta - cria uma consulta juntamente com um relatorio  
+**PUT** /consulta - atualiza informacoes de uma consulta  
+**GET** /consulta - lista todas as consultas  
+**GET** /consulta/id - lista uma consulta por id  
