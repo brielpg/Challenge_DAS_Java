@@ -21,29 +21,29 @@ public class ClinicaController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<?> criarConta(@RequestBody @Valid DtoCriarClinica dados) {
-        return clinicaService.criarConta(dados);
+    public ResponseEntity<?> createClinica(@RequestBody @Valid DtoCriarClinica dados) {
+        return clinicaService.createClinica(dados);
     }
 
     @PostMapping("/login")
     @Transactional
-    public ResponseEntity<?> logarConta(@RequestBody @Valid DtoRequestLogin dados) {
-        return clinicaService.logarConta(dados);
+    public ResponseEntity<?> authClinica(@RequestBody @Valid DtoRequestLogin dados) {
+        return clinicaService.authClinica(dados);
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity<?> atualizarInformacoesConta(@RequestBody @Valid DtoAtualizarClinica dados) {
-        return clinicaService.atualizarInformacoesConta(dados);
+    public ResponseEntity<?> updateClinica(@RequestBody @Valid DtoAtualizarClinica dados) {
+        return clinicaService.updateClinica(dados);
     }
 
     @GetMapping
-    public Page<DtoListarClinica> listarTodasClinicas(Pageable paginacao) {
-        return clinicaService.listarTodasClinicas(paginacao);
+    public Page<DtoListarClinica> getAllClinicas(Pageable paginacao) {
+        return clinicaService.getAllClinicas(paginacao);
     }
 
     @GetMapping("/{cnpj}")
-    public ResponseEntity<?> listarClinicaPorCnpj(@PathVariable String cnpj) {
-        return clinicaService.listarClinicaPorCnpj(cnpj);
+    public ResponseEntity<?> getClinicaByCnpj(@PathVariable String cnpj) {
+        return clinicaService.getClinicaByCnpj(cnpj);
     }
 }

@@ -12,16 +12,6 @@ public record DtoCriarRelatorio(
     @NotBlank(message = "Descrição é obrigatório")
     String descricao,
     @NotBlank(message = "Imagem é obrigatório")
-    String imagem,
-    @NotNull(message = "Data da Consulta é obrigatória")
-    LocalDate dataConsulta,
-    @NotNull(message = "Valor da Consulta é obrigatória")
-    BigDecimal valorConsulta,
-    @NotBlank(message = "Médico/Profissional é obrigatório")
-    String medico,
-    @NotNull(message = "ID da Clínica é obrigatória")
-    Long clinica_id,
-    @NotNull(message = "CPF do Paciente é obrigatória")
-    String cliente_cpf
+    String imagem
 ) {
 }

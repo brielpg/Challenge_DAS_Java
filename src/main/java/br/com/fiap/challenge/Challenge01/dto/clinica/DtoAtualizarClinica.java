@@ -1,6 +1,6 @@
 package br.com.fiap.challenge.Challenge01.dto.clinica;
 
-import br.com.fiap.challenge.Challenge01.dto.DadosEndereco;
+import br.com.fiap.challenge.Challenge01.dto.DtoEndereco;
 import jakarta.validation.constraints.NotNull;
 
 public record DtoAtualizarClinica(
@@ -13,6 +13,6 @@ public record DtoAtualizarClinica(
         String razaoSocial,
         String senha,
         String fotoClinica,
-        DadosEndereco endereco
+        DtoEndereco endereco
 ) {
 }

@@ -1,7 +1,6 @@
 package br.com.fiap.challenge.Challenge01.controllers;
 
 import br.com.fiap.challenge.Challenge01.dto.relatorio.DtoAtualizarRelatorio;
-import br.com.fiap.challenge.Challenge01.dto.relatorio.DtoCriarRelatorio;
 import br.com.fiap.challenge.Challenge01.dto.relatorio.DtoListarRelatorio;
 import br.com.fiap.challenge.Challenge01.services.RelatorioService;
 import jakarta.validation.Valid;
@@ -18,12 +17,6 @@ public class RelatorioController {
 
     @Autowired
     private RelatorioService relatorioService;
-
-    @PostMapping
-    @Transactional
-    public ResponseEntity<?> createRelatorio(@RequestBody @Valid DtoCriarRelatorio dados) {
-        return relatorioService.createRelatorio(dados);
-    }
 
     @PutMapping
     @Transactional
@@ -46,9 +39,9 @@ public class RelatorioController {
         return relatorioService.getRelatorioByClinica(clinica_id, paginacao);
     }
 
-    @GetMapping("/cliente/{cliente_id}")
-    public Page<DtoListarRelatorio> getRelatorioByCliente(@PathVariable Long cliente_id, Pageable paginacao) {
-        return relatorioService.getRelatorioByCliente(cliente_id, paginacao);
+    @GetMapping("/paciente/{paciente_id}")
+    public Page<DtoListarRelatorio> getRelatorioByPaciente(@PathVariable Long paciente_id, Pageable paginacao) {
+        return relatorioService.getRelatorioByPaciente(paciente_id, paginacao);
     }
 
     @DeleteMapping("/negar/{id}")

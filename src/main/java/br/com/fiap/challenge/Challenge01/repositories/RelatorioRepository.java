@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface RelatorioRepository extends JpaRepository<Relatorio, Long> {
     Page<Relatorio> findByClinica_Id(Long clinica_id, Pageable paginacao);
 
-    Page<Relatorio> findByCliente_Id(Long cliente_id, Pageable paginacao);
+    Page<Relatorio> findByPaciente_Id(Long paciente_id, Pageable paginacao);
 }

@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-public record DadosEndereco(
+public record DtoEndereco(
         @NotBlank(message = "Logradouro é obrigatório")
         String logradouro,
         @NotBlank(message = "Bairro é obrigatório")

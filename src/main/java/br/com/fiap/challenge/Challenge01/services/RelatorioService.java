@@ -4,12 +4,8 @@ import br.com.fiap.challenge.Challenge01.controllers.PacienteController;
 import br.com.fiap.challenge.Challenge01.controllers.ClinicaController;
 import br.com.fiap.challenge.Challenge01.controllers.RelatorioController;
 import br.com.fiap.challenge.Challenge01.dto.relatorio.DtoAtualizarRelatorio;
-import br.com.fiap.challenge.Challenge01.dto.relatorio.DtoCriarRelatorio;
 import br.com.fiap.challenge.Challenge01.dto.relatorio.DtoListarRelatorio;
-import br.com.fiap.challenge.Challenge01.models.DasStatus;
-import br.com.fiap.challenge.Challenge01.models.Relatorio;
-import br.com.fiap.challenge.Challenge01.repositories.PacienteRepository;
-import br.com.fiap.challenge.Challenge01.repositories.ClinicaRepository;
+import br.com.fiap.challenge.Challenge01.enums.DasStatus;
 import br.com.fiap.challenge.Challenge01.repositories.RelatorioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,49 +23,6 @@ public class RelatorioService {
 
     @Autowired
     private RelatorioRepository relatorioRepository;
-    @Autowired
-    private PacienteRepository clienteDaClinicaRepository;
-    @Autowired
-    private ClinicaRepository clinicaRepository;
-
-    @Transactional
-    public ResponseEntity<?> createRelatorio(DtoCriarRelatorio dados) {
-        if (!clienteDaClinicaRepository.existsByCpf(dados.cliente_cpf())){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: Cliente não encontrado");
-        }
-
-        var cliente = clienteDaClinicaRepository.findByCpf(dados.cliente_cpf());
-        var clinica = clinicaRepository.findById(dados.clinica_id())
-                .orElseThrow(() -> new RuntimeException("Erro: Clínica não encontrada"));
-
-        // Criei um novo relatorio e setei nele os respectivos cliente e clinica.
-        var relatorio = new Relatorio(dados);
-        relatorio.setCliente(cliente);
-        relatorio.setClinica(clinica);
-
-        cliente.setQtdConsultas(cliente.getQtdConsultas()+1);
-        cliente.adicionarClinica(clinica);
-        clinica.adicionarCliente(cliente);
-
-        relatorioRepository.save(relatorio);
-
-        var retorno = new DtoListarRelatorio(relatorio);
-
-        retorno.add(
-                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RelatorioController.class).getRelatorio(relatorio.getId())).withSelfRel(),
-                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RelatorioController.class).getAllRelatorio(PageRequest.of(0, 10))).withRel(IanaLinkRelations.COLLECTION)
-        );
-
-        retorno.clinica.add(
-                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).listarClinicaPorCnpj(relatorio.getClinica().getCnpj())).withRel("clinica")
-        );
-
-        retorno.cliente.add(
-                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).listarClientePorCPF(relatorio.getCliente().getCpf())).withRel("cliente")
-        );
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(retorno);
-    }
 
     @Transactional
     public Page<DtoListarRelatorio> getAllRelatorio(Pageable paginacao){
@@ -86,18 +39,18 @@ public class RelatorioService {
         var relatorios = relatorioRepository.findByClinica_Id(clinica_id, paginacao).map(DtoListarRelatorio::new);
         relatorios.forEach(i -> {
             i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RelatorioController.class).getRelatorio(i.id)).withSelfRel());
-            i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).listarClinicaPorCnpj(i.clinica.getCnpj())).withRel("clinica"));
+            i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).getClinicaByCnpj(i.clinica)).withRel("clinica"));
         });
 
         return relatorios;
     }
 
     @Transactional
-    public Page<DtoListarRelatorio> getRelatorioByCliente(Long cliente_id, Pageable paginacao) {
-        var relatorios = relatorioRepository.findByCliente_Id(cliente_id, paginacao).map(DtoListarRelatorio::new);
+    public Page<DtoListarRelatorio> getRelatorioByPaciente(Long paciente_id, Pageable paginacao) {
+        var relatorios = relatorioRepository.findByPaciente_Id(paciente_id, paginacao).map(DtoListarRelatorio::new);
         relatorios.forEach(i -> {
             i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RelatorioController.class).getRelatorio(i.id)).withSelfRel());
-            i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).listarClientePorCPF(i.cliente.getCpf())).withRel("cliente"));
+            i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).getPacienteByCpf(i.paciente)).withRel("paciente"));
         });
 
         return relatorios;
@@ -111,15 +64,9 @@ public class RelatorioService {
             var retorno = new DtoListarRelatorio(relatorio);
 
             retorno.add(
-                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RelatorioController.class).getRelatorio(relatorio.getId())).withSelfRel()
-            );
-
-            retorno.clinica.add(
-                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).listarClinicaPorCnpj(relatorio.getClinica().getCnpj())).withRel("clinica")
-            );
-
-            retorno.cliente.add(
-                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).listarClientePorCPF(relatorio.getCliente().getCpf())).withRel("cliente")
+                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RelatorioController.class).getRelatorio(relatorio.getId())).withSelfRel(),
+                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).getClinicaByCnpj(relatorio.getClinica().getCnpj())).withRel("clinica"),
+                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).getPacienteByCpf(relatorio.getPaciente().getCpf())).withRel("paciente")
             );
 
             return ResponseEntity.status(HttpStatus.OK).body(retorno);
@@ -179,7 +126,9 @@ public class RelatorioService {
 
             retorno.add(
                     WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RelatorioController.class).getRelatorio(relatorio.getId())).withSelfRel(),
-                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RelatorioController.class).getAllRelatorio(PageRequest.of(0, 10))).withRel(IanaLinkRelations.COLLECTION)
+                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RelatorioController.class).getAllRelatorio(PageRequest.of(0, 10))).withRel(IanaLinkRelations.COLLECTION),
+                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).getClinicaByCnpj(relatorio.getClinica().getCnpj())).withRel("clinica"),
+                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).getPacienteByCpf(relatorio.getPaciente().getCpf())).withRel("paciente")
             );
 
             if (retorno.status.equals(DasStatus.APROVADO)){
@@ -190,14 +139,6 @@ public class RelatorioService {
                 retorno.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RelatorioController.class).recusarRelatorio(relatorio.getId())).withRel("recusar"));
                 retorno.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(RelatorioController.class).aprovarRelatorio(relatorio.getId())).withRel("aprovar"));
             }
-
-            retorno.clinica.add(
-                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).listarClinicaPorCnpj(relatorio.getClinica().getCnpj())).withRel("clinica")
-            );
-
-            retorno.cliente.add(
-                WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).listarClientePorCPF(relatorio.getCliente().getCpf())).withRel("cliente")
-            );
 
             return ResponseEntity.status(HttpStatus.OK).body(retorno);
         }

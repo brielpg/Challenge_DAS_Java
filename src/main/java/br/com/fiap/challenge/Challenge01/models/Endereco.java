@@ -1,16 +1,20 @@
 package br.com.fiap.challenge.Challenge01.models;
 
-import br.com.fiap.challenge.Challenge01.dto.DadosEndereco;
-import jakarta.persistence.Embeddable;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import br.com.fiap.challenge.Challenge01.dto.DtoEndereco;
+import jakarta.persistence.*;
+import lombok.*;
 
-@Embeddable
-@Getter
+@Entity
+@Table(name = "t_das_enderecos")
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
+@ToString
+@EqualsAndHashCode(of = "id")
 public class Endereco {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String logradouro;
     private String bairro;
     private String cep;
@@ -20,7 +24,7 @@ public class Endereco {
     private String uf;
 
 
-    public Endereco(DadosEndereco dados) {
+    public Endereco(DtoEndereco dados) {
         this.logradouro = dados.logradouro();
         this.bairro = dados.bairro();
         this.cep = dados.cep();
@@ -30,7 +34,7 @@ public class Endereco {
         this.uf = dados.uf();
     }
 
-    public void atualizarEndereco(DadosEndereco dados) {
+    public void atualizarEndereco(DtoEndereco dados) {
         if (dados.logradouro() != null) {
             this.logradouro = dados.logradouro();
         }

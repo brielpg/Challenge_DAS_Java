@@ -18,7 +18,7 @@ public class DtoListarClinica extends RepresentationModel<DtoListarClinica>{
         public LocalDate dataCadastro;
         public String fotoClinica;
         public Endereco endereco;
-        public List<Paciente> clientes;
+        public List<Paciente> pacientes;
 
     public DtoListarClinica(Clinica clinica){
         this.id = clinica.getId();
@@ -30,6 +30,6 @@ public class DtoListarClinica extends RepresentationModel<DtoListarClinica>{
         this.dataCadastro = clinica.getDataCadastro();
         this.fotoClinica = clinica.getFotoClinica();
         this.endereco = clinica.getEndereco();
-        this.clientes = clinica.getClientes();
+        this.pacientes = clinica.getPacientes();
     }
 }

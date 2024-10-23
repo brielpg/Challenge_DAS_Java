@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "t_das_clientes")
+@Table(name = "t_das_pacientes")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -28,12 +28,13 @@ public class Paciente extends RepresentationModel<Paciente> {
     private String nmrCarteiraOdonto;
     private LocalDate dataNascimento;
     private Integer qtdConsultas;
-    private String fotoCliente;
-    @Embedded
+    private String fotoPaciente;
+    @ManyToOne
+    @JoinColumn(name = "endereco_id")
     private Endereco endereco;
     @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "cliente_clinica", joinColumns = @JoinColumn(name = "cliente_id"), inverseJoinColumns = @JoinColumn(name = "clinica_id"))
+    @JoinTable(name = "paciente_clinica", joinColumns = @JoinColumn(name = "paciente_id"), inverseJoinColumns = @JoinColumn(name = "clinica_id"))
     private List<Clinica> clinicas = new ArrayList<>();
 
     public Paciente(DtoCriarPaciente dados) {
@@ -42,12 +43,11 @@ public class Paciente extends RepresentationModel<Paciente> {
         this.telefone = dados.telefone();
         this.dataNascimento = dados.dataNascimento();
         this.nmrCarteiraOdonto = dados.nmrCarteiraOdonto();
-        this.fotoCliente = dados.fotoCliente();
+        this.fotoPaciente = dados.fotoPaciente();
         this.qtdConsultas = 0;
-        this.endereco = new Endereco(dados.endereco());
     }
 
-    public void atualizarCliente(DtoAtualizarPaciente dados) {
+    public void atualizarPaciente(DtoAtualizarPaciente dados) {
         if (dados.nome() != null){
             this.nome = dados.nome();
         }
@@ -63,8 +63,8 @@ public class Paciente extends RepresentationModel<Paciente> {
         if (dados.nmrCarteiraOdonto() != null){
             this.nmrCarteiraOdonto = dados.nmrCarteiraOdonto();
         }
-        if (dados.fotoCliente() != null){
-            this.fotoCliente = dados.fotoCliente();
+        if (dados.fotoPaciente() != null){
+            this.fotoPaciente = dados.fotoPaciente();
         }
         if (dados.endereco() != null){
             this.endereco.atualizarEndereco(dados.endereco());

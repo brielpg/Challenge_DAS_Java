@@ -13,30 +13,30 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/cliente")
+@RequestMapping("/paciente")
 public class PacienteController {
     @Autowired
-    private PacienteService clienteService;
+    private PacienteService pacienteService;
 
     @PostMapping
     @Transactional
-    public ResponseEntity<?> criarCliente(@Valid @RequestBody DtoCriarPaciente dados) {
-        return clienteService.criarCliente(dados);
+    public ResponseEntity<?> createPaciente(@Valid @RequestBody DtoCriarPaciente dados) {
+        return pacienteService.createPaciente(dados);
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity<?> atualizarInformacoesCliente(@Valid @RequestBody DtoAtualizarPaciente dados) {
-        return clienteService.atualizarInformacoesCliente(dados);
+    public ResponseEntity<?> updatePaciente(@Valid @RequestBody DtoAtualizarPaciente dados) {
+        return pacienteService.updatePaciente(dados);
     }
 
     @GetMapping
-    public Page<DtoListarPaciente> listarTodosClientes(Pageable paginacao) {
-        return clienteService.listarTodosClientes(paginacao);
+    public Page<DtoListarPaciente> getAllPacientes(Pageable paginacao) {
+        return pacienteService.getAllPacientes(paginacao);
     }
 
     @GetMapping("/{cpf}")
-    public ResponseEntity<?> listarClientePorCPF(@PathVariable String cpf) {
-        return clienteService.listarClientePorCPF(cpf);
+    public ResponseEntity<?> getPacienteByCpf(@PathVariable String cpf) {
+        return pacienteService.getPacienteByCpf(cpf);
     }
 }

@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class ConsultaService {
+public class ClinicaService {
     @Autowired
     private ClinicaRepository clinicaRepository;
 
@@ -40,8 +40,8 @@ public class ConsultaService {
             var retorno = new DtoListarClinica(clinica);
 
             retorno.add(
-                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).listarTodasClinicas(PageRequest.of(0, 10))).withRel(IanaLinkRelations.COLLECTION),
-                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).listarClinicaPorCnpj(clinica.getCnpj())).withSelfRel()
+                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).getAllClinicas(PageRequest.of(0, 10))).withRel(IanaLinkRelations.COLLECTION),
+                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).getClinicaByCnpj(clinica.getCnpj())).withSelfRel()
             );
 
             return ResponseEntity.status(HttpStatus.CREATED).body(retorno);
@@ -54,7 +54,7 @@ public class ConsultaService {
         var clinica = clinicaRepository.findByCnpj(dados.cnpj());
         if (clinica != null && clinica.getSenha().equals(dados.senha())) {
             var retorno = new DtoListarClinica(clinica);
-            retorno.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).listarClinicaPorCnpj(clinica.getCnpj())).withSelfRel());
+            retorno.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).getClinicaByCnpj(clinica.getCnpj())).withSelfRel());
 
             return ResponseEntity.status(HttpStatus.OK).body(retorno);
         }
@@ -70,11 +70,11 @@ public class ConsultaService {
             var retorno = new DtoListarClinica(clinica);
 
             retorno.add(
-                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).listarClinicaPorCnpj(clinica.getCnpj())).withSelfRel()
+                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).getClinicaByCnpj(clinica.getCnpj())).withSelfRel()
             );
 
-            for (var i : retorno.clientes) {
-                i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).listarClientePorCPF(i.getCpf())).withRel("pacientes"));
+            for (var i : retorno.pacientes) {
+                i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).getPacienteByCpf(i.getCpf())).withRel("pacientes"));
             }
 
             return ResponseEntity.status(HttpStatus.OK).body(retorno);
@@ -86,7 +86,7 @@ public class ConsultaService {
     public Page<DtoListarClinica> getAllClinicas(Pageable paginacao) {
         var clinicas = clinicaRepository.findAll(paginacao).map(DtoListarClinica::new);
 
-        clinicas.forEach(i -> i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).listarClinicaPorCnpj(i.cnpj)).withSelfRel()));
+        clinicas.forEach(i -> i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).getClinicaByCnpj(i.cnpj)).withSelfRel()));
 
         return clinicas;
     }
@@ -98,11 +98,11 @@ public class ConsultaService {
             var retorno = new DtoListarClinica(clinica);
 
             retorno.add(
-                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).listarTodasClinicas(PageRequest.of(0, 10))).withRel(IanaLinkRelations.COLLECTION)
+                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).getAllClinicas(PageRequest.of(0, 10))).withRel(IanaLinkRelations.COLLECTION)
             );
 
-            for (var i: retorno.clientes) {
-                i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).listarClientePorCPF(i.getCpf())).withRel("pacientes"));
+            for (var i: retorno.pacientes) {
+                i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).getPacienteByCpf(i.getCpf())).withRel("pacientes"));
             }
 
             return ResponseEntity.status(HttpStatus.OK).body(retorno);

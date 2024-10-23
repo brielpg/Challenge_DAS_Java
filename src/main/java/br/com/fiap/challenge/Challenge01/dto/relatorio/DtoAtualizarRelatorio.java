@@ -10,9 +10,7 @@ public record DtoAtualizarRelatorio(
         Long id,
         String titulo,
         String descricao,
-        LocalDate dataConsulta,
-        BigDecimal valorConsulta,
-        String medico,
+        String dentista,
         String imagem
 ) {
 }

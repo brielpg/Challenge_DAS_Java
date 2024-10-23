@@ -17,20 +17,20 @@ public class DtoListarPaciente extends RepresentationModel<DtoListarPaciente> {
         public String nmrCarteiraOdonto;
         public LocalDate dataNascimento;
         public Integer qtdConsultas;
-        public String fotoCliente;
+        public String fotoPaciente;
         public Endereco endereco;
         public List<Clinica> clinicas;
 
-    public DtoListarPaciente(Paciente cliente){
-        this.id = cliente.getId();
-        this.nome = cliente.getNome();
-        this.cpf = cliente.getCpf();
-        this.telefone = cliente.getTelefone();
-        this.nmrCarteiraOdonto = cliente.getNmrCarteiraOdonto();
-        this.dataNascimento = cliente.getDataNascimento();
-        this.qtdConsultas = cliente.getQtdConsultas();
-        this.fotoCliente = cliente.getFotoCliente();
-        this.endereco = cliente.getEndereco();
-        this.clinicas = cliente.getClinicas();
+    public DtoListarPaciente(Paciente paciente){
+        this.id = paciente.getId();
+        this.nome = paciente.getNome();
+        this.cpf = paciente.getCpf();
+        this.telefone = paciente.getTelefone();
+        this.nmrCarteiraOdonto = paciente.getNmrCarteiraOdonto();
+        this.dataNascimento = paciente.getDataNascimento();
+        this.qtdConsultas = paciente.getQtdConsultas();
+        this.fotoPaciente = paciente.getFotoPaciente();
+        this.endereco = paciente.getEndereco();
+        this.clinicas = paciente.getClinicas();
     }
 }

@@ -31,11 +31,12 @@ public class Clinica extends RepresentationModel<Clinica> {
     @JsonIgnore
     private String senha;
     private String fotoClinica;
-    @Embedded
+    @ManyToOne
+    @JoinColumn(name = "endereco_id")
     private Endereco endereco;
     @JsonIgnore
     @ManyToMany(mappedBy = "clinicas", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Paciente> clientes = new ArrayList<>();
+    private List<Paciente> pacientes = new ArrayList<>();
 
     public Clinica(DtoCriarClinica dados) {
         this.nome = dados.nome();
@@ -45,7 +46,6 @@ public class Clinica extends RepresentationModel<Clinica> {
         this.razaoSocial = dados.razaoSocial();
         this.dataCadastro = LocalDate.now();
         this.senha = dados.senha();
-        this.endereco = new Endereco(dados.endereco());
     }
 
     public void atualizarClinica(DtoAtualizarClinica dados) {
@@ -69,9 +69,9 @@ public class Clinica extends RepresentationModel<Clinica> {
         }
     }
 
-    public void adicionarCliente(Paciente cliente) {
-        if (!this.clientes.contains(cliente)) {
-            this.clientes.add(cliente);
+    public void adicionarPaciente(Paciente paciente) {
+        if (!this.pacientes.contains(paciente)) {
+            this.pacientes.add(paciente);
         }
     }
 }

@@ -1,6 +1,6 @@
 package br.com.fiap.challenge.Challenge01.dto.paciente;
 
-import br.com.fiap.challenge.Challenge01.dto.DadosEndereco;
+import br.com.fiap.challenge.Challenge01.dto.DtoEndereco;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -26,10 +26,10 @@ public record DtoCriarPaciente(
         String nmrCarteiraOdonto,
 
         @NotNull(message = "Foto do Paciente é obrigatória")
-        String fotoCliente,
+        String fotoPaciente,
 
         @NotNull(message = "Endereço é obrigatório")
         @Valid
-        DadosEndereco endereco
+        DtoEndereco endereco
 ) {
 }

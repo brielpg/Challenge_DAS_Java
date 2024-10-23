@@ -1,11 +1,13 @@
 package br.com.fiap.challenge.Challenge01.dto.relatorio;
 
+import br.com.fiap.challenge.Challenge01.dto.consulta.DtoListarConsulta;
+import br.com.fiap.challenge.Challenge01.models.Consulta;
 import br.com.fiap.challenge.Challenge01.models.Paciente;
 import br.com.fiap.challenge.Challenge01.models.Clinica;
-import br.com.fiap.challenge.Challenge01.models.DasStatus;
+import br.com.fiap.challenge.Challenge01.enums.DasStatus;
 import br.com.fiap.challenge.Challenge01.models.Relatorio;
 import org.springframework.hateoas.RepresentationModel;
-import java.math.BigDecimal;
+
 import java.time.LocalDate;
 
 public class DtoListarRelatorio extends RepresentationModel<DtoListarRelatorio>{
@@ -13,25 +15,23 @@ public class DtoListarRelatorio extends RepresentationModel<DtoListarRelatorio>{
         public String titulo;
         public String descricao;
         public DasStatus status;
-        public String medico;
-        public LocalDate dataConsulta;
+        public String dentista;
         public LocalDate dataEnvioRelatorio;
-        public BigDecimal valorConsulta;
         public String imagem;
-        public Clinica clinica;
-        public Paciente cliente;
+        public String clinica;
+        public String paciente;
+        public DtoListarConsulta consulta;
 
     public DtoListarRelatorio(Relatorio relatorio){
         this.id = relatorio.getId();
         this.titulo = relatorio.getTitulo();
         this.descricao = relatorio.getDescricao();
         this.status = relatorio.getStatus();
-        this.medico = relatorio.getMedico();
-        this.dataConsulta = relatorio.getDataConsulta();
+        this.dentista = relatorio.getDentista();
         this.dataEnvioRelatorio = relatorio.getDataEnvioRelatorio();
-        this.valorConsulta = relatorio.getValorConsulta();
         this.imagem = relatorio.getImagem();
-        this.clinica = relatorio.getClinica();
-        this.cliente = relatorio.getCliente();
+        this.clinica = relatorio.getClinica().getCnpj();
+        this.paciente = relatorio.getPaciente().getCpf();
+        this.consulta = new DtoListarConsulta(relatorio.getConsulta());
     }
 }

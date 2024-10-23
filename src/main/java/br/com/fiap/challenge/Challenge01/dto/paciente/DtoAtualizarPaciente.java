@@ -1,6 +1,6 @@
 package br.com.fiap.challenge.Challenge01.dto.paciente;
 
-import br.com.fiap.challenge.Challenge01.dto.DadosEndereco;
+import br.com.fiap.challenge.Challenge01.dto.DtoEndereco;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
@@ -14,7 +14,7 @@ public record DtoAtualizarPaciente(
         String telefone,
         LocalDate dataNascimento,
         String nmrCarteiraOdonto,
-        String fotoCliente,
-        DadosEndereco endereco
+        String fotoPaciente,
+        DtoEndereco endereco
 ) {
 }
