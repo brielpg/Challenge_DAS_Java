@@ -8,8 +8,11 @@
 <div th:replace="~{fragments/header :: header}">
     Dental Analytics Safe Header
 </div>
-
+<div class="container mx-auto px-4">
 <h1 class="text-2xl font-bold">Lista de Clínicas</h1>
+    <div class="text-center mt-8">
+        <a th:href="@{/clinica/create}" class="text-blue-600 font-semibold hover:underline">Cadastrar Clinica</a>
+    </div>
 <div class="bg-white p-6 rounded-lg shadow-md">
     <table bclass="w-full border-collapse">
         <thead>
@@ -35,14 +38,17 @@
             <td class="p-3" th:text="${clinica.endereco.cep}">CIDADE</td>
 
             <td class="p-3">
-                <a class="text-blue-600 hover:underline" th:href="@{/clinica/update/{id}(id=${clinica.id})}">Editar</a>
-                <a class="text-blue-600 hover:underline" th:href="@{/clinica/delete/{id}(id=${clinica.id})}">Deletar</a>
                 <a class="text-blue-600 hover:underline" th:href="@{/clinica/{cnpj}(cnpj=${clinica.cnpj})}">Detalhar</a>
+                |
+                <a class="text-blue-600 hover:underline" th:href="@{/clinica/update/{id}(id=${clinica.id})}">Editar</a>
+                |
+                <a class="text-red-600 hover:underline" th:href="@{/clinica/delete/{id}(id=${clinica.id})}">Deletar</a>
             </td>
         </tr>
         </tbody>
 
     </table>
+</div>
 </div>
 
 <div th:replace="~{fragments/footer :: footer}">

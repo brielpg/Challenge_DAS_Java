@@ -7,6 +7,7 @@ import br.com.fiap.challenge.Challenge01.models.Clinica;
 import br.com.fiap.challenge.Challenge01.models.Endereco;
 import br.com.fiap.challenge.Challenge01.repositories.ClinicaRepository;
 import br.com.fiap.challenge.Challenge01.repositories.EnderecoRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,7 +37,7 @@ public class ClinicaService {
     }
 
     @Transactional
-    public DtoListarClinica updateClinica(Long id, DtoAtualizarClinica dados) {
+    public DtoListarClinica updateClinica(Long id, @Valid DtoAtualizarClinica dados) {
         if (clinicaRepository.existsById(id)){
             var clinica = clinicaRepository.getReferenceById(id);
             clinica.atualizarClinica(dados);
