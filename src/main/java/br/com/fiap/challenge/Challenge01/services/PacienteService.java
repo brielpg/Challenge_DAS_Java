@@ -1,7 +1,5 @@
 package br.com.fiap.challenge.Challenge01.services;
 
-import br.com.fiap.challenge.Challenge01.controllers.PacienteController;
-import br.com.fiap.challenge.Challenge01.controllers.ClinicaController;
 import br.com.fiap.challenge.Challenge01.dto.paciente.DtoAtualizarPaciente;
 import br.com.fiap.challenge.Challenge01.dto.paciente.DtoCriarPaciente;
 import br.com.fiap.challenge.Challenge01.dto.paciente.DtoListarPaciente;
@@ -12,10 +10,7 @@ import br.com.fiap.challenge.Challenge01.repositories.PacienteRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.hateoas.IanaLinkRelations;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -38,42 +33,22 @@ public class PacienteService {
             paciente.setEndereco(endereco);
             pacienteRepository.save(paciente);
 
-            var retorno = new DtoListarPaciente(paciente);
-
-            retorno.add(
-                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).getAllPacientes(PageRequest.of(0, 10))).withRel(IanaLinkRelations.COLLECTION),
-                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).getPacienteByCpf(paciente.getCpf())).withSelfRel()
-            );
-
-            return ResponseEntity.status(HttpStatus.CREATED).body(retorno);
+            return ResponseEntity.status(HttpStatus.CREATED).body(new DtoListarPaciente(paciente));
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: já existe um paciente cadastrado com esse CPF");
     }
 
     @Transactional
     public Page<DtoListarPaciente> getAllPacientes(Pageable paginacao) {
-        var pacientes = pacienteRepository.findAll(paginacao).map(DtoListarPaciente::new);
-
-        pacientes.forEach(i -> i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).getPacienteByCpf(i.cpf)).withSelfRel()));
-
-        return pacientes;
+        return pacienteRepository.findAll(paginacao).map(DtoListarPaciente::new);
     }
 
     @Transactional
     public ResponseEntity<?> getPacienteByCpf(String cpf) {
         var paciente = pacienteRepository.findByCpf(cpf);
         if (paciente != null) {
-            var retorno = new DtoListarPaciente(paciente);
 
-            retorno.add(
-                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).getAllPacientes(PageRequest.of(0, 10))).withRel(IanaLinkRelations.COLLECTION)
-            );
-
-            for (var i: retorno.clinicas) {
-                i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).getClinicaByCnpj(i.getCnpj())).withRel("clinica"));
-            }
-
-            return ResponseEntity.status(HttpStatus.OK).body(retorno);
+            return ResponseEntity.status(HttpStatus.OK).body(new DtoListarPaciente(paciente));
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Erro: Paciente com este CPF não encontrado");
     }
@@ -84,17 +59,7 @@ public class PacienteService {
             var paciente = pacienteRepository.getReferenceByCpf(dados.cpf());
             paciente.atualizarPaciente(dados);
 
-            var retorno = new DtoListarPaciente(paciente);
-
-            retorno.add(
-                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).getPacienteByCpf(paciente.getCpf())).withSelfRel()
-            );
-
-            for (var i : retorno.clinicas) {
-                i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).getClinicaByCnpj(i.getCnpj())).withRel("clinica"));
-            }
-
-            return ResponseEntity.status(HttpStatus.OK).body(retorno);
+            return ResponseEntity.status(HttpStatus.OK).body(new DtoListarPaciente(paciente));
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Erro: Paciente não encontrado.");
     }

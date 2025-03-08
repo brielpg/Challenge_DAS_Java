@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Clínicas</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+<div th:replace="~{fragments/header :: header}">
+    Dental Analytics Safe Header
+</div>
+
+<h1 class="text-2xl font-bold">Lista de Clínicas</h1>
+<div class="bg-white p-6 rounded-lg shadow-md">
+    <table bclass="w-full border-collapse">
+        <thead>
+        <tr class="bg-blue-600 text-white">
+            <th class="p-3 text-left">CNPJ</th>
+            <th class="p-3 text-left">Nome</th>
+            <th class="p-3 text-left">Telefone</th>
+            <th class="p-3 text-left">Email</th>
+            <th class="p-3 text-left">Data de Cadastro</th>
+            <th class="p-3 text-left">CEP</th>
+            <th class="p-3 text-left">Cidade</th>
+            <th class="p-3 text-left">Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="border-b" th:each="clinica : ${clinicas}">
+            <td class="p-3" th:text="${clinica.cnpj}">CNPJ</td>
+            <td class="p-3" th:text="${clinica.nome}">NOME</td>
+            <td class="p-3" th:text="${clinica.telefone}">TELEFONE</td>
+            <td class="p-3" th:text="${clinica.email}">EMAIL</td>
+            <td class="p-3" th:text="${clinica.dataCadastro}">DATA DE CADASTRO</td>
+            <td class="p-3" th:text="${clinica.endereco.cep}">CEP</td>
+            <td class="p-3" th:text="${clinica.endereco.cep}">CIDADE</td>
+
+            <td class="p-3">
+                <a class="text-blue-600 hover:underline" th:href="@{/clinica/update/{id}(id=${clinica.id})}">Editar</a>
+                <a class="text-blue-600 hover:underline" th:href="@{/clinica/delete/{id}(id=${clinica.id})}">Deletar</a>
+                <a class="text-blue-600 hover:underline" th:href="@{/clinica/{cnpj}(cnpj=${clinica.cnpj})}">Detalhar</a>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}">
+    &copy; 2025 Dental Analytics Safe
+</div>
+</body>
+</html>

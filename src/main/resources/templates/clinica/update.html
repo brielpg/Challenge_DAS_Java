@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Clínica</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+<div th:replace="~{fragments/header :: header}">
+    Dental Analytics Safe Header
+</div>
+
+<div class="container mx-auto px-4">
+    <h1 class="text-2xl font-bold">Editar Clínica</h1>
+    <form th:action="@{/clinica/update/{id}(id=${clinica.id})}" method="post" class="mt-4">
+        <div class="mb-4">
+            <label class="block text-gray-700">Nome:</label>
+            <input type="text" name="nome" th:value="${clinica.nome}" class="mt-2 p-2 border rounded w-full">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">CNPJ:</label>
+            <input type="text" name="cnpj" th:value="${clinica.cnpj}" class="mt-2 p-2 border rounded w-full">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">Telefone:</label>
+            <input type="text" name="telefone" th:value="${clinica.telefone}" class="mt-2 p-2 border rounded w-full">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">Email:</label>
+            <input type="email" name="email" th:value="${clinica.email}" class="mt-2 p-2 border rounded w-full">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">Razão Social:</label>
+            <input type="text" name="razaoSocial" th:value="${clinica.razaoSocial}" class="mt-2 p-2 border rounded w-full">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">Nova Senha:</label>
+            <input type="password" name="senha" class="mt-2 p-2 border rounded w-full">
+        </div>
+        <h2 class="text-xl font-bold mt-4">Endereço</h2>
+        <div class="mb-4">
+            <label class="block text-gray-700">Logradouro:</label>
+            <input type="text" name="endereco.logradouro" th:value="${clinica.endereco.logradouro}" class="mt-2 p-2 border rounded w-full">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">Bairro:</label>
+            <input type="text" name="endereco.bairro" th:value="${clinica.endereco.bairro}" class="mt-2 p-2 border rounded w-full">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">CEP:</label>
+            <input type="text" name="endereco.cep" th:value="${clinica.endereco.cep}" class="mt-2 p-2 border rounded w-full">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">Cidade:</label>
+            <input type="text" name="endereco.cidade" th:value="${clinica.endereco.cidade}" class="mt-2 p-2 border rounded w-full">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">UF:</label>
+            <input type="text" name="endereco.uf" th:value="${clinica.endereco.uf}" class="mt-2 p-2 border rounded w-full">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">Complemento:</label>
+            <input type="text" name="endereco.complemento" th:value="${clinica.endereco.complemento}" class="mt-2 p-2 border rounded w-full">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">Número:</label>
+            <input type="number" name="endereco.numero" th:value="${clinica.endereco.numero}" class="mt-2 p-2 border rounded w-full">
+        </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Salvar</button>
+    </form>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}">
+    &copy; 2025 Dental Analytics Safe
+</div>
+</body>
+</html>

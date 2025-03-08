@@ -1,25 +1,18 @@
 package br.com.fiap.challenge.Challenge01.services;
 
-import br.com.fiap.challenge.Challenge01.controllers.PacienteController;
-import br.com.fiap.challenge.Challenge01.controllers.ClinicaController;
 import br.com.fiap.challenge.Challenge01.dto.clinica.DtoAtualizarClinica;
 import br.com.fiap.challenge.Challenge01.dto.clinica.DtoCriarClinica;
 import br.com.fiap.challenge.Challenge01.dto.clinica.DtoListarClinica;
-import br.com.fiap.challenge.Challenge01.dto.clinica.DtoRequestLogin;
 import br.com.fiap.challenge.Challenge01.models.Clinica;
 import br.com.fiap.challenge.Challenge01.models.Endereco;
 import br.com.fiap.challenge.Challenge01.repositories.ClinicaRepository;
 import br.com.fiap.challenge.Challenge01.repositories.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.hateoas.IanaLinkRelations;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClinicaService {
@@ -30,83 +23,61 @@ public class ClinicaService {
     private EnderecoRepository enderecoRepository;
 
     @Transactional
-    public ResponseEntity<?> createClinica(DtoCriarClinica dados) {
+    public DtoListarClinica createClinica(DtoCriarClinica dados) {
         if (!clinicaRepository.existsByCnpj(dados.cnpj())){
             var endereco = enderecoRepository.save(new Endereco(dados.endereco()));
             var clinica = new Clinica(dados);
             clinica.setEndereco(endereco);
-            clinicaRepository.save(clinica);
+            this.save(clinica);
 
-            var retorno = new DtoListarClinica(clinica);
-
-            retorno.add(
-                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).getAllClinicas(PageRequest.of(0, 10))).withRel(IanaLinkRelations.COLLECTION),
-                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).getClinicaByCnpj(clinica.getCnpj())).withSelfRel()
-            );
-
-            return ResponseEntity.status(HttpStatus.CREATED).body(retorno);
+            return new DtoListarClinica(clinica);
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: Já existe uma clínica registrada com esse CNPJ");
+        return null;
     }
 
     @Transactional
-    public ResponseEntity<?> authClinica(DtoRequestLogin dados) {
-        var clinica = clinicaRepository.findByCnpj(dados.cnpj());
-        if (clinica != null && clinica.getSenha().equals(dados.senha())) {
-            var retorno = new DtoListarClinica(clinica);
-            retorno.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).getClinicaByCnpj(clinica.getCnpj())).withSelfRel());
-
-            return ResponseEntity.status(HttpStatus.OK).body(retorno);
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Erro: CNPJ ou Senha incorretos.");
-    }
-
-    @Transactional
-    public ResponseEntity<?> updateClinica(DtoAtualizarClinica dados) {
-        if (clinicaRepository.existsById(dados.id())){
-            var clinica = clinicaRepository.getReferenceById(dados.id());
+    public DtoListarClinica updateClinica(Long id, DtoAtualizarClinica dados) {
+        if (clinicaRepository.existsById(id)){
+            var clinica = clinicaRepository.getReferenceById(id);
             clinica.atualizarClinica(dados);
+            this.save(clinica);
 
-            var retorno = new DtoListarClinica(clinica);
-
-            retorno.add(
-                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).getClinicaByCnpj(clinica.getCnpj())).withSelfRel()
-            );
-
-            for (var i : retorno.pacientes) {
-                i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).getPacienteByCpf(i.getCpf())).withRel("pacientes"));
-            }
-
-            return ResponseEntity.status(HttpStatus.OK).body(retorno);
+            return new DtoListarClinica(clinica);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Erro: Clínica não encontrado.");
+        return null;
     }
 
     @Transactional
-    public Page<DtoListarClinica> getAllClinicas(Pageable paginacao) {
-        var clinicas = clinicaRepository.findAll(paginacao).map(DtoListarClinica::new);
-
-        clinicas.forEach(i -> i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).getClinicaByCnpj(i.cnpj)).withSelfRel()));
-
-        return clinicas;
+    public List<DtoListarClinica> getAllClinicas() {
+        return clinicaRepository.findAll().stream().map(DtoListarClinica::new).toList();
     }
 
     @Transactional
-    public ResponseEntity<?> getClinicaByCnpj(String cnpj) {
+    public DtoListarClinica getClinicaByCnpj(String cnpj) {
         var clinica = clinicaRepository.findByCnpj(cnpj);
         if (clinica != null) {
-            var retorno = new DtoListarClinica(clinica);
 
-            retorno.add(
-                    WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(ClinicaController.class).getAllClinicas(PageRequest.of(0, 10))).withRel(IanaLinkRelations.COLLECTION)
-            );
-
-            for (var i: retorno.pacientes) {
-                i.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PacienteController.class).getPacienteByCpf(i.getCpf())).withRel("pacientes"));
-            }
-
-            return ResponseEntity.status(HttpStatus.OK).body(retorno);
+            return new DtoListarClinica(clinica);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Erro: Clinica com este CNPJ não foi encontrada");
+        return null;
+    }
+
+    @Transactional
+    public void deleteById(Long id) {
+        clinicaRepository.deleteById(id);
+    }
+
+    @Transactional
+    public DtoListarClinica findById(Long id) {
+        Optional<Clinica> clinica = clinicaRepository.findById(id);
+        if (clinica.isPresent()){
+            return new DtoListarClinica(clinica.get());
+        }
+        throw new RuntimeException("id not found");
+    }
+
+    @Transactional
+    private void save(Clinica clinica){
+        clinicaRepository.save(clinica);
     }
 }

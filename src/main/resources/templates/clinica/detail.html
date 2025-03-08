@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalhes da Clínica</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+<div th:replace="~{fragments/header :: header}">
+    Dental Analytics Safe Header
+</div>
+
+<div class="container mx-auto px-4">
+    <h1 class="text-2xl font-bold">Detalhes da Clínica</h1>
+    <p th:text="'ID: ' + ${clinica.id}"></p>
+    <p th:text="'Nome: ' + ${clinica.nome}"></p>
+    <p th:text="'CNPJ: ' + ${clinica.cnpj}"></p>
+    <p th:text="'Telefone: ' + ${clinica.telefone}"></p>
+    <p th:text="'Email: ' + ${clinica.email}"></p>
+    <p th:text="'Razão Social: ' + ${clinica.razaoSocial}"></p>
+    <p th:text="'Data de Cadastro: ' + ${clinica.dataCadastro}"></p>
+    <h2 class="text-xl font-bold mt-4">Endereço</h2>
+    <p th:text="'Logradouro: ' + ${clinica.endereco.logradouro}"></p>
+    <p th:text="'Bairro: ' + ${clinica.endereco.bairro}"></p>
+    <p th:text="'CEP: ' + ${clinica.endereco.cep}"></p>
+    <p th:text="'Cidade: ' + ${clinica.endereco.cidade}"></p>
+    <p th:text="'UF: ' + ${clinica.endereco.uf}"></p>
+    <p th:text="'Complemento: ' + (${clinica.endereco.complemento} != null ? ${clinica.endereco.complemento} : 'Sem Complemento')"></p>
+    <p th:text="'Número: ' + ${clinica.endereco.numero}"></p>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}">
+    &copy; 2025 Dental Analytics Safe
+</div>
+</body>
+</html>
