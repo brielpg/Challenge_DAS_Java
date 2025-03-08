@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalhes do Relatório</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+<div th:replace="~{fragments/header :: header}">
+    Dental Analytics Safe Header
+</div>
+
+<div class="container mx-auto px-4">
+    <h1 class="text-2xl font-bold">Detalhes do Relatório</h1>
+    <p th:text="'ID: ' + ${relatorio.id}"></p>
+    <p th:text="'Título: ' + ${relatorio.titulo}"></p>
+    <p th:text="'Descrição: ' + ${relatorio.descricao}"></p>
+    <p th:text="'Dentista: ' + ${relatorio.dentista}"></p>
+    <p th:text="'Status: ' + ${relatorio.status}"></p>
+    <p th:text="'Data de Envio: ' + ${relatorio.dataEnvioRelatorio}"></p>
+    <h2 class="text-xl font-bold mt-4">Clínica e Paciente</h2>
+    <p th:text="'Clínica: ' + ${relatorio.clinica}"></p>
+    <p th:text="'Paciente: ' + ${relatorio.paciente}"></p>
+    <h2 class="text-xl font-bold mt-4">Consulta Relacionada</h2>
+    <p th:text="'ID: ' + ${relatorio.consulta.id}"></p>
+    <p th:text="'Procedimento: ' + ${relatorio.consulta.procedimento}"></p>
+    <p th:text="'Data da Consulta: ' + ${relatorio.consulta.dataConsulta}"></p>
+    <p th:text="'Data de Envio da Consulta: ' + ${relatorio.consulta.dataEnvioConsulta}"></p>
+    <p th:text="'Valor da Consulta: R$ ' + ${relatorio.consulta.valorConsulta}"></p>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}">
+    &copy; 2025 Dental Analytics Safe
+</div>
+</body>
+</html>

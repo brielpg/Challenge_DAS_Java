@@ -1,58 +1,60 @@
 package br.com.fiap.challenge.Challenge01.controllers;
 
 import br.com.fiap.challenge.Challenge01.dto.relatorio.DtoAtualizarRelatorio;
-import br.com.fiap.challenge.Challenge01.dto.relatorio.DtoListarRelatorio;
 import br.com.fiap.challenge.Challenge01.services.RelatorioService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping("/relatorio")
 public class RelatorioController {
 
     @Autowired
     private RelatorioService relatorioService;
 
-    @PutMapping
+    @GetMapping("/update/{id}")
+    public String updatePage(@PathVariable Long id, Model model){
+        var relatorio = relatorioService.findById(id);
+        model.addAttribute("relatorio", relatorio);
+        return "relatorio/update";
+    }
+
+    @PostMapping("/update/{id}")
     @Transactional
-    public ResponseEntity<?> updateRelatorio(@RequestBody @Valid DtoAtualizarRelatorio dados) {
-        return relatorioService.updateRelatorio(dados);
+    public String updateRelatorio(@PathVariable Long id, DtoAtualizarRelatorio dados, Model model) {
+        var relatorio = relatorioService.updateRelatorio(id, dados);
+        model.addAttribute("relatorio", relatorio);
+        return "redirect:/relatorio";
     }
 
     @GetMapping
-    public Page<DtoListarRelatorio> getAllRelatorio(Pageable paginacao) {
-        return relatorioService.getAllRelatorio(paginacao);
+    public String getAllRelatorio(Model model) {
+        var relatorios = relatorioService.getAllRelatorio();
+        model.addAttribute("relatorios", relatorios);
+        return "relatorio/list";
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getRelatorio(@PathVariable Long id) {
-        return relatorioService.getRelatorio(id);
+    public String getRelatorioById(@PathVariable Long id, Model model) {
+        var relatorio = relatorioService.getRelatorioById(id);
+        model.addAttribute("relatorio", relatorio);
+        return "relatorio/detail";
     }
 
-    @GetMapping("/clinica/{clinica_id}")
-    public Page<DtoListarRelatorio> getRelatorioByClinica(@PathVariable Long clinica_id, Pageable paginacao) {
-        return relatorioService.getRelatorioByClinica(clinica_id, paginacao);
-    }
-
-    @GetMapping("/paciente/{paciente_id}")
-    public Page<DtoListarRelatorio> getRelatorioByPaciente(@PathVariable Long paciente_id, Pageable paginacao) {
-        return relatorioService.getRelatorioByPaciente(paciente_id, paginacao);
-    }
-
-    @DeleteMapping("/negar/{id}")
+    @GetMapping("/negar/{id}")
     @Transactional
-    public ResponseEntity<?> recusarRelatorio(@PathVariable Long id){
-        return relatorioService.recusarRelatorio(id);
+    public String recusarRelatorio(@PathVariable Long id){
+        relatorioService.recusarRelatorio(id);
+        return "redirect:/relatorio";
     }
 
-    @DeleteMapping("/aprovar/{id}")
+    @GetMapping("/aprovar/{id}")
     @Transactional
-    public ResponseEntity<?> aprovarRelatorio(@PathVariable Long id){
-        return relatorioService.aprovarRelatorio(id);
+    public String aprovarRelatorio(@PathVariable Long id){
+        relatorioService.aprovarRelatorio(id);
+        return "redirect:/relatorio";
     }
 }
