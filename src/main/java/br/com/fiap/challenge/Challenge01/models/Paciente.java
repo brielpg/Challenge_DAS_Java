@@ -28,7 +28,6 @@ public class Paciente extends RepresentationModel<Paciente> {
     private String nmrCarteiraOdonto;
     private LocalDate dataNascimento;
     private Integer qtdConsultas;
-    private String fotoPaciente;
     @ManyToOne
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
@@ -43,16 +42,12 @@ public class Paciente extends RepresentationModel<Paciente> {
         this.telefone = dados.telefone();
         this.dataNascimento = dados.dataNascimento();
         this.nmrCarteiraOdonto = dados.nmrCarteiraOdonto();
-        this.fotoPaciente = dados.fotoPaciente();
         this.qtdConsultas = 0;
     }
 
     public void atualizarPaciente(DtoAtualizarPaciente dados) {
         if (dados.nome() != null){
             this.nome = dados.nome();
-        }
-        if (dados.cpf() != null){
-            this.cpf = dados.cpf();
         }
         if (dados.telefone() != null){
             this.telefone = dados.telefone();
@@ -62,9 +57,6 @@ public class Paciente extends RepresentationModel<Paciente> {
         }
         if (dados.nmrCarteiraOdonto() != null){
             this.nmrCarteiraOdonto = dados.nmrCarteiraOdonto();
-        }
-        if (dados.fotoPaciente() != null){
-            this.fotoPaciente = dados.fotoPaciente();
         }
         if (dados.endereco() != null){
             this.endereco.atualizarEndereco(dados.endereco());

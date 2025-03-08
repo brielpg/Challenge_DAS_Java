@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cadastro de Paciente</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+<div th:replace="~{fragments/header :: header}">
+    Dental Analytics Safe Header
+</div>
+
+<div class="container mx-auto px-4">
+    <h1 class="text-2xl font-bold">Cadastro de Paciente</h1>
+    <form th:action="@{/paciente}" method="post" class="mt-4">
+        <div class="mb-4">
+            <label class="block text-gray-700">Nome:</label>
+            <input type="text" name="nome" class="mt-2 p-2 border rounded w-full" required>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">CPF (12345678901):</label>
+            <input type="text" name="cpf" class="mt-2 p-2 border rounded w-full" required>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">Telefone:</label>
+            <input type="text" name="telefone" class="mt-2 p-2 border rounded w-full" required>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">Data de Nascimento:</label>
+            <input type="date" name="dataNascimento" class="mt-2 p-2 border rounded w-full" required>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">Número da Carteirinha Odonto:</label>
+            <input type="text" name="nmrCarteiraOdonto" class="mt-2 p-2 border rounded w-full" required>
+        </div>
+        <h2 class="text-xl font-bold mt-4">Endereço</h2>
+        <div class="mb-4">
+            <label class="block text-gray-700">Logradouro:</label>
+            <input type="text" name="endereco.logradouro" class="mt-2 p-2 border rounded w-full" required>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">Bairro:</label>
+            <input type="text" name="endereco.bairro" class="mt-2 p-2 border rounded w-full" required>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">CEP (00000-000):</label>
+            <input type="text" name="endereco.cep" class="mt-2 p-2 border rounded w-full" required>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">Cidade:</label>
+            <input type="text" name="endereco.cidade" class="mt-2 p-2 border rounded w-full" required>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">UF:</label>
+            <input type="text" name="endereco.uf" class="mt-2 p-2 border rounded w-full" required>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">Complemento:</label>
+            <input type="text" name="endereco.complemento" class="mt-2 p-2 border rounded w-full">
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700">Número:</label>
+            <input type="number" name="endereco.numero" class="mt-2 p-2 border rounded w-full" required>
+        </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Cadastrar</button>
+    </form>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}">
+    &copy; 2025 Dental Analytics Safe
+</div>
+</body>
+</html>

@@ -25,9 +25,6 @@ public record DtoCriarPaciente(
         @NotBlank(message = "Número da Carteirinha Odonto é obrigatória")
         String nmrCarteiraOdonto,
 
-        @NotNull(message = "Foto do Paciente é obrigatória")
-        String fotoPaciente,
-
         @NotNull(message = "Endereço é obrigatório")
         @Valid
         DtoEndereco endereco
