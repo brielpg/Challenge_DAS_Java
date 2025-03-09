@@ -14,15 +14,15 @@
     <form th:action="@{/paciente}" method="post" class="mt-4">
         <div class="mb-4">
             <label class="block text-gray-700">Nome:</label>
-            <input type="text" name="nome" class="mt-2 p-2 border rounded w-full" required>
+            <input type="text" name="nome" placeholder="Nome do paciente" class="mt-2 p-2 border rounded w-full" required>
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">CPF (12345678901):</label>
-            <input type="text" name="cpf" class="mt-2 p-2 border rounded w-full" required>
+            <label class="block text-gray-700">CPF:</label>
+            <input type="text" name="cpf" placeholder="Ex: 12345678901" class="mt-2 p-2 border rounded w-full" required>
         </div>
         <div class="mb-4">
             <label class="block text-gray-700">Telefone:</label>
-            <input type="text" name="telefone" class="mt-2 p-2 border rounded w-full" required>
+            <input type="text" name="telefone" placeholder="Ex: (11) 12345-6789" class="mt-2 p-2 border rounded w-full" required>
         </div>
         <div class="mb-4">
             <label class="block text-gray-700">Data de Nascimento:</label>
@@ -30,36 +30,36 @@
         </div>
         <div class="mb-4">
             <label class="block text-gray-700">Número da Carteirinha Odonto:</label>
-            <input type="text" name="nmrCarteiraOdonto" class="mt-2 p-2 border rounded w-full" required>
+            <input type="text" name="nmrCarteiraOdonto" placeholder="Ex: 1234567890" class="mt-2 p-2 border rounded w-full" required>
         </div>
         <h2 class="text-xl font-bold mt-4">Endereço</h2>
         <div class="mb-4">
             <label class="block text-gray-700">Logradouro:</label>
-            <input type="text" name="endereco.logradouro" class="mt-2 p-2 border rounded w-full" required>
+            <input type="text" name="endereco.logradouro" placeholder="Logradouro do paciente" class="mt-2 p-2 border rounded w-full" required>
         </div>
         <div class="mb-4">
             <label class="block text-gray-700">Bairro:</label>
-            <input type="text" name="endereco.bairro" class="mt-2 p-2 border rounded w-full" required>
+            <input type="text" name="endereco.bairro" placeholder="Bairro do paciente" class="mt-2 p-2 border rounded w-full" required>
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">CEP (00000-000):</label>
-            <input type="text" name="endereco.cep" class="mt-2 p-2 border rounded w-full" required>
+            <label class="block text-gray-700">CEP:</label>
+            <input type="text" name="endereco.cep" placeholder="Ex: 12345-678" class="mt-2 p-2 border rounded w-full" required>
         </div>
         <div class="mb-4">
             <label class="block text-gray-700">Cidade:</label>
-            <input type="text" name="endereco.cidade" class="mt-2 p-2 border rounded w-full" required>
+            <input type="text" name="endereco.cidade" placeholder="Ex: São Paulo" class="mt-2 p-2 border rounded w-full" required>
         </div>
         <div class="mb-4">
             <label class="block text-gray-700">UF:</label>
-            <input type="text" name="endereco.uf" class="mt-2 p-2 border rounded w-full" required>
+            <input type="text" name="endereco.uf" placeholder="Ex: SP" class="mt-2 p-2 border rounded w-full" required>
         </div>
         <div class="mb-4">
             <label class="block text-gray-700">Complemento:</label>
-            <input type="text" name="endereco.complemento" class="mt-2 p-2 border rounded w-full">
+            <input type="text" name="endereco.complemento" placeholder="Ex: Apartamento 101" class="mt-2 p-2 border rounded w-full">
         </div>
         <div class="mb-4">
             <label class="block text-gray-700">Número:</label>
-            <input type="number" name="endereco.numero" class="mt-2 p-2 border rounded w-full" required>
+            <input type="number" name="endereco.numero" placeholder="Ex: 123" class="mt-2 p-2 border rounded w-full" required>
         </div>
         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Cadastrar</button>
     </form>
