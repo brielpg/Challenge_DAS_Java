@@ -1,12 +1,11 @@
 package br.com.fiap.challenge.Challenge01.dto.consulta;
 
 import br.com.fiap.challenge.Challenge01.models.Consulta;
-import org.springframework.hateoas.RepresentationModel;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class DtoListarConsulta extends RepresentationModel<DtoListarConsulta> {
+public class DtoListarConsulta {
     public Long id;
     public String procedimento;
     public String dentista;

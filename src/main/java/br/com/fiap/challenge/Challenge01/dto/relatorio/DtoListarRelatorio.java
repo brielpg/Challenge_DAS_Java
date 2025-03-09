@@ -3,11 +3,10 @@ package br.com.fiap.challenge.Challenge01.dto.relatorio;
 import br.com.fiap.challenge.Challenge01.dto.consulta.DtoListarConsulta;
 import br.com.fiap.challenge.Challenge01.enums.DasStatus;
 import br.com.fiap.challenge.Challenge01.models.Relatorio;
-import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;
 
-public class DtoListarRelatorio extends RepresentationModel<DtoListarRelatorio>{
+public class DtoListarRelatorio {
         public Long id;
         public String titulo;
         public String descricao;

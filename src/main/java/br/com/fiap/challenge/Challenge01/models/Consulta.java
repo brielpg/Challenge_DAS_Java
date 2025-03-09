@@ -4,7 +4,6 @@ import br.com.fiap.challenge.Challenge01.dto.consulta.DtoAtualizarConsulta;
 import br.com.fiap.challenge.Challenge01.dto.consulta.DtoCriarConsulta;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.hateoas.RepresentationModel;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -16,7 +15,7 @@ import java.time.LocalDate;
 @Data
 @ToString
 @EqualsAndHashCode(of = "id")
-public class Consulta extends RepresentationModel<Consulta> {
+public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

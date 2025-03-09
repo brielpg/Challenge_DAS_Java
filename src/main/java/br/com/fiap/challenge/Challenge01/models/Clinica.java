@@ -5,7 +5,6 @@ import br.com.fiap.challenge.Challenge01.dto.clinica.DtoCriarClinica;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ import java.util.List;
 @Data
 @ToString
 @EqualsAndHashCode(of = "id")
-public class Clinica extends RepresentationModel<Clinica> {
+public class Clinica {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,15 +1,14 @@
 package br.com.fiap.challenge.Challenge01.dto.paciente;
 
 
-import br.com.fiap.challenge.Challenge01.models.Paciente;
 import br.com.fiap.challenge.Challenge01.models.Clinica;
 import br.com.fiap.challenge.Challenge01.models.Endereco;
-import org.springframework.hateoas.RepresentationModel;
+import br.com.fiap.challenge.Challenge01.models.Paciente;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public class DtoListarPaciente extends RepresentationModel<DtoListarPaciente> {
+public class DtoListarPaciente {
         public Long id;
         public String nome;
         public String cpf;

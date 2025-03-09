@@ -7,7 +7,5 @@ public interface ClinicaRepository extends JpaRepository<Clinica, Long> {
 
     boolean existsByCnpj(String cnpj);
 
-    Clinica getReferenceByCnpj(String cnpj);
-
     Clinica findByCnpj(String cnpj);
 }
