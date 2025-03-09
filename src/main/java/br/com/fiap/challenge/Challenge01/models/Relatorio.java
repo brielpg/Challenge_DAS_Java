@@ -56,6 +56,7 @@ public class Relatorio extends RepresentationModel<Relatorio> {
         }
         if (dados.dentista() != null){
             this.dentista = dados.dentista();
+            this.consulta.setDentista(dados.dentista());
         }
     }
 }

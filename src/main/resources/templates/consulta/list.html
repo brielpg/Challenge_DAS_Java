@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Consultas</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+<div th:replace="~{fragments/header :: header}">
+    Dental Analytics Safe Header
+</div>
+
+<div class="container mx-auto px-4">
+    <h1 class="text-2xl font-bold">Lista de Consultas</h1>
+    <div class="text-center mt-8">
+        <a th:href="@{/consulta/create}" class="text-blue-600 font-semibold hover:underline">Cadastrar Consulta</a>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <table class="w-full border-collapse">
+            <thead>
+            <tr class="bg-blue-600 text-white">
+                <th class="p-3 text-left">Procedimento</th>
+                <th class="p-3 text-left">Dentista</th>
+                <th class="p-3 text-left">Data da Consulta</th>
+                <th class="p-3 text-left">Data de Envio</th>
+                <th class="p-3 text-left">Valor</th>
+                <th class="p-3 text-left">Paciente</th>
+                <th class="p-3 text-left">Clínica</th>
+                <th class="p-3 text-left">Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="border-b" th:each="consulta : ${consultas}">
+                <td class="p-3" th:text="${consulta.procedimento}">PROCEDIMENTO</td>
+                <td class="p-3" th:text="${consulta.dentista}">DENTISTA</td>
+                <td class="p-3" th:text="${consulta.dataConsulta}">YYYY-MM-DD</td>
+                <td class="p-3" th:text="${consulta.dataEnvioConsulta}">YYYY-MM-DD</td>
+                <td class="p-3" th:text="${consulta.valorConsulta}">VALOR</td>
+                <td class="p-3" th:text="${consulta.paciente}">PACIENTE</td>
+                <td class="p-3" th:text="${consulta.clinica}">CLÍNICA</td>
+                <td class="p-3">
+                    <a class="text-blue-600 hover:underline" th:href="@{/consulta/{id}(id=${consulta.id})}">Detalhar</a> |
+                    <a class="text-blue-600 hover:underline" th:href="@{/consulta/update/{id}(id=${consulta.id})}">Editar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}">
+    &copy; 2025 Dental Analytics Safe
+</div>
+</body>
+</html>

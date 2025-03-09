@@ -49,6 +49,7 @@ public class Consulta extends RepresentationModel<Consulta> {
         }
         if (dados.dentista() != null){
             this.dentista = dados.dentista();
+            this.relatorio.setDentista(dados.dentista());
         }
         if (dados.dataConsulta() != null){
             this.dataConsulta = dados.dataConsulta();

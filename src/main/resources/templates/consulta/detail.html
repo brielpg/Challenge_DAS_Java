@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalhes da Consulta</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+<div th:replace="~{fragments/header :: header}">
+    Dental Analytics Safe Header
+</div>
+
+<div class="container mx-auto px-4">
+    <h1 class="text-2xl font-bold">Detalhes da Consulta</h1>
+    <p th:text="'ID: ' + ${consulta.id}"></p>
+    <p th:text="'Procedimento: ' + ${consulta.procedimento}"></p>
+    <p th:text="'Dentista: ' + ${consulta.dentista}"></p>
+    <p th:text="'Data da Consulta: ' + ${consulta.dataConsulta}"></p>
+    <p th:text="'Envio da Consulta: ' + ${consulta.dataEnvioConsulta}"></p>
+    <p th:text="'Valor: R$ ' + ${consulta.valorConsulta}"></p>
+    <h2 class="text-xl font-bold mt-4">Clínica e Paciente</h2>
+    <p th:text="'Paciente: ' + ${consulta.paciente}"></p>
+    <p th:text="'Clínica: ' + ${consulta.clinica}"></p>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}">
+    &copy; 2025 Dental Analytics Safe
+</div>
+</body>
+</html>

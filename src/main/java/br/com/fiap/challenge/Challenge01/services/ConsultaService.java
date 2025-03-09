@@ -10,12 +10,13 @@ import br.com.fiap.challenge.Challenge01.repositories.ConsultaRepository;
 import br.com.fiap.challenge.Challenge01.repositories.PacienteRepository;
 import br.com.fiap.challenge.Challenge01.repositories.RelatorioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ConsultaService {
@@ -29,14 +30,12 @@ public class ConsultaService {
     private RelatorioRepository relatorioRepository;
 
     @Transactional
-    public ResponseEntity<?> createConsulta(DtoCriarConsulta dados) {
-        if (!pacienteRepository.existsByCpf(dados.paciente_cpf())){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: Paciente não encontrado");
-        }
+    public DtoListarConsulta createConsulta(DtoCriarConsulta dados) {
+        if (!pacienteRepository.existsByCpf(dados.paciente_cpf())) return null;
+        if (!clinicaRepository.existsById(dados.clinica_id())) return null;
 
-        var paciente = pacienteRepository.findByCpf(dados.paciente_cpf());
-        var clinica = clinicaRepository.findById(dados.clinica_id())
-                .orElseThrow(() -> new RuntimeException("Erro: Clínica não encontrada"));
+        var paciente = pacienteRepository.getReferenceByCpf(dados.paciente_cpf());
+        var clinica = clinicaRepository.getReferenceById(dados.clinica_id());
 
         var relatorio = new Relatorio(dados.relatorio());
         var consulta = new Consulta(dados);
@@ -56,34 +55,48 @@ public class ConsultaService {
         consultaRepository.save(consulta);
         relatorioRepository.save(relatorio);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new DtoListarConsulta(consulta));
+        return new DtoListarConsulta(consulta);
     }
 
     @Transactional
-    public ResponseEntity<?> updateConsulta(DtoAtualizarConsulta dados) {
-        if (consultaRepository.existsById(dados.id())){
-            var consulta = consultaRepository.getReferenceById(dados.id());
+    public DtoListarConsulta updateConsulta(Long id, DtoAtualizarConsulta dados) {
+        if (consultaRepository.existsById(id)){
+            var consulta = consultaRepository.getReferenceById(id);
             consulta.atualizarConsulta(dados);
+            this.save(consulta);
 
-            return ResponseEntity.status(HttpStatus.OK).body(new DtoListarConsulta(consulta));
+            return new DtoListarConsulta(consulta);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Erro: Consulta não encontrada.");
+        return null;
     }
 
     @Transactional
-    public Page<DtoListarConsulta> getAllConsultas(Pageable paginacao) {
-
-        return consultaRepository.findAll(paginacao).map(DtoListarConsulta::new);
+    public List<DtoListarConsulta> getAllConsultas() {
+        return consultaRepository.findAll().stream().map(DtoListarConsulta::new).toList();
     }
 
     @Transactional
-    public ResponseEntity<?> getConsulta(Long id) {
+    public DtoListarConsulta getConsultaById(Long id) {
         var consultaFind = consultaRepository.findById(id);
         if (consultaFind.isPresent()) {
             var consulta = consultaFind.get();
 
-            return ResponseEntity.status(HttpStatus.OK).body(new DtoListarConsulta(consulta));
+            return new DtoListarConsulta(consulta);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Erro: Consulta com este Id não foi encontrada");
+        return null;
+    }
+
+    @Transactional
+    public DtoListarConsulta findById(Long id) {
+        Optional<Consulta> consulta = consultaRepository.findById(id);
+        if (consulta.isPresent()){
+            return new DtoListarConsulta(consulta.get());
+        }
+        throw new RuntimeException("id not found");
+    }
+
+    @Transactional
+    private void save(Consulta consulta){
+        consultaRepository.save(consulta);
     }
 }

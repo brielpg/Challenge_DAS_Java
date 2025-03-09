@@ -1,9 +1,6 @@
 package br.com.fiap.challenge.Challenge01.dto.consulta;
 
-import br.com.fiap.challenge.Challenge01.models.Clinica;
 import br.com.fiap.challenge.Challenge01.models.Consulta;
-import br.com.fiap.challenge.Challenge01.models.Paciente;
-import br.com.fiap.challenge.Challenge01.models.Relatorio;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.math.BigDecimal;

@@ -2,41 +2,67 @@ package br.com.fiap.challenge.Challenge01.controllers;
 
 import br.com.fiap.challenge.Challenge01.dto.consulta.DtoAtualizarConsulta;
 import br.com.fiap.challenge.Challenge01.dto.consulta.DtoCriarConsulta;
-import br.com.fiap.challenge.Challenge01.dto.consulta.DtoListarConsulta;
+import br.com.fiap.challenge.Challenge01.models.Consulta;
 import br.com.fiap.challenge.Challenge01.services.ConsultaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@RestController
+@Controller
 @RequestMapping("/consulta")
 public class ConsultaController {
     @Autowired
     private ConsultaService consultaService;
 
-    @PostMapping
-    @Transactional
-    public ResponseEntity<?> createConsulta(@RequestBody @Valid DtoCriarConsulta dados) {
-        return consultaService.createConsulta(dados);
+    @GetMapping("/create")
+    public String createPage(Model model){
+
+        model.addAttribute("consulta", new Consulta());
+
+        return "consulta/create";
     }
 
-    @PutMapping
+    @PostMapping
     @Transactional
-    public ResponseEntity<?> updateConsulta(@RequestBody @Valid DtoAtualizarConsulta dados) {
-        return consultaService.updateConsulta(dados);
+    public String createConsulta(@Valid DtoCriarConsulta dados, Model model) {
+        var consulta = consultaService.createConsulta(dados);
+        model.addAttribute("consulta", consulta);
+        return "redirect:consulta";
+    }
+
+    @GetMapping("/update/{id}")
+    @Transactional
+    public String updatePage(@PathVariable Long id, Model model) {
+        var consulta = consultaService.findById(id);
+        model.addAttribute("consulta", consulta);
+        return "consulta/update";
+    }
+
+    @PostMapping("/update/{id}")
+    @Transactional
+    public String updateConsulta(@PathVariable Long id, @Valid DtoAtualizarConsulta dados, Model model) {
+        var consulta = consultaService.updateConsulta(id, dados);
+        model.addAttribute("consulta", consulta);
+        return "redirect:/consulta";
     }
 
     @GetMapping
-    public Page<DtoListarConsulta> getAllConsultas(Pageable paginacao) {
-        return consultaService.getAllConsultas(paginacao);
+    public String getAllConsultas(Model model) {
+        var consultas = consultaService.getAllConsultas();
+        model.addAttribute("consultas", consultas);
+        return "consulta/list";
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getConsulta(@PathVariable Long id) {
-        return consultaService.getConsulta(id);
+    public String getConsulta(@PathVariable Long id, Model model) {
+        var consulta = consultaService.getConsultaById(id);
+        model.addAttribute("consulta", consulta);
+        return "consulta/detail";
     }
 }
