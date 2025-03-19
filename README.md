@@ -110,3 +110,53 @@ Link do vídeo: https://www.youtube.com/watch?v=6F3w8023OTM
 **GET** /consulta/update/id - Acessa a página para atualizar as informaçoes de uma consulta  
 **POST** /consulta - Endpoint para criar uma nova consulta  
 **POST** /consulta/update/id - Endpoint para atualizar as informaçoes de uma consulta  
+
+## 6. Testes  
+Os testes podem ser feitos via `Postman` através do arquivo collection postman disponibilizado, `"Challenge Odontoprev.postman_collection.json"`, ou nas próprias páginas thymeleaf com os exemplos abaixo.
+
+### Endereço
+```
+Logradouro:     Rua das Flores
+Bairro:         Centro
+CEP:            00000-123
+Cidade:         São Paulo
+UF:             SP
+Complemento:    Apto 101
+Número:         12
+```
+
+### Cadastro de Clínica  
+```
+Nome:           Clinica Sorriso
+CNPJ:           12.323.123-0000-11
+Telefone:       11 12196779
+Email:          sorriso@clinica.com
+Razão Social:   Clinica Sorriso Ltda
+Senha:          123!@#Senha
+```
+
+### Cadastro de Paciente
+```
+Nome:                      Gabriel Galiza
+CPF:                       12953568923
+Telefone:                  11 55126778
+Data de Nascimento:        2000-02-10
+Número da Carteira Odonto: 123456789
+```
+
+### Cadastro de Consulta
+```
+Procedimento:       Limpeza Dental
+Dentista:           Dr. Gabriel
+Data da Consulta:   2025-03-19
+Valor da Consulta:  123456789
+Clínica ID:         1
+Paciente CPF:       12953568923
+```
+
+### Relatório da Consulta
+```
+Título:         Consulta de Rotina
+Descrição:      O paciente realizou uma avaliação completa da saúde bucal. O dentista identificou uma pequena cárie em um dos molares e realizou a aplicação de flúor para fortalecimento do esmalte. Uma próxima consulta foi agendada para acompanhamento e possível tratamento restaurador.
+Imagem:         www.imagem.com
+```
