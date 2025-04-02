@@ -39,7 +39,7 @@ public class PacienteController {
     @GetMapping("/update/{cpf}")
     @Transactional
     public String updatePage(@PathVariable String cpf, Model model) {
-        var paciente = pacienteService.findByCpf(cpf);
+        var paciente = pacienteService.getPacienteByCpf(cpf);
         model.addAttribute("paciente", paciente);
         return "paciente/update";
     }

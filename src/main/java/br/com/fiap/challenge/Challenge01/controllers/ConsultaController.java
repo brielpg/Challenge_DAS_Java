@@ -61,7 +61,7 @@ public class ConsultaController {
 
     @GetMapping("/{id}")
     public String getConsulta(@PathVariable Long id, Model model) {
-        var consulta = consultaService.getConsultaById(id);
+        var consulta = consultaService.findById(id);
         model.addAttribute("consulta", consulta);
         return "consulta/detail";
     }

@@ -3,6 +3,8 @@ package br.com.fiap.challenge.Challenge01.services;
 import br.com.fiap.challenge.Challenge01.dto.consulta.DtoAtualizarConsulta;
 import br.com.fiap.challenge.Challenge01.dto.consulta.DtoCriarConsulta;
 import br.com.fiap.challenge.Challenge01.dto.consulta.DtoListarConsulta;
+import br.com.fiap.challenge.Challenge01.exceptions.InvalidDataException;
+import br.com.fiap.challenge.Challenge01.exceptions.ObjectNotFoundException;
 import br.com.fiap.challenge.Challenge01.models.Consulta;
 import br.com.fiap.challenge.Challenge01.models.Relatorio;
 import br.com.fiap.challenge.Challenge01.repositories.ClinicaRepository;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,8 +32,9 @@ public class ConsultaService {
 
     @Transactional
     public DtoListarConsulta createConsulta(DtoCriarConsulta dados) {
-        if (!pacienteRepository.existsByCpf(dados.paciente_cpf())) return null;
-        if (!clinicaRepository.existsById(dados.clinica_id())) return null;
+        if (!pacienteRepository.existsByCpf(dados.paciente_cpf())) throw new ObjectNotFoundException("Paciente not found");
+        if (!clinicaRepository.existsById(dados.clinica_id())) throw new ObjectNotFoundException("Clinica not found");
+        if (dados.dataConsulta().isAfter(LocalDate.now())) throw new InvalidDataException();
 
         var paciente = pacienteRepository.getReferenceByCpf(dados.paciente_cpf());
         var clinica = clinicaRepository.getReferenceById(dados.clinica_id());
@@ -58,14 +62,12 @@ public class ConsultaService {
 
     @Transactional
     public DtoListarConsulta updateConsulta(Long id, DtoAtualizarConsulta dados) {
-        if (consultaRepository.existsById(id)){
-            var consulta = consultaRepository.getReferenceById(id);
-            consulta.atualizarConsulta(dados);
-            this.save(consulta);
+        if (consultaRepository.existsById(id)) throw new ObjectNotFoundException("Consulta not found");
 
-            return new DtoListarConsulta(consulta);
-        }
-        return null;
+        var consulta = consultaRepository.getReferenceById(id);
+        consulta.atualizarConsulta(dados);
+        this.save(consulta);
+        return new DtoListarConsulta(consulta);
     }
 
     @Transactional
@@ -74,23 +76,10 @@ public class ConsultaService {
     }
 
     @Transactional
-    public DtoListarConsulta getConsultaById(Long id) {
-        var consultaFind = consultaRepository.findById(id);
-        if (consultaFind.isPresent()) {
-            var consulta = consultaFind.get();
-
-            return new DtoListarConsulta(consulta);
-        }
-        return null;
-    }
-
-    @Transactional
     public DtoListarConsulta findById(Long id) {
-        Optional<Consulta> consulta = consultaRepository.findById(id);
-        if (consulta.isPresent()){
-            return new DtoListarConsulta(consulta.get());
-        }
-        throw new RuntimeException("id not found");
+        return consultaRepository.findById(id)
+                .map(DtoListarConsulta::new)
+                .orElseThrow(() -> new ObjectNotFoundException("Consulta not found"));
     }
 
     @Transactional

@@ -39,7 +39,7 @@ public class RelatorioController {
 
     @GetMapping("/{id}")
     public String getRelatorioById(@PathVariable Long id, Model model) {
-        var relatorio = relatorioService.getRelatorioById(id);
+        var relatorio = relatorioService.findById(id);
         model.addAttribute("relatorio", relatorio);
         return "relatorio/detail";
     }
