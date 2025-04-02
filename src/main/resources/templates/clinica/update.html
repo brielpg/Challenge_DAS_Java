@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Editar Clínica</title>
+    <title>Editar Clinica</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
@@ -10,62 +10,62 @@
 </div>
 
 <div class="container mx-auto px-4">
-    <h1 class="text-2xl font-bold">Editar Clínica</h1>
+    <h1 class="text-2xl font-bold" th:text="#{editar.titulo}"></h1>
     <form th:action="@{/clinica/update/{id}(id=${clinica.id})}" method="post" class="mt-4">
         <div class="mb-4">
-            <label class="block text-gray-700">Nome:</label>
+            <label class="block text-gray-700" th:text="#{template.clinica.nome}"></label>
             <input type="text" name="nome" th:value="${clinica.nome}" class="mt-2 p-2 border rounded w-full">
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">CNPJ:</label>
+            <label class="block text-gray-700" th:text="#{template.clinica.cnpj}"></label>
             <input type="text" name="cnpj" th:value="${clinica.cnpj}" class="mt-2 p-2 border rounded w-full">
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Telefone:</label>
+            <label class="block text-gray-700" th:text="#{template.clinica.telefone}"></label>
             <input type="text" name="telefone" th:value="${clinica.telefone}" class="mt-2 p-2 border rounded w-full">
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Email:</label>
+            <label class="block text-gray-700" th:text="#{template.clinica.email}"></label>
             <input type="email" name="email" th:value="${clinica.email}" class="mt-2 p-2 border rounded w-full">
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Razão Social:</label>
+            <label class="block text-gray-700" th:text="#{template.clinica.razaoSocial}"></label>
             <input type="text" name="razaoSocial" th:value="${clinica.razaoSocial}" class="mt-2 p-2 border rounded w-full">
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Nova Senha:</label>
+            <label class="block text-gray-700" th:text="#{editar.novaSenha}"></label>
             <input type="password" name="senha" class="mt-2 p-2 border rounded w-full">
         </div>
-        <h2 class="text-xl font-bold mt-4">Endereço</h2>
+        <h2 class="text-xl font-bold mt-4" th:text="#{detalhes.endereco.titulo}"></h2>
         <div class="mb-4">
-            <label class="block text-gray-700">Logradouro:</label>
+            <label class="block text-gray-700" th:text="#{template.endereco.logradouro}"></label>
             <input type="text" name="endereco.logradouro" th:value="${clinica.endereco.logradouro}" class="mt-2 p-2 border rounded w-full">
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Bairro:</label>
+            <label class="block text-gray-700" th:text="#{template.endereco.bairro}"></label>
             <input type="text" name="endereco.bairro" th:value="${clinica.endereco.bairro}" class="mt-2 p-2 border rounded w-full">
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">CEP:</label>
+            <label class="block text-gray-700" th:text="#{template.endereco.cep}"></label>
             <input type="text" name="endereco.cep" th:value="${clinica.endereco.cep}" class="mt-2 p-2 border rounded w-full">
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Cidade:</label>
+            <label class="block text-gray-700" th:text="#{template.endereco.cidade}"></label>
             <input type="text" name="endereco.cidade" th:value="${clinica.endereco.cidade}" class="mt-2 p-2 border rounded w-full">
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">UF:</label>
+            <label class="block text-gray-700" th:text="#{template.endereco.uf}"></label>
             <input type="text" name="endereco.uf" th:value="${clinica.endereco.uf}" class="mt-2 p-2 border rounded w-full">
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Complemento:</label>
+            <label class="block text-gray-700" th:text="#{template.endereco.complemento}"></label>
             <input type="text" name="endereco.complemento" th:value="${clinica.endereco.complemento}" class="mt-2 p-2 border rounded w-full">
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Número:</label>
+            <label class="block text-gray-700" th:text="#{template.endereco.numero}"></label>
             <input type="number" name="endereco.numero" th:value="${clinica.endereco.numero}" class="mt-2 p-2 border rounded w-full">
         </div>
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Salvar</button>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded" th:text="#{editar.botao}"></button>
     </form>
 </div>
 

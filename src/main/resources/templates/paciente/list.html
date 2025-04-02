@@ -10,39 +10,39 @@
 </div>
 
 <div class="container mx-auto px-4">
-    <h1 class="text-2xl font-bold">Lista de Pacientes</h1>
-    <div class="text-center mt-8">
-        <a th:href="@{/paciente/create}" class="text-blue-600 font-semibold hover:underline">Cadastrar Paciente</a>
+    <h1 class="text-3xl font-bold mt-8 mb-8 text-center" th:text="#{lista.paciente.titulo}"></h1>
+    <div class="text-center mb-6">
+        <a th:href="@{/paciente/create}" th:text="#{lista.cadastrarLink}" class="bg-blue-500 text-lg text-white font-semibold px-4 py-2 rounded hover:bg-blue-600"></a>
     </div>
     <div class="bg-white p-6 rounded-lg shadow-md">
         <table class="w-full border-collapse">
             <thead>
             <tr class="bg-blue-600 text-white">
-                <th class="p-3 text-left">CPF</th>
-                <th class="p-3 text-left">Nome</th>
-                <th class="p-3 text-left">Telefone</th>
-                <th class="p-3 text-left">Data de Nascimento</th>
-                <th class="p-3 text-left">Número da Carteirinha Odonto</th>
-                <th class="p-3 text-left">CEP</th>
-                <th class="p-3 text-left">Cidade</th>
-                <th class="p-3 text-left">Ações</th>
+                <th class="p-3 text-left" th:text="#{template.paciente.cpf}"></th>
+                <th class="p-3 text-left" th:text="#{template.paciente.nome}"></th>
+                <th class="p-3 text-left" th:text="#{template.paciente.telefone}"></th>
+                <th class="p-3 text-left" th:text="#{template.paciente.dataNascimento}"></th>
+                <th class="p-3 text-left" th:text="#{template.paciente.nmrCarteiraOdonto}"></th>
+                <th class="p-3 text-left" th:text="#{template.endereco.cep}"></th>
+                <th class="p-3 text-left" th:text="#{template.endereco.cidade}"></th>
+                <th class="p-3 text-left" th:text="#{lista.acoes}"></th>
             </tr>
             </thead>
             <tbody>
             <tr class="border-b" th:each="paciente : ${pacientes}">
                 <td class="p-3" th:text="${paciente.cpf}">CPF</td>
-                <td class="p-3" th:text="${paciente.nome}">NOME</td>
-                <td class="p-3" th:text="${paciente.telefone}">TELEFONE</td>
-                <td class="p-3" th:text="${paciente.dataNascimento}">YYYY-MM-DD</td>
-                <td class="p-3" th:text="${paciente.nmrCarteiraOdonto}">NÚMERO DA CARTEIRINHA ODONTO</td>
+                <td class="p-3" th:text="${paciente.nome}">Nome</td>
+                <td class="p-3" th:text="${paciente.telefone}">Telefone</td>
+                <td class="p-3" th:text="${paciente.dataNascimento}">Data de Nascimento</td>
+                <td class="p-3" th:text="${paciente.nmrCarteiraOdonto}">Número da Carteirinha Odonto</td>
                 <td class="p-3" th:text="${paciente.endereco.cep}">CEP</td>
-                <td class="p-3" th:text="${paciente.endereco.cidade}">CIDADE</td>
+                <td class="p-3" th:text="${paciente.endereco.cidade}">Cidade</td>
                 <td class="p-3">
-                    <a class="text-blue-600 hover:underline" th:href="@{/paciente/{cpf}(cpf=${paciente.cpf})}">Detalhar</a>
+                    <a class="text-blue-600 hover:underline" th:href="@{/paciente/{cpf}(cpf=${paciente.cpf})}" th:text="#{lista.acoes.detalhar}"></a>
                     |
-                    <a class="text-blue-600 hover:underline" th:href="@{/paciente/update/{cpf}(cpf=${paciente.cpf})}">Editar</a>
+                    <a class="text-blue-600 hover:underline" th:href="@{/paciente/update/{cpf}(cpf=${paciente.cpf})}" th:text="#{lista.acoes.editar}"></a>
                     |
-                    <a class="text-red-600 hover:underline" th:href="@{/paciente/delete/{id}(id=${paciente.id})}">Deletar</a>
+                    <a class="text-red-600 hover:underline" th:href="@{/paciente/delete/{id}(id=${paciente.id})}" th:text="#{lista.acoes.deletar}"></a>
                 </td>
             </tr>
             </tbody>

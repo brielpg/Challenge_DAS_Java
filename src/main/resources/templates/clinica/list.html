@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Lista de Clínicas</title>
+    <title>Lista de Clinicas</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
@@ -9,22 +9,22 @@
     Dental Analytics Safe Header
 </div>
 <div class="container mx-auto px-4">
-<h1 class="text-2xl font-bold">Lista de Clínicas</h1>
-    <div class="text-center mt-8">
-        <a th:href="@{/clinica/create}" class="text-blue-600 font-semibold hover:underline">Cadastrar Clinica</a>
+<h1 class="text-3xl font-bold mt-8 mb-8 text-center" th:text="#{lista.titulo}"></h1>
+    <div class="text-center mb-6">
+        <a th:href="@{/clinica/create}" class="bg-blue-500 text-white text-lg font-semibold px-4 py-2 rounded hover:bg-blue-600" th:text="#{lista.cadastrarLink}"></a>
     </div>
 <div class="bg-white p-6 rounded-lg shadow-md">
     <table bclass="w-full border-collapse">
         <thead>
         <tr class="bg-blue-600 text-white">
-            <th class="p-3 text-left">CNPJ</th>
-            <th class="p-3 text-left">Nome</th>
-            <th class="p-3 text-left">Telefone</th>
-            <th class="p-3 text-left">Email</th>
-            <th class="p-3 text-left">Data de Cadastro</th>
-            <th class="p-3 text-left">CEP</th>
-            <th class="p-3 text-left">Cidade</th>
-            <th class="p-3 text-left">Ações</th>
+            <th class="p-3 text-left" th:text="#{template.clinica.cnpj}"></th>
+            <th class="p-3 text-left" th:text="#{template.clinica.nome}"></th>
+            <th class="p-3 text-left" th:text="#{template.clinica.telefone}"></th>
+            <th class="p-3 text-left" th:text="#{template.clinica.email}"></th>
+            <th class="p-3 text-left" th:text="#{template.clinica.dataCadastro}"></th>
+            <th class="p-3 text-left" th:text="#{template.endereco.cep}"></th>
+            <th class="p-3 text-left" th:text="#{template.endereco.cidade}"></th>
+            <th class="p-3 text-left" th:text="#{lista.acoes}"></th>
         </tr>
         </thead>
         <tbody>
@@ -38,11 +38,11 @@
             <td class="p-3" th:text="${clinica.endereco.cidade}">CIDADE</td>
 
             <td class="p-3">
-                <a class="text-blue-600 hover:underline" th:href="@{/clinica/{cnpj}(cnpj=${clinica.cnpj})}">Detalhar</a>
+                <a class="text-blue-600 hover:underline" th:href="@{/clinica/{cnpj}(cnpj=${clinica.cnpj})}" th:text="#{lista.acoes.detalhar}"></a>
                 |
-                <a class="text-blue-600 hover:underline" th:href="@{/clinica/update/{id}(id=${clinica.id})}">Editar</a>
+                <a class="text-blue-600 hover:underline" th:href="@{/clinica/update/{id}(id=${clinica.id})}" th:text="#{lista.acoes.editar}"></a>
                 |
-                <a class="text-red-600 hover:underline" th:href="@{/clinica/delete/{id}(id=${clinica.id})}">Deletar</a>
+                <a class="text-red-600 hover:underline" th:href="@{/clinica/delete/{id}(id=${clinica.id})}" th:text="#{lista.acoes.deletar}"></a>
             </td>
         </tr>
         </tbody>

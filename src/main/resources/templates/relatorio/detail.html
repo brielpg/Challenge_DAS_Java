@@ -10,22 +10,22 @@
 </div>
 
 <div class="container mx-auto px-4">
-    <h1 class="text-2xl font-bold">Detalhes do Relatório</h1>
-    <p th:text="'ID: ' + ${relatorio.id}"></p>
-    <p th:text="'Título: ' + ${relatorio.titulo}"></p>
-    <p th:text="'Descrição: ' + ${relatorio.descricao}"></p>
-    <p th:text="'Dentista: ' + ${relatorio.dentista}"></p>
-    <p th:text="'Status: ' + ${relatorio.status}"></p>
-    <p th:text="'Data de Envio: ' + ${relatorio.dataEnvioRelatorio}"></p>
-    <h2 class="text-xl font-bold mt-4">Clínica e Paciente</h2>
-    <p th:text="'Clínica: ' + ${relatorio.clinica}"></p>
-    <p th:text="'Paciente: ' + ${relatorio.paciente}"></p>
-    <h2 class="text-xl font-bold mt-4">Consulta Relacionada</h2>
-    <p th:text="'ID: ' + ${relatorio.consulta.id}"></p>
-    <p th:text="'Procedimento: ' + ${relatorio.consulta.procedimento}"></p>
-    <p th:text="'Data da Consulta: ' + ${relatorio.consulta.dataConsulta}"></p>
-    <p th:text="'Data de Envio da Consulta: ' + ${relatorio.consulta.dataEnvioConsulta}"></p>
-    <p th:text="'Valor da Consulta: R$ ' + ${relatorio.consulta.valorConsulta}"></p>
+    <h1 class="text-2xl font-bold" th:text="#{detalhes.relatorio.titulo}"></h1>
+    <p th:text="'ID: ' + ${relatorio.id}">ID:</p>
+    <p th:text="#{template.relatorio.titulo} +': '+ ${relatorio.titulo}">:</p>
+    <p th:text="#{template.relatorio.descricao} +': '+ ${relatorio.descricao}">:</p>
+    <p th:text="#{template.relatorio.dentista} +': '+ ${relatorio.dentista}">:</p>
+    <p th:text="#{template.relatorio.status} +': '+ ${relatorio.status}">:</p>
+    <p th:text="#{template.relatorio.dataEnvio} +': '+ ${relatorio.dataEnvioRelatorio}">:</p>
+    <h2 class="text-xl font-bold mt-4" th:text="#{detalhes.endereco.titulo}"></h2>
+    <p th:text="#{template.relatorio.clinica} +': '+ ${relatorio.clinica}">:</p>
+    <p th:text="#{template.relatorio.paciente} +': '+ ${relatorio.paciente}">:</p>
+    <h2 class="text-xl font-bold mt-4" th:text="#{detalhes.relatorio.consultaRelacionada}"></h2>
+    <p th:text="'ID: ' + ${relatorio.consulta.id}">ID:</p>
+    <p th:text="#{template.consulta.procedimento} +': '+ ${relatorio.consulta.procedimento}">:</p>
+    <p th:text="#{template.consulta.dataConsulta} +': '+ ${relatorio.consulta.dataConsulta}">:</p>
+    <p th:text="#{template.consulta.dataEnvioConsulta} +': '+ ${relatorio.consulta.dataEnvioConsulta}">:</p>
+    <p th:text="#{template.detail.valor} +' '+ ${relatorio.consulta.valorConsulta}">:</p>
 </div>
 
 <div th:replace="~{fragments/footer :: footer}">

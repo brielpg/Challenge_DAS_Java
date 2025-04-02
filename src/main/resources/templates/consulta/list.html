@@ -10,22 +10,22 @@
 </div>
 
 <div class="container mx-auto px-4">
-    <h1 class="text-2xl font-bold">Lista de Consultas</h1>
-    <div class="text-center mt-8">
-        <a th:href="@{/consulta/create}" class="text-blue-600 font-semibold hover:underline">Cadastrar Consulta</a>
+    <h1 class="text-3xl font-bold mt-8 mb-8 text-center" th:text="#{lista.consulta.titulo}"></h1>
+    <div class="text-center mb-6">
+        <a th:href="@{/consulta/create}" th:text="#{lista.cadastrarLink}" class="bg-blue-500 text-lg text-white font-semibold px-4 py-2 rounded hover:bg-blue-600"></a>
     </div>
     <div class="bg-white p-6 rounded-lg shadow-md">
         <table class="w-full border-collapse">
             <thead>
             <tr class="bg-blue-600 text-white">
-                <th class="p-3 text-left">Procedimento</th>
-                <th class="p-3 text-left">Dentista</th>
-                <th class="p-3 text-left">Data da Consulta</th>
-                <th class="p-3 text-left">Data de Envio</th>
-                <th class="p-3 text-left">Valor</th>
-                <th class="p-3 text-left">Paciente</th>
-                <th class="p-3 text-left">Clínica</th>
-                <th class="p-3 text-left">Ações</th>
+                <th class="p-3 text-left" th:text="#{template.consulta.procedimento}"></th>
+                <th class="p-3 text-left" th:text="#{template.consulta.dentista}"></th>
+                <th class="p-3 text-left" th:text="#{template.consulta.dataConsulta}"></th>
+                <th class="p-3 text-left" th:text="#{template.consulta.dataEnvioConsulta}"></th>
+                <th class="p-3 text-left" th:text="#{template.consulta.valorConsulta}"></th>
+                <th class="p-3 text-left" th:text="#{template.consulta.paciente}"></th>
+                <th class="p-3 text-left" th:text="#{template.consulta.clinica}"></th>
+                <th class="p-3 text-left" th:text="#{lista.acoes}"></th>
             </tr>
             </thead>
             <tbody>
@@ -38,8 +38,9 @@
                 <td class="p-3" th:text="${consulta.paciente}">PACIENTE</td>
                 <td class="p-3" th:text="${consulta.clinica}">CLÍNICA</td>
                 <td class="p-3">
-                    <a class="text-blue-600 hover:underline" th:href="@{/consulta/{id}(id=${consulta.id})}">Detalhar</a> |
-                    <a class="text-blue-600 hover:underline" th:href="@{/consulta/update/{id}(id=${consulta.id})}">Editar</a>
+                    <a class="text-blue-600 hover:underline" th:href="@{/consulta/{id}(id=${consulta.id})}" th:text="#{lista.acoes.detalhar}"></a>
+                    |
+                    <a class="text-blue-600 hover:underline" th:href="@{/consulta/update/{id}(id=${consulta.id})}" th:text="#{lista.acoes.editar}"></a>
                 </td>
             </tr>
             </tbody>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Detalhes da Clínica</title>
+    <title>Detalhes da Clinica</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
@@ -10,22 +10,22 @@
 </div>
 
 <div class="container mx-auto px-4">
-    <h1 class="text-2xl font-bold">Detalhes da Clínica</h1>
-    <p th:text="'ID: ' + ${clinica.id}"></p>
-    <p th:text="'Nome: ' + ${clinica.nome}"></p>
-    <p th:text="'CNPJ: ' + ${clinica.cnpj}"></p>
-    <p th:text="'Telefone: ' + ${clinica.telefone}"></p>
-    <p th:text="'Email: ' + ${clinica.email}"></p>
-    <p th:text="'Razão Social: ' + ${clinica.razaoSocial}"></p>
-    <p th:text="'Data de Cadastro: ' + ${clinica.dataCadastro}"></p>
-    <h2 class="text-xl font-bold mt-4">Endereço</h2>
-    <p th:text="'Logradouro: ' + ${clinica.endereco.logradouro}"></p>
-    <p th:text="'Bairro: ' + ${clinica.endereco.bairro}"></p>
-    <p th:text="'CEP: ' + ${clinica.endereco.cep}"></p>
-    <p th:text="'Cidade: ' + ${clinica.endereco.cidade}"></p>
-    <p th:text="'UF: ' + ${clinica.endereco.uf}"></p>
-    <p th:text="'Complemento: ' + (${clinica.endereco.complemento} != null ? ${clinica.endereco.complemento} : 'Sem Complemento')"></p>
-    <p th:text="'Número: ' + ${clinica.endereco.numero}"></p>
+    <h1 class="text-2xl font-bold" th:text="#{detalhes.titulo}"></h1>
+    <p th:text="'ID: ' + ${clinica.id}">ID:</p>
+    <p th:text="#{template.clinica.nome} +': '+ ${clinica.nome}"></p>
+    <p th:text="#{template.clinica.cnpj} +': '+ ${clinica.cnpj}"></p>
+    <p th:text="#{template.clinica.telefone} +': '+ ${clinica.telefone}"></p>
+    <p th:text="#{template.clinica.email} +': '+ ${clinica.email}"></p>
+    <p th:text="#{template.clinica.razaoSocial} +': '+ ${clinica.razaoSocial}"></p>
+    <p th:text="#{template.clinica.dataCadastro} +': '+ ${clinica.dataCadastro}"></p>
+    <h2 class="text-xl font-bold mt-4" th:text="#{detalhes.endereco.titulo}"></h2>
+    <p th:text="#{template.endereco.logradouro} +': '+ ${clinica.endereco.logradouro}"></p>
+    <p th:text="#{template.endereco.bairro} +': '+ ${clinica.endereco.bairro}"></p>
+    <p th:text="#{template.endereco.cep} +': '+ ${clinica.endereco.cep}"></p>
+    <p th:text="#{template.endereco.cidade} +': '+ ${clinica.endereco.cidade}"></p>
+    <p th:text="#{template.endereco.uf} +': '+ ${clinica.endereco.uf}"></p>
+    <p th:text="#{template.endereco.complemento} +': '+ (${clinica.endereco.complemento} != null ? ${clinica.endereco.complemento} : #{detalhes.sem.complemento})">:</p>
+    <p th:text="#{template.endereco.numero} +': '+ ${clinica.endereco.numero}"></p>
 </div>
 
 <div th:replace="~{fragments/footer :: footer}">

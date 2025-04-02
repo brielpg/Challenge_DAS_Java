@@ -10,21 +10,21 @@
 </div>
 
 <div class="container mx-auto px-4">
-    <h1 class="text-2xl font-bold">Editar Relatório</h1>
+    <h1 class="text-2xl font-bold" th:text="#{editar.relatorio.titulo}"></h1>
     <form th:action="@{/relatorio/update/{id}(id=${relatorio.id})}" method="post" class="mt-4">
         <div class="mb-4">
-            <label class="block text-gray-700">Título:</label>
+            <label class="block text-gray-700" th:text="#{template.relatorio.titulo}">:</label>
             <input type="text" name="titulo" th:value="${relatorio.titulo}" class="mt-2 p-2 border rounded w-full">
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Descrição:</label>
+            <label class="block text-gray-700" th:text="#{template.relatorio.descricao}">:</label>
             <textarea name="descricao" class="mt-2 p-2 border rounded w-full" th:text="${relatorio.descricao}"></textarea>
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Dentista:</label>
+            <label class="block text-gray-700" th:text="#{template.relatorio.dentista}">:</label>
             <input type="text" name="dentista" th:value="${relatorio.dentista}" class="mt-2 p-2 border rounded w-full">
         </div>
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Salvar</button>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded" th:text="#{editar.botao}"></button>
     </form>
 </div>
 

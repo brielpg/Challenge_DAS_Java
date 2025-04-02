@@ -9,23 +9,23 @@
     Dental Analytics Safe Header
 </div>
 
-<h1 class="text-2xl font-bold">Detalhes do Paciente</h1>
+<h1 class="text-2xl font-bold" th:text="#{detalhes.paciente.titulo}"></h1>
 <div class="container mx-auto px-4">
-    <p th:text="'ID: ' + ${paciente.id}"></p>
-    <p th:text="'Nome: ' + ${paciente.nome}"></p>
-    <p th:text="'CPF: ' + ${paciente.cpf}"></p>
-    <p th:text="'Telefone: ' + ${paciente.telefone}"></p>
-    <p th:text="'Data de Nascimento: ' + ${paciente.dataNascimento}"></p>
-    <p th:text="'Número da Carteirinha Odonto: ' + ${paciente.nmrCarteiraOdonto}"></p>
-    <p th:text="'Quantidade de Consultas: ' + ${paciente.qtdConsultas}"></p>
-    <h2 class="text-xl font-bold mt-4">Endereço</h2>
-    <p th:text="'Logradouro: ' + ${paciente.endereco.logradouro}"></p>
-    <p th:text="'Bairro: ' + ${paciente.endereco.bairro}"></p>
-    <p th:text="'CEP: ' + ${paciente.endereco.cep}"></p>
-    <p th:text="'Cidade: ' + ${paciente.endereco.cidade}"></p>
-    <p th:text="'UF: ' + ${paciente.endereco.uf}"></p>
-    <p th:text="'Complemento: ' + (${paciente.endereco.complemento} != null ? ${paciente.endereco.complemento} : 'Sem Complemento')"></p>
-    <p th:text="'Número: ' + ${paciente.endereco.numero}"></p>
+    <p th:text="'ID: ' + ${paciente.id}">ID:</p>
+    <p th:text="#{template.paciente.nome} +': '+ ${paciente.nome}"></p>
+    <p th:text="#{template.paciente.cpf} +': '+ ${paciente.cpf}"></p>
+    <p th:text="#{template.paciente.telefone} +': '+ ${paciente.telefone}"></p>
+    <p th:text="#{template.paciente.dataNascimento} +': '+ ${paciente.dataNascimento}">:</p>
+    <p th:text="#{template.paciente.nmrCarteiraOdonto} +': '+ ${paciente.nmrCarteiraOdonto}">:</p>
+    <p th:text="#{detalhes.paciente.qtdConsultas} +': '+ ${paciente.qtdConsultas}">:</p>
+    <h2 class="text-xl font-bold mt-4" th:text="#{detalhes.endereco.titulo}"></h2>
+    <p th:text="#{template.endereco.logradouro} +': '+ ${paciente.endereco.logradouro}">:</p>
+    <p th:text="#{template.endereco.bairro} +': '+ ${paciente.endereco.bairro}">:</p>
+    <p th:text="#{template.endereco.cep} +': '+ ${paciente.endereco.cep}">:</p>
+    <p th:text="#{template.endereco.cidade} +': '+ ${paciente.endereco.cidade}">:</p>
+    <p th:text="#{template.endereco.uf} +': '+ ${paciente.endereco.uf}">:</p>
+    <p th:text="#{template.endereco.complemento} +': '+ (${paciente.endereco.complemento} != null ? ${paciente.endereco.complemento} : #{detalhes.sem.complemento})">:</p>
+    <p th:text="#{template.endereco.numero} +': '+ ${paciente.endereco.numero}">:</p>
 </div>
 
 <div th:replace="~{fragments/footer :: footer}">

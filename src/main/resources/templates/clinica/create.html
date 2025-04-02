@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Cadastro de Clínica</title>
+    <title>Cadastro de Clinica</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
@@ -10,62 +10,62 @@
 </div>
 
 <div class="container mx-auto px-4">
-    <h1 class="text-2xl font-bold">Cadastro de Clínica</h1>
+    <h1 class="text-2xl font-bold" th:text="#{cadastro.titulo}"></h1>
     <form th:action="@{/clinica}" method="post" class="mt-4">
         <div class="mb-4">
-            <label class="block text-gray-700">Nome:</label>
-            <input type="text" name="nome" placeholder="Nome da clínica" class="mt-2 p-2 border rounded w-full" required>
+            <label class="block text-gray-700" th:text="#{template.clinica.nome}"></label>
+            <input type="text" name="nome" th:placeholder="#{template.clinica.nome}" class="mt-2 p-2 border rounded w-full" required>
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">CNPJ:</label>
-            <input type="text" name="cnpj" placeholder="Ex: 12.345.678-1234-56" class="mt-2 p-2 border rounded w-full" required>
+            <label class="block text-gray-700" th:text="#{template.clinica.cnpj}"></label>
+            <input type="text" name="cnpj" th:placeholder="#{template.clinica.cnpj}" class="mt-2 p-2 border rounded w-full" required>
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Telefone:</label>
-            <input type="text" name="telefone" placeholder="Ex: (11) 12345-6789" class="mt-2 p-2 border rounded w-full" required>
+            <label class="block text-gray-700" th:text="#{template.clinica.telefone}"></label>
+            <input type="text" name="telefone" th:placeholder="#{template.clinica.telefone}" class="mt-2 p-2 border rounded w-full" required>
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Email:</label>
-            <input type="email" name="email" placeholder="Ex: contato@clinica.com" class="mt-2 p-2 border rounded w-full" required>
+            <label class="block text-gray-700" th:text="#{template.clinica.email}"></label>
+            <input type="email" name="email" th:placeholder="#{template.clinica.email}" class="mt-2 p-2 border rounded w-full" required>
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Razão Social:</label>
-            <input type="text" name="razaoSocial" placeholder="Ex: Clínica Ltda" class="mt-2 p-2 border rounded w-full" required>
+            <label class="block text-gray-700" th:text="#{template.clinica.razaoSocial}"></label>
+            <input type="text" name="razaoSocial" th:placeholder="#{template.clinica.razaoSocial}" class="mt-2 p-2 border rounded w-full" required>
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Senha:</label>
-            <input type="password" name="senha" placeholder="Digite uma senha" class="mt-2 p-2 border rounded w-full" required>
+            <label class="block text-gray-700" th:text="#{template.clinica.senha}"></label>
+            <input type="password" name="senha" th:placeholder="#{template.clinica.senha}" class="mt-2 p-2 border rounded w-full" required>
         </div>
-        <h2 class="text-xl font-bold mt-4">Endereço</h2>
+        <h2 class="text-xl font-bold mt-4" th:text="#{detalhes.endereco.titulo}"></h2>
         <div class="mb-4">
-            <label class="block text-gray-700">Logradouro:</label>
-            <input type="text" name="endereco.logradouro" placeholder="Logradouro da clínica" class="mt-2 p-2 border rounded w-full" required>
-        </div>
-        <div class="mb-4">
-            <label class="block text-gray-700">Bairro:</label>
-            <input type="text" name="endereco.bairro" placeholder="Bairro da clínica" class="mt-2 p-2 border rounded w-full" required>
+            <label class="block text-gray-700" th:text="#{template.endereco.logradouro}"></label>
+            <input type="text" name="endereco.logradouro" th:placeholder="#{template.endereco.logradouro}" class="mt-2 p-2 border rounded w-full" required>
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">CEP:</label>
-            <input type="text" name="endereco.cep" placeholder="Ex: 12345-678" class="mt-2 p-2 border rounded w-full" required>
+            <label class="block text-gray-700" th:text="#{template.endereco.bairro}"></label>
+            <input type="text" name="endereco.bairro" th:placeholder="#{template.endereco.bairro}" class="mt-2 p-2 border rounded w-full" required>
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Cidade:</label>
-            <input type="text" name="endereco.cidade" placeholder="Ex: São Paulo" class="mt-2 p-2 border rounded w-full" required>
+            <label class="block text-gray-700" th:text="#{template.endereco.cep}"></label>
+            <input type="text" name="endereco.cep" th:placeholder="#{template.endereco.cep}" class="mt-2 p-2 border rounded w-full" required>
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">UF:</label>
-            <input type="text" name="endereco.uf" placeholder="Ex: SP" class="mt-2 p-2 border rounded w-full" required>
+            <label class="block text-gray-700" th:text="#{template.endereco.cidade}"></label>
+            <input type="text" name="endereco.cidade" th:placeholder="#{template.endereco.cidade}" class="mt-2 p-2 border rounded w-full" required>
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Complemento:</label>
-            <input type="text" name="endereco.complemento" placeholder="Ex: Sala 101" class="mt-2 p-2 border rounded w-full">
+            <label class="block text-gray-700" th:text="#{template.endereco.uf}"></label>
+            <input type="text" name="endereco.uf" th:placeholder="#{template.endereco.uf}" class="mt-2 p-2 border rounded w-full" required>
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Número:</label>
-            <input type="number" name="endereco.numero" placeholder="Ex: 123" class="mt-2 p-2 border rounded w-full" required>
+            <label class="block text-gray-700" th:text="#{template.endereco.complemento}"></label>
+            <input type="text" name="endereco.complemento" th:placeholder="#{template.endereco.complemento}" class="mt-2 p-2 border rounded w-full">
         </div>
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Cadastrar</button>
+        <div class="mb-4">
+            <label class="block text-gray-700" th:text="#{template.endereco.numero}"></label>
+            <input type="number" name="endereco.numero" th:placeholder="#{template.endereco.numero}" class="mt-2 p-2 border rounded w-full" required>
+        </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded" th:text="#{cadastro.botao}"></button>
     </form>
 </div>
 

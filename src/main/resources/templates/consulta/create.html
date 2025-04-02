@@ -10,46 +10,46 @@
 </div>
 
 <div class="container mx-auto px-4">
-    <h1 class="text-2xl font-bold">Cadastrar Consulta</h1>
+    <h1 class="text-2xl font-bold" th:text="#{cadastro.consulta.titulo}"></h1>
     <form th:action="@{/consulta}" method="post" class="mt-4">
         <div class="mb-4">
-            <label class="block text-gray-700">Procedimento:</label>
-            <input type="text" name="procedimento" placeholder="Ex: Limpeza dental" required class="mt-2 p-2 border rounded w-full">
+            <label class="block text-gray-700" th:text="#{template.consulta.procedimento}">:</label>
+            <input type="text" name="procedimento" th:placeholder="#{template.consulta.procedimento}" required class="mt-2 p-2 border rounded w-full">
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Dentista:</label>
-            <input type="text" name="dentista" placeholder="Ex: Dra. Joana" required class="mt-2 p-2 border rounded w-full">
+            <label class="block text-gray-700" th:text="#{template.consulta.dentista}">:</label>
+            <input type="text" name="dentista" th:placeholder="#{template.consulta.dentista}" required class="mt-2 p-2 border rounded w-full">
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Data da Consulta:</label>
+            <label class="block text-gray-700" th:text="#{template.consulta.dataConsulta}">:</label>
             <input type="date" name="dataConsulta" required class="mt-2 p-2 border rounded w-full">
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Valor da Consulta:</label>
-            <input type="number" step="0.01" name="valorConsulta" placeholder="Ex: 150.00" required class="mt-2 p-2 border rounded w-full">
+            <label class="block text-gray-700" th:text="#{template.consulta.valorConsulta}">:</label>
+            <input type="number" step="0.01" name="valorConsulta" th:placeholder="#{template.consulta.valorConsulta}" required class="mt-2 p-2 border rounded w-full">
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Clínica ID:</label>
-            <input type="number" name="clinica_id" placeholder="Ex: 1" required class="mt-2 p-2 border rounded w-full">
+            <label class="block text-gray-700" th:text="#{template.consulta.clinica.id}">:</label>
+            <input type="number" name="clinica_id" th:placeholder="#{template.consulta.clinica.id}" required class="mt-2 p-2 border rounded w-full">
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Paciente CPF:</label>
-            <input type="text" name="paciente_cpf" placeholder="Ex: 123.456.789-00" required class="mt-2 p-2 border rounded w-full">
+            <label class="block text-gray-700" th:text="#{template.consulta.paciente.cpf}">:</label>
+            <input type="text" name="paciente_cpf" th:placeholder="#{template.consulta.paciente.cpf}" required class="mt-2 p-2 border rounded w-full">
         </div>
-        <h2 class="text-xl font-bold mt-4">Relatório da Consulta</h2>
+        <h2 class="text-xl font-bold mt-4" th:text="#{detalhes.consulta.titulo}"></h2>
         <div class="mb-4">
-            <label class="block text-gray-700">Título:</label>
-            <input type="text" name="relatorio.titulo" placeholder="Ex: Relatório de Avaliação" required class="mt-2 p-2 border rounded w-full">
-        </div>
-        <div class="mb-4">
-            <label class="block text-gray-700">Descrição:</label>
-            <textarea name="relatorio.descricao" placeholder="Descrição detalhada do relatório" required class="mt-2 p-2 border rounded w-full"></textarea>
+            <label class="block text-gray-700" th:text="#{template.relatorio.titulo}">:</label>
+            <input type="text" name="relatorio.titulo" th:placeholder="#{template.relatorio.titulo}" required class="mt-2 p-2 border rounded w-full">
         </div>
         <div class="mb-4">
-            <label class="block text-gray-700">Imagem:</label>
-            <input type="text" name="relatorio.imagem" placeholder="URL da imagem" required class="mt-2 p-2 border rounded w-full">
+            <label class="block text-gray-700" th:text="#{template.relatorio.descricao}">:</label>
+            <textarea name="relatorio.descricao" th:placeholder="#{template.relatorio.descricao}" required class="mt-2 p-2 border rounded w-full"></textarea>
         </div>
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Cadastrar</button>
+        <div class="mb-4">
+            <label class="block text-gray-700" th:text="#{template.relatorio.imagem}">:</label>
+            <input type="text" name="relatorio.imagem" th:placeholder="#{template.relatorio.imagem}" required class="mt-2 p-2 border rounded w-full">
+        </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded" th:text="#{cadastro.botao}"></button>
     </form>
 </div>
 

@@ -10,16 +10,16 @@
 </div>
 
 <div class="container mx-auto px-4">
-    <h1 class="text-2xl font-bold">Detalhes da Consulta</h1>
-    <p th:text="'ID: ' + ${consulta.id}"></p>
-    <p th:text="'Procedimento: ' + ${consulta.procedimento}"></p>
-    <p th:text="'Dentista: ' + ${consulta.dentista}"></p>
-    <p th:text="'Data da Consulta: ' + ${consulta.dataConsulta}"></p>
-    <p th:text="'Envio da Consulta: ' + ${consulta.dataEnvioConsulta}"></p>
-    <p th:text="'Valor: R$ ' + ${consulta.valorConsulta}"></p>
-    <h2 class="text-xl font-bold mt-4">Clínica e Paciente</h2>
-    <p th:text="'Paciente: ' + ${consulta.paciente}"></p>
-    <p th:text="'Clínica: ' + ${consulta.clinica}"></p>
+    <h1 class="text-2xl font-bold" th:text="#{detalhes.consulta.titulo}"></h1>
+    <p th:text="'ID: ' + ${consulta.id}">ID:</p>
+    <p th:text="#{template.consulta.procedimento} +': '+ ${consulta.procedimento}">:</p>
+    <p th:text="#{template.consulta.dentista} +': '+ ${consulta.dentista}">:</p>
+    <p th:text="#{template.consulta.dataConsulta} +': '+ ${consulta.dataConsulta}">:</p>
+    <p th:text="#{template.consulta.dataEnvioConsulta} +': '+ ${consulta.dataEnvioConsulta}">:</p>
+    <p th:text="#{template.detail.valor} +' '+ ${consulta.valorConsulta}">:</p>
+    <h2 class="text-xl font-bold mt-4" th:text="#{detalhes.consulta.clinicaPaciente}"></h2>
+    <p th:text="#{template.consulta.paciente} +': '+ ${consulta.paciente}">:</p>
+    <p th:text="#{template.consulta.clinica} +': '+ ${consulta.clinica}">:</p>
 </div>
 
 <div th:replace="~{fragments/footer :: footer}">

@@ -10,19 +10,19 @@
 </div>
 
 <div class="container mx-auto px-4">
-    <h1 class="text-2xl font-bold">Lista de Relatórios</h1>
+    <h1 class="text-3xl font-bold mt-8 mb-8 text-center" th:text="#{lista.relatorio.titulo}"></h1>
     <div class="bg-white p-6 rounded-lg shadow-md">
         <table class="w-full border-collapse">
             <thead>
             <tr class="bg-blue-600 text-white">
-                <th class="p-3 text-left">Título</th>
-                <th class="p-3 text-left">Descrição</th>
-                <th class="p-3 text-left">Dentista</th>
-                <th class="p-3 text-left">Paciente</th>
-                <th class="p-3 text-left">Clinica</th>
-                <th class="p-3 text-left">Status</th>
-                <th class="p-3 text-left">Data de Envio</th>
-                <th class="p-3 text-left">Ações</th>
+                <th class="p-3 text-left" th:text="#{template.relatorio.titulo}"></th>
+                <th class="p-3 text-left" th:text="#{template.relatorio.descricao}"></th>
+                <th class="p-3 text-left" th:text="#{template.relatorio.dentista}"></th>
+                <th class="p-3 text-left" th:text="#{template.relatorio.paciente}"></th>
+                <th class="p-3 text-left" th:text="#{template.relatorio.clinica}"></th>
+                <th class="p-3 text-left" th:text="#{template.relatorio.status}"></th>
+                <th class="p-3 text-left" th:text="#{template.relatorio.dataEnvio}"></th>
+                <th class="p-3 text-left" th:text="#{lista.acoes}"></th>
             </tr>
             </thead>
             <tbody>
@@ -35,10 +35,10 @@
                 <td class="p-3" th:text="${relatorio.status}">STATUS</td>
                 <td class="p-3" th:text="${relatorio.dataEnvioRelatorio}">YYYY-MM-DD</td>
                 <td class="p-3">
-                    <a class="text-blue-600 hover:underline" th:href="@{/relatorio/{id}(id=${relatorio.id})}">Detalhar</a> |
-                    <a class="text-blue-600 hover:underline" th:href="@{/relatorio/update/{id}(id=${relatorio.id})}">Editar</a> |
-                    <a class="text-red-600 hover:underline" th:href="@{/relatorio/negar/{id}(id=${relatorio.id})}">Negar</a> |
-                    <a class="text-green-600 hover:underline" th:href="@{/relatorio/aprovar/{id}(id=${relatorio.id})}">Aprovar</a>
+                    <a class="text-blue-600 hover:underline" th:href="@{/relatorio/{id}(id=${relatorio.id})}" th:text="#{lista.acoes.detalhar}"></a> |
+                    <a class="text-blue-600 hover:underline" th:href="@{/relatorio/update/{id}(id=${relatorio.id})}" th:text="#{lista.acoes.editar}"></a> |
+                    <a class="text-red-600 hover:underline" th:href="@{/relatorio/negar/{id}(id=${relatorio.id})}" th:text="#{lista.acoes.negar}"></a> |
+                    <a class="text-green-600 hover:underline" th:href="@{/relatorio/aprovar/{id}(id=${relatorio.id})}" th:text="#{lista.acoes.aprovar}"></a>
                 </td>
             </tr>
             </tbody>
