@@ -25,15 +25,19 @@ Nosso projeto consiste em uma API desenvolvida em Java utilizando o framework Sp
     ```bash
    cd Challenge_DAS_JAVA
 
-3. Execute o comando para gerar um .jar da aplicação  
+3. Execute o comando para subir os serviços do Prometheus e Grafana
+    ```bash
+   docker-compose up
+   
+4. Execute o comando para gerar um .jar da aplicação  
     ```bash
    mvn clean package
 
-4. Acesse o diretório target para acessar o .jar  
+5. Acesse o diretório target para acessar o .jar  
     ```bash
     cd target
 
-5. Rode a aplicação
+6. Rode a aplicação
     ```bash
    java -jar Challenge01-0.0.1-SNAPSHOT.jar  
 
@@ -160,3 +164,40 @@ Título:         Consulta de Rotina
 Descrição:      O paciente realizou uma avaliação completa da saúde bucal. O dentista identificou uma pequena cárie em um dos molares e realizou a aplicação de flúor para fortalecimento do esmalte. Uma próxima consulta foi agendada para acompanhamento e possível tratamento restaurador.
 Imagem:         www.imagem.com
 ```
+
+## 7. Integração Spring Boot Actuator com Prometheus e Grafana
+
+### 7.1 Endpoints
+
+Alguns dos Endpoints relacionados ao actuator disponíveis.
+
+| Endpoint   | Descrição                           |
+| :---------- | :---------------------------------- |
+| `/actuator	` | Lista todos os endpoints disponíveis. |
+| `/actuator/health	` | Retorna o estado da aplicação (UP/DOWN). |
+| `/actuator/info	` | Exibe informações da aplicação. |
+| `/actuator/metrics	` | Lista todas as métricas disponíveis. |
+| `/actuator/metrics/{nome}	` | Exibe dados de uma métrica específica, como 'jvm.memory.used' |
+| `/actuator/prometheus	` | Exibe métricas formatadas para o Prometheus. |
+
+### 7.2 Configuração do Grafana
+
+1. Faça login (usuário padrão: admin, senha: admin)  
+2. Adicione uma nova fonte de dados:  
+   - Tipo: Prometheus  
+   - URL: http://prometheus:9090 (endereço padrão do Prometheus)
+3. Importe um dashboard para Spring Boot Actuator:  
+   - Vá em "Create" > "Import"  
+   - Use o ID do dashboard oficial: 4701 (Spring Boot Actuator Metrics)  
+   - Configure a fonte de dados Prometheus criada  
+
+### 7.3 Testando a Integração Localmente
+
+Antes de testar a integração, volte para o passo a passo inicie a aplicação e suba os serviços do Prometheus
+e do Grafana usando o comando `docker-compose up`.
+
+1. Inicie a aplicação (`java -jar Challenge01-0.0.1-SNAPSHOT.jar`)
+2. Acesse `http://localhost:8080/actuator/prometheus` para verificar as métricas expostas  
+3. Acesse `http://localhost:3000` para abrir o Grafana e visualizar o dashboard  
+
+---
