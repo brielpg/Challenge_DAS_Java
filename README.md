@@ -12,9 +12,20 @@ Nosso projeto consiste em uma API desenvolvida em Java utilizando o framework Sp
 - **Java 17**
 - **Spring Boot**
 - **JPA / Hibernate**
+- **Prometheus / Grafana**
 - **Thymeleaf**
 - **Banco de Dados Oracle**
 - **Maven**
+
+### Sumário
+- [Integrantes](#1-integrantes)
+- [Passos para rodar a Aplicação](#2-passos-para-rodar-a-aplicação)
+- [Diagramas](#31-imagens)
+- [Relacionamento e Constraints](#32-relacionamentos-e-constraints)
+- [Video](#4-vídeo-apresentando-a-aplicação)
+- [Endpoints Disponíveis](#5-endpoints-disponíveis)
+- [Testes](#6-testes-)
+- [Prometheus e Grafana](#7-integração-spring-boot-actuator-com-prometheus-e-grafana)
 
 ## 2. Passos para rodar a aplicação:
 1. Clone o repositório:  
