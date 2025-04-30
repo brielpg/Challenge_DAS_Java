@@ -100,13 +100,13 @@ Link do vídeo: https://www.youtube.com/watch?v=6F3w8023OTM
 ```
 
 | Método   | Endpoint       | Descrição                           |
-| :---------- | :--------- | :---------------------------------- |
-| `GET` | `/` | Acessa a página que lista todas as clínicas |
-| `GET` | `/create` | Acessa a página para cadastro de clínicas |
+| :---------- |:---------------| :---------------------------------- |
+| `GET` | `/`            | Acessa a página que lista todas as clínicas |
+| `GET` | `/create`      | Acessa a página para cadastro de clínicas |
 | `GET` | `/update/{id}` | Acessa a página para atualizar as informações de uma clínica |
-| `GET` | `/{cnpj}` | Acessa a página que lista as informações de uma clínica |
+| `GET` | `/{cnpj}`      | Acessa a página que lista as informações de uma clínica |
 | `GET` | `/delete/{id}` | Endpoint para deletar uma clínica |
-| `POST` | `/` | Endpoint para criar uma nova clínica |
+| `POST` | `/create`      | Endpoint para criar uma nova clínica |
 | `POST` | `/update/{id}` | Endpoint para atualizar informações da clínica |
 
 ### 5.2 Endpoints de Paciente
@@ -116,13 +116,13 @@ Link do vídeo: https://www.youtube.com/watch?v=6F3w8023OTM
 ```
 
 | Método   | Endpoint       | Descrição                           |
-| :---------- | :--------- | :---------------------------------- |
-| `GET` | `/` | Acessa a página que lista todos os pacientes |
-| `GET` | `/create` | Acessa a página para cadastro de paciente |
+| :---------- |:---------------| :---------------------------------- |
+| `GET` | `/`            | Acessa a página que lista todos os pacientes |
+| `GET` | `/create`      | Acessa a página para cadastro de paciente |
 | `GET` | `/update/{id}` | Acessa a página para atualizar as informações de um paciente |
-| `GET` | `/{cpf}` | Acessa a página que lista as informações de um paciente |
+| `GET` | `/{cpf}`       | Acessa a página que lista as informações de um paciente |
 | `GET` | `/delete/{id}` | Endpoint para deletar um paciente |
-| `POST` | `/` | Endpoint para criar um novo paciente |
+| `POST` | `/create`      | Endpoint para criar um novo paciente |
 | `POST` | `/update/{id}` | Endpoint para atualizar informações de um paciente |
 
 ### 5.3 Endpoints de Consulta
@@ -132,12 +132,12 @@ Link do vídeo: https://www.youtube.com/watch?v=6F3w8023OTM
 ```
 
 | Método   | Endpoint       | Descrição                           |
-| :---------- | :--------- | :---------------------------------- |
-| `GET` | `/` | Acessa a página que lista todas as consultas |
-| `GET` | `/create` | Acessa a página para cadastro de consulta |
+| :---------- |:---------------| :---------------------------------- |
+| `GET` | `/`            | Acessa a página que lista todas as consultas |
+| `GET` | `/create`      | Acessa a página para cadastro de consulta |
 | `GET` | `/update/{id}` | Acessa a página para atualizar as informações de uma consulta |
-| `GET` | `/{id}` | Acessa a página que lista as informações de uma consulta |
-| `POST` | `/` | Endpoint para criar uma nova consulta |
+| `GET` | `/{id}`        | Acessa a página que lista as informações de uma consulta |
+| `POST` | `/create`      | Endpoint para criar uma nova consulta |
 | `POST` | `/update/{id}` | Endpoint para atualizar informações de uma consulta |
 
 
