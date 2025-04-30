@@ -4,6 +4,7 @@
 ## 1. Integrantes
 - RM554012 Gabriel Pescarolli Galiza  
 - RM554258 Guilherme Gambarão Baptista
+- RM553640 Marcelo Vieira Junior
 
 ### Descrição do Projeto
 Nosso projeto consiste em uma API desenvolvida em Java utilizando o framework Spring Boot para gerenciar clientes e clínicas odontológicas, incluindo a criação e consulta de relatórios de consulta. A API segue a arquitetura monolítica permitindo a criação, atualização e listagem de clientes e clínicas, além do gerenciamento de relatórios clínicos, incluindo um front-end gerenciado pelo Thymeleaf.
