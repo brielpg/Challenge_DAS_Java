@@ -24,7 +24,7 @@ Nosso projeto consiste em uma API desenvolvida em Java utilizando o framework Sp
 - [Relacionamento e Constraints](#32-relacionamentos-e-constraints)
 - [Video](#4-vídeo-apresentando-a-aplicação)
 - [Endpoints Disponíveis](#5-endpoints-disponíveis)
-- [Testes](#6-testes-)
+- [Testes](#6-testes)
 - [Prometheus e Grafana](#7-integração-spring-boot-actuator-com-prometheus-e-grafana)
 
 ## 2. Passos para rodar a aplicação:
@@ -92,39 +92,68 @@ Link do vídeo: https://www.youtube.com/watch?v=6F3w8023OTM
 
 ## 5. Endpoints Disponíveis
 
-### 5.1. Endpoint de Clinica - /clinica
-**GET** /clinica/create - Acessa a página para cadastro de clínicas  
-**GET** /clinica/update/id - Acessa a página para atualizar as informaçoes de uma clínica  
-**GET** /clinica - Acessa a página que lista todas as clínicas  
-**GET** /clinica/cnpj - Acessa a página que lista as informaçoes de uma clínica  
-**GET** /clinica/delete/id - Endpoint para deletar uma clínica  
-**POST** /clinica - Endpoint para criar uma nova clínica  
-**POST** /clinica/update/id - Endpoint para atualizar informaçoes da clínica  
+### 5.1 Endpoints de Clínica
 
-### 5.2. Endpoint de Paciente - /paciente
-**GET** /paciente/create - Acessa a página para cadastro de paciente  
-**GET** /paciente/update/cpf - Acessa a página para atualizar as informaçoes de um paciente  
-**GET** /paciente - Acessa a página que lista todos os pacientes  
-**GET** /paciente/cpf - Acessa a página que lista as informaçoes de um paciente  
-**GET** /paciente/delete/id - Endpoint para deletar um paciente  
-**POST** /paciente - Endpoint para criar um novo paciente  
-**POST** /paciente/update/cpf - Endpoint para atualizar informaçoes de paciente  
+```http
+  /clinica
+```
 
-### 5.3. Endpoint de Relatorio - /relatorio
-**GET** /relatorio - Acessa a página para listar todos os relatorios  
-**GET** /relatorio/id - Acessa a página para listar um relatorio por id  
-**GET** /relatorio/negar/id - Endpoint para negar o pedido de um relatorio  
-**GET** /relatorio/aprovar/id - Endpoint para aprovar o pedido de um relatorio  
-**GET** /relatorio/update/id - Acessa a página para atualizar as informaçoes de um relatório  
-**POST** /relatorio/update/id - Endpoint para atualizar as informaçoes de um relatorio  
+| Método   | Endpoint       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `GET` | `/` | Acessa a página que lista todas as clínicas |
+| `GET` | `/create` | Acessa a página para cadastro de clínicas |
+| `GET` | `/update/{id}` | Acessa a página para atualizar as informações de uma clínica |
+| `GET` | `/{cnpj}` | Acessa a página que lista as informações de uma clínica |
+| `GET` | `/delete/{id}` | Endpoint para deletar uma clínica |
+| `POST` | `/` | Endpoint para criar uma nova clínica |
+| `POST` | `/update/{id}` | Endpoint para atualizar informações da clínica |
 
-### 5.4. Endpoint de Consulta - /consulta
-**GET** /consulta/create - Acessa a página para criar uma consultas  
-**GET** /consulta - Acessa a página para listar todas as consultas  
-**GET** /consulta/id - Acessa a página para listar as informaçoes de uma consulta  
-**GET** /consulta/update/id - Acessa a página para atualizar as informaçoes de uma consulta  
-**POST** /consulta - Endpoint para criar uma nova consulta  
-**POST** /consulta/update/id - Endpoint para atualizar as informaçoes de uma consulta  
+### 5.2 Endpoints de Paciente
+
+```http
+  /paciente
+```
+
+| Método   | Endpoint       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `GET` | `/` | Acessa a página que lista todos os pacientes |
+| `GET` | `/create` | Acessa a página para cadastro de paciente |
+| `GET` | `/update/{id}` | Acessa a página para atualizar as informações de um paciente |
+| `GET` | `/{cpf}` | Acessa a página que lista as informações de um paciente |
+| `GET` | `/delete/{id}` | Endpoint para deletar um paciente |
+| `POST` | `/` | Endpoint para criar um novo paciente |
+| `POST` | `/update/{id}` | Endpoint para atualizar informações de um paciente |
+
+### 5.3 Endpoints de Consulta
+
+```http
+  /consulta
+```
+
+| Método   | Endpoint       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `GET` | `/` | Acessa a página que lista todas as consultas |
+| `GET` | `/create` | Acessa a página para cadastro de consulta |
+| `GET` | `/update/{id}` | Acessa a página para atualizar as informações de uma consulta |
+| `GET` | `/{id}` | Acessa a página que lista as informações de uma consulta |
+| `POST` | `/` | Endpoint para criar uma nova consulta |
+| `POST` | `/update/{id}` | Endpoint para atualizar informações de uma consulta |
+
+
+### 5.4 Endpoints de Relatorio
+
+```http
+  /relatorio
+```
+
+| Método   | Endpoint       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `GET` | `/` | Acessa a página que lista todos os relatórios |
+| `GET` | `/{id}` | Acessa a página que lista as informações de um relatório |
+| `GET` | `/negar/{id}` | Endpoint para negar um pedido de um relatório |
+| `GET` | `/aprovar/{id}` | Endpoint para aprovar um pedido de um relatório |
+| `GET` | `/update/{id}` |  Acessa a página para atualizar as informações de um relatório |
+| `POST` | `/update/{id}` | Endpoint para atualizar informações de um relatório |
 
 ## 6. Testes  
 Os testes podem ser feitos via `Postman` através do arquivo collection postman disponibilizado, `"Challenge Odontoprev.postman_collection.json"`, ou nas próprias páginas thymeleaf com os exemplos abaixo.
