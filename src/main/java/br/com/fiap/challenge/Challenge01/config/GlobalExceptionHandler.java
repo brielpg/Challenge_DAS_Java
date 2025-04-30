@@ -1,4 +1,4 @@
-package br.com.fiap.challenge.Challenge01;
+package br.com.fiap.challenge.Challenge01.config;
 
 import br.com.fiap.challenge.Challenge01.exceptions.ConflictException;
 import br.com.fiap.challenge.Challenge01.exceptions.InvalidDataException;

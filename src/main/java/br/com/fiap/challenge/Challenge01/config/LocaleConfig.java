@@ -1,4 +1,4 @@
-package br.com.fiap.challenge.Challenge01;
+package br.com.fiap.challenge.Challenge01.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
