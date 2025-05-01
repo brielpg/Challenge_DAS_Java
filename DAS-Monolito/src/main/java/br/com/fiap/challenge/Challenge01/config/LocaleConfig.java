@@ -27,6 +27,19 @@ public class LocaleConfig implements WebMvcConfigurer {
         return interceptor;
     }
 
+    public String formatDate(java.time.LocalDate date, java.util.Locale locale) {
+        if (date == null) {
+            return "";
+        }
+        java.time.format.DateTimeFormatter formatter;
+        if (locale != null && locale.getLanguage().equals(new java.util.Locale("pt").getLanguage())) {
+            formatter = java.time.format.DateTimeFormatter.ofPattern("d 'de' MMMM 'de' yyyy", locale);
+        } else {
+            formatter = java.time.format.DateTimeFormatter.ofPattern("MMMM d, yyyy", locale != null ? locale : java.util.Locale.ENGLISH);
+        }
+        return date.format(formatter);
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
