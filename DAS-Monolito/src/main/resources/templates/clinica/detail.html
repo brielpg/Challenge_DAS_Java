@@ -17,7 +17,7 @@
     <p th:text="#{template.clinica.telefone} +': '+ ${clinica.telefone}"></p>
     <p th:text="#{template.clinica.email} +': '+ ${clinica.email}"></p>
     <p th:text="#{template.clinica.razaoSocial} +': '+ ${clinica.razaoSocial}"></p>
-    <p th:text="#{template.clinica.dataCadastro} +': '+ ${clinica.dataCadastro}"></p>
+    <p th:text="#{template.clinica.dataCadastro} + ': ' + ${@localeConfig.formatDate(clinica.dataCadastro, #locale)}"></p>
     <h2 class="text-xl font-bold mt-4" th:text="#{detalhes.endereco.titulo}"></h2>
     <p th:text="#{template.endereco.logradouro} +': '+ ${clinica.endereco.logradouro}"></p>
     <p th:text="#{template.endereco.bairro} +': '+ ${clinica.endereco.bairro}"></p>

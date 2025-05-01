@@ -15,7 +15,7 @@
     <p th:text="#{template.paciente.nome} +': '+ ${paciente.nome}"></p>
     <p th:text="#{template.paciente.cpf} +': '+ ${paciente.cpf}"></p>
     <p th:text="#{template.paciente.telefone} +': '+ ${paciente.telefone}"></p>
-    <p th:text="#{template.paciente.dataNascimento} +': '+ ${paciente.dataNascimento}">:</p>
+    <p th:text="#{template.paciente.dataNascimento} + ': ' + ${@localeConfig.formatDate(paciente.dataNascimento, #locale)}">:</p>
     <p th:text="#{template.paciente.nmrCarteiraOdonto} +': '+ ${paciente.nmrCarteiraOdonto}">:</p>
     <p th:text="#{detalhes.paciente.qtdConsultas} +': '+ ${paciente.qtdConsultas}">:</p>
     <h2 class="text-xl font-bold mt-4" th:text="#{detalhes.endereco.titulo}"></h2>

@@ -16,15 +16,15 @@
     <p th:text="#{template.relatorio.descricao} +': '+ ${relatorio.descricao}">:</p>
     <p th:text="#{template.relatorio.dentista} +': '+ ${relatorio.dentista}">:</p>
     <p th:text="#{template.relatorio.status} +': '+ ${relatorio.status}">:</p>
-    <p th:text="#{template.relatorio.dataEnvio} +': '+ ${relatorio.dataEnvioRelatorio}">:</p>
+    <p th:text="#{template.relatorio.dataEnvio} + ': ' + ${@localeConfig.formatDate(relatorio.dataEnvioRelatorio, #locale)}">:</p>
     <h2 class="text-xl font-bold mt-4" th:text="#{detalhes.endereco.titulo}"></h2>
     <p th:text="#{template.relatorio.clinica} +': '+ ${relatorio.clinica}">:</p>
     <p th:text="#{template.relatorio.paciente} +': '+ ${relatorio.paciente}">:</p>
     <h2 class="text-xl font-bold mt-4" th:text="#{detalhes.relatorio.consultaRelacionada}"></h2>
     <p th:text="'ID: ' + ${relatorio.consulta.id}">ID:</p>
     <p th:text="#{template.consulta.procedimento} +': '+ ${relatorio.consulta.procedimento}">:</p>
-    <p th:text="#{template.consulta.dataConsulta} +': '+ ${relatorio.consulta.dataConsulta}">:</p>
-    <p th:text="#{template.consulta.dataEnvioConsulta} +': '+ ${relatorio.consulta.dataEnvioConsulta}">:</p>
+    <p th:text="#{template.consulta.dataConsulta} + ': ' + ${@localeConfig.formatDate(relatorio.consulta.dataConsulta, #locale)}">:</p>
+    <p th:text="#{template.consulta.dataEnvioConsulta} + ': ' + ${@localeConfig.formatDate(relatorio.consulta.dataEnvioConsulta, #locale)}">:</p>
     <p th:text="#{template.detail.valor} +' '+ ${relatorio.consulta.valorConsulta}">:</p>
 </div>
 

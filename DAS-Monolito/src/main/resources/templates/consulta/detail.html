@@ -14,8 +14,8 @@
     <p th:text="'ID: ' + ${consulta.id}">ID:</p>
     <p th:text="#{template.consulta.procedimento} +': '+ ${consulta.procedimento}">:</p>
     <p th:text="#{template.consulta.dentista} +': '+ ${consulta.dentista}">:</p>
-    <p th:text="#{template.consulta.dataConsulta} +': '+ ${consulta.dataConsulta}">:</p>
-    <p th:text="#{template.consulta.dataEnvioConsulta} +': '+ ${consulta.dataEnvioConsulta}">:</p>
+    <p th:text="#{template.consulta.dataConsulta} + ': ' + ${@localeConfig.formatDate(consulta.dataConsulta, #locale)}">:</p>
+    <p th:text="#{template.consulta.dataEnvioConsulta} + ': ' + ${@localeConfig.formatDate(consulta.dataEnvioConsulta, #locale)}">:</p>
     <p th:text="#{template.detail.valor} +' '+ ${consulta.valorConsulta}">:</p>
     <h2 class="text-xl font-bold mt-4" th:text="#{detalhes.consulta.clinicaPaciente}"></h2>
     <p th:text="#{template.consulta.paciente} +': '+ ${consulta.paciente}">:</p>

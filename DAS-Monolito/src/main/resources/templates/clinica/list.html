@@ -35,7 +35,7 @@
             <td class="p-3" th:text="${clinica.nome}">NOME</td>
             <td class="p-3" th:text="${clinica.telefone}">TELEFONE</td>
             <td class="p-3" th:text="${clinica.email}">EMAIL</td>
-            <td class="p-3" th:text="${clinica.dataCadastro}">DATA DE CADASTRO</td>
+            <td class="p-3" th:text="${@localeConfig.formatDate(clinica.dataCadastro, #locale)}">DATA DE CADASTRO</td>
             <td class="p-3" th:text="${clinica.endereco.cep}">CEP</td>
             <td class="p-3" th:text="${clinica.endereco.cidade}">CIDADE</td>
             <td class="p-3">

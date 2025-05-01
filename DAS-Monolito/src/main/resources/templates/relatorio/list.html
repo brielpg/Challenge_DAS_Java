@@ -33,7 +33,7 @@
                 <td class="p-3" th:text="${relatorio.paciente}">PACIENTE</td>
                 <td class="p-3" th:text="${relatorio.clinica}">CLINICA</td>
                 <td class="p-3" th:text="${relatorio.status}">STATUS</td>
-                <td class="p-3" th:text="${relatorio.dataEnvioRelatorio}">YYYY-MM-DD</td>
+                <td class="p-3" th:text="${@localeConfig.formatDate(relatorio.dataEnvioRelatorio, #locale)}">YYYY-MM-DD</td>
                 <td class="p-3">
                     <a class="text-blue-600 hover:underline" th:href="@{/relatorio/{id}(id=${relatorio.id})}" th:text="#{lista.acoes.detalhar}"></a>
                     <th:block sec:authorize="hasAuthority('ROLE_ADMIN')">

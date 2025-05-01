@@ -35,7 +35,7 @@
                 <td class="p-3" th:text="${paciente.cpf}">CPF</td>
                 <td class="p-3" th:text="${paciente.nome}">Nome</td>
                 <td class="p-3" th:text="${paciente.telefone}">Telefone</td>
-                <td class="p-3" th:text="${paciente.dataNascimento}">Data de Nascimento</td>
+                <td class="p-3" th:text="${@localeConfig.formatDate(paciente.dataNascimento, #locale)}">Data de Nascimento</td>
                 <td class="p-3" th:text="${paciente.nmrCarteiraOdonto}">Número da Carteirinha Odonto</td>
                 <td class="p-3" th:text="${paciente.endereco.cep}">CEP</td>
                 <td class="p-3" th:text="${paciente.endereco.cidade}">Cidade</td>

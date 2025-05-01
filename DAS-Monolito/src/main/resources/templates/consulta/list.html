@@ -34,8 +34,8 @@
             <tr class="border-b" th:each="consulta : ${consultas}">
                 <td class="p-3" th:text="${consulta.procedimento}">PROCEDIMENTO</td>
                 <td class="p-3" th:text="${consulta.dentista}">DENTISTA</td>
-                <td class="p-3" th:text="${consulta.dataConsulta}">YYYY-MM-DD</td>
-                <td class="p-3" th:text="${consulta.dataEnvioConsulta}">YYYY-MM-DD</td>
+                <td class="p-3" th:text="${@localeConfig.formatDate(consulta.dataConsulta, #locale)}">YYYY-MM-DD</td>
+                <td class="p-3" th:text="${@localeConfig.formatDate(consulta.dataEnvioConsulta, #locale)}">YYYY-MM-DD</td>
                 <td class="p-3" th:text="${consulta.valorConsulta}">VALOR</td>
                 <td class="p-3" th:text="${consulta.paciente}">PACIENTE</td>
                 <td class="p-3" th:text="${consulta.clinica}">CLÍNICA</td>
