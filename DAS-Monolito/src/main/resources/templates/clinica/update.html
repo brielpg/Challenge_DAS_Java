@@ -4,12 +4,12 @@
     <title>Editar Clinica</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 min-h-screen flex flex-col">
 <div th:replace="~{fragments/header :: header}">
     Dental Analytics Safe Header
 </div>
 
-<div class="container mx-auto px-4">
+<div class="container mx-auto px-4 flex-grow">
     <h1 class="text-2xl font-bold" th:text="#{editar.titulo}"></h1>
     <form th:action="@{/clinica/update/{id}(id=${clinica.id})}" method="post" class="mt-4">
         <div class="mb-4">

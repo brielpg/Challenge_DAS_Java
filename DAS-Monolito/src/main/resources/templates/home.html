@@ -4,12 +4,12 @@
     <title>DAS - Home</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 min-h-screen flex flex-col">
 <div th:replace="~{fragments/header :: header}">
     Dental Analytics Safe Header
 </div>
 
-<div class="container mx-auto px-4">
+<div class="container mx-auto px-4 flex-grow">
     <h1 class="text-5xl font-bold text-center text-blue-600 mt-14" th:text="#{home.titulo}"></h1>
 
     <p class="text-center text-gray-700 text-lg mt-6" th:text="#{home.subtitulo}"></p>

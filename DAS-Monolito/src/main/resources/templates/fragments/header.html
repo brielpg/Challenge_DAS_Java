@@ -1,16 +1,16 @@
 <header class="bg-blue-600 text-white p-4">
     <div class="container mx-auto flex justify-between">
         <div class="text-2xl font-bold text-white-800">
-            <a href="/" class="text-2xl font-bold text-white-800">Dental Analytics Safe</a>
+            <a href="/" class="text-2xl font-bold text-white-800 hover:underline">Dental Analytics Safe</a>
         </div>
-        <nav class="hidden md:flex space-x-6">
-            <a href="/clinica" class="text-white-600 hover:text-gray-800" th:text="#{header.clinica.titulo}"></a>
-            <a href="/paciente" class="text-white-600 hover:text-gray-800" th:text="#{header.paciente.titulo}"></a>
-            <a href="/consulta" class="text-white-600 hover:text-gray-800" th:text="#{header.consulta.titulo}"></a>
-            <a href="/relatorio" class="text-white-600 hover:text-gray-800" th:text="#{header.relatorio.titulo}"></a>
-            <a sec:authorize="!isAuthenticated()" href="/login" class="text-white-600 hover:text-gray-800" th:text="#{login.titulo}"></a>
+        <nav class="hidden md:flex space-x-6 text-white">
+            <a href="/clinica" class="text-lg font-semibold hover:text-gray-300 hover:underline" th:text="#{header.clinica.titulo}"></a>
+            <a href="/paciente" class="text-lg font-semibold hover:text-gray-300 hover:underline" th:text="#{header.paciente.titulo}"></a>
+            <a href="/consulta" class="text-lg font-semibold hover:text-gray-300 hover:underline" th:text="#{header.consulta.titulo}"></a>
+            <a href="/relatorio" class="text-lg font-semibold hover:text-gray-300 hover:underline" th:text="#{header.relatorio.titulo}"></a>
+            <a sec:authorize="!isAuthenticated()" href="/login" class="text-lg font-semibold hover:text-gray-300 hover:underline" th:text="#{login.titulo}"></a>
             <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
-                <button class="text-white-600 hover:text-gray-800" th:text="#{logout.titulo}"></button></form>
+                <button class="text-lg font-semibold hover:text-gray-300 hover:underline" th:text="#{logout.titulo}"></button></form>
         </nav>
     </div>
 </header>

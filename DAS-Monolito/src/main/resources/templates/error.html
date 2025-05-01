@@ -4,16 +4,20 @@
     <title>Erro</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 min-h-screen flex flex-col">
     <div th:replace="~{fragments/header :: header}" >
         Dental Analytics Safe Header
     </div>
 
-    <div class="container mx-auto bg-white shadow-lg p-12 max-w-md w-full text-center mt-36 border-t-4 border-b-4 border-red-500">
+    <div class="container mx-auto bg-white shadow-lg p-12 max-w-md w-full text-center mt-36 border-t-4 border-b-4 border-red-500 flex-grow">
         <h1 class="text-3xl font-bold text-red-500 mb-4">
             <span th:text="${status}"></span> - <span th:text="${error}"></span>
         </h1>
         <p class="text-gray-700 text-xl mb-6" th:text="${message}"></p>
+    </div>
+
+    <div th:replace="~{fragments/footer :: footer}">
+        &copy; 2025 Dental Analytics Safe
     </div>
 </body>
 </html>
