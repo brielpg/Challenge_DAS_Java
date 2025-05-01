@@ -26,6 +26,7 @@
             <th class="p-3 text-left" th:text="#{template.clinica.dataCadastro}"></th>
             <th class="p-3 text-left" th:text="#{template.endereco.cep}"></th>
             <th class="p-3 text-left" th:text="#{template.endereco.cidade}"></th>
+            <th class="p-3 text-center" th:text="#{template.clinica.role}" sec:authorize="hasAuthority('ROLE_ADMIN')"></th>
             <th class="p-3 text-left" th:text="#{lista.acoes}"></th>
         </tr>
         </thead>
@@ -38,6 +39,15 @@
             <td class="p-3" th:text="${@localeConfig.formatDate(clinica.dataCadastro, #locale)}">DATA DE CADASTRO</td>
             <td class="p-3" th:text="${clinica.endereco.cep}">CEP</td>
             <td class="p-3" th:text="${clinica.endereco.cidade}">CIDADE</td>
+            <td class="p-3" sec:authorize="hasAuthority('ROLE_ADMIN')">
+                <form th:action="@{/clinica/changeRole}" method="post" class="inline">
+                    <input type="hidden" name="id" th:value="${clinica.id}" />
+                    <select name="role" class="border rounded px-2 py-1 text-sm" onchange="this.form.submit()">
+                        <option class="text-green-600 font-semibold" th:value="USER" th:text="'USER'" th:selected="${clinica.role == 'USER'}"></option>
+                        <option class="text-red-500 font-semibold" th:value="ADMIN" th:text="'ADMIN'" th:selected="${clinica.role == 'ADMIN'}"></option>
+                    </select>
+                </form>
+            </td>
             <td class="p-3">
                 <a class="text-blue-600 hover:underline" th:href="@{/clinica/{cnpj}(cnpj=${clinica.cnpj})}" th:text="#{lista.acoes.detalhar}"></a>
                 <th:block sec:authorize="hasAuthority('ROLE_ADMIN')">

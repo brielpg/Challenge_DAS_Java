@@ -3,6 +3,7 @@ package br.com.fiap.challenge.Challenge01.services;
 import br.com.fiap.challenge.Challenge01.dto.clinica.DtoAtualizarClinica;
 import br.com.fiap.challenge.Challenge01.dto.clinica.DtoCriarClinica;
 import br.com.fiap.challenge.Challenge01.dto.clinica.DtoListarClinica;
+import br.com.fiap.challenge.Challenge01.enums.DasRoles;
 import br.com.fiap.challenge.Challenge01.exceptions.ConflictException;
 import br.com.fiap.challenge.Challenge01.exceptions.ObjectNotFoundException;
 import br.com.fiap.challenge.Challenge01.models.Clinica;
@@ -50,6 +51,14 @@ public class ClinicaService implements UserDetailsService {
         this.save(clinica);
 
         return new DtoListarClinica(clinica);
+    }
+
+    @Transactional
+    public void changeRole(Long id, String role) {
+        var clinica = clinicaRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Clinica not found"));
+        clinica.setRole(DasRoles.valueOf(role));
+        this.save(clinica);
     }
 
     private String senhaEncriptada(String senha){

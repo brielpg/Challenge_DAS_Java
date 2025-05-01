@@ -18,6 +18,7 @@ public class DtoListarClinica{
         public String fotoClinica;
         public Endereco endereco;
         public List<Paciente> pacientes;
+        public String role;
 
     public DtoListarClinica(Clinica clinica){
         this.id = clinica.getId();
@@ -30,5 +31,6 @@ public class DtoListarClinica{
         this.fotoClinica = clinica.getFotoClinica();
         this.endereco = clinica.getEndereco();
         this.pacientes = clinica.getPacientes();
+        this.role = clinica.getRole().name();
     }
 }

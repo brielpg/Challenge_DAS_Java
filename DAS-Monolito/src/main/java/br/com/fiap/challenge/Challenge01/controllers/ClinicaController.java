@@ -2,10 +2,12 @@ package br.com.fiap.challenge.Challenge01.controllers;
 
 import br.com.fiap.challenge.Challenge01.dto.clinica.DtoAtualizarClinica;
 import br.com.fiap.challenge.Challenge01.dto.clinica.DtoCriarClinica;
+import br.com.fiap.challenge.Challenge01.enums.DasRoles;
 import br.com.fiap.challenge.Challenge01.models.Clinica;
 import br.com.fiap.challenge.Challenge01.services.ClinicaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -46,6 +48,14 @@ public class ClinicaController {
     public String updateClinica(@PathVariable Long id, @Valid DtoAtualizarClinica dados, Model model) {
         var clinica = clinicaService.updateClinica(id, dados);
         model.addAttribute("clinica", clinica);
+        return "redirect:/clinica";
+    }
+
+    @PostMapping("/changeRole")
+    @Transactional
+    @PreAuthorize("hasRole('ADMIN')")
+    public String changeRole(@RequestParam Long id, @RequestParam String role) {
+        clinicaService.changeRole(id, role);
         return "redirect:/clinica";
     }
 
