@@ -9,12 +9,14 @@
     Dental Analytics Safe Header
 </div>
 <div class="container mx-auto px-4">
-<h1 class="text-3xl font-bold mt-8 mb-8 text-center" th:text="#{lista.titulo}"></h1>
-    <div class="text-center mb-6">
+    <h1 class="text-3xl font-bold mt-8 mb-8 text-center" th:text="#{lista.titulo}"></h1>
+
+    <div sec:authorize="hasAuthority('ROLE_ADMIN')" class="text-center mb-6">
         <a th:href="@{/clinica/create}" class="bg-blue-500 text-white text-lg font-semibold px-4 py-2 rounded hover:bg-blue-600" th:text="#{lista.cadastrarLink}"></a>
     </div>
+
 <div class="bg-white p-6 rounded-lg shadow-md">
-    <table bclass="w-full border-collapse">
+    <table class="w-full border-collapse">
         <thead>
         <tr class="bg-blue-600 text-white">
             <th class="p-3 text-left" th:text="#{template.clinica.cnpj}"></th>
@@ -36,13 +38,14 @@
             <td class="p-3" th:text="${clinica.dataCadastro}">DATA DE CADASTRO</td>
             <td class="p-3" th:text="${clinica.endereco.cep}">CEP</td>
             <td class="p-3" th:text="${clinica.endereco.cidade}">CIDADE</td>
-
             <td class="p-3">
                 <a class="text-blue-600 hover:underline" th:href="@{/clinica/{cnpj}(cnpj=${clinica.cnpj})}" th:text="#{lista.acoes.detalhar}"></a>
-                |
-                <a class="text-blue-600 hover:underline" th:href="@{/clinica/update/{id}(id=${clinica.id})}" th:text="#{lista.acoes.editar}"></a>
-                |
-                <a class="text-red-600 hover:underline" th:href="@{/clinica/delete/{id}(id=${clinica.id})}" th:text="#{lista.acoes.deletar}"></a>
+                <th:block sec:authorize="hasAuthority('ROLE_ADMIN')">
+                    |
+                    <a class="text-blue-600 hover:underline" th:href="@{/clinica/update/{id}(id=${clinica.id})}" th:text="#{lista.acoes.editar}"></a>
+                    |
+                    <a class="text-red-600 hover:underline" th:href="@{/clinica/delete/{id}(id=${clinica.id})}" th:text="#{lista.acoes.deletar}"></a>
+                </th:block>
             </td>
         </tr>
         </tbody>

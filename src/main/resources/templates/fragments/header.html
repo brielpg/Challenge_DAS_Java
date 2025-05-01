@@ -8,6 +8,9 @@
             <a href="/paciente" class="text-white-600 hover:text-gray-800" th:text="#{header.paciente.titulo}"></a>
             <a href="/consulta" class="text-white-600 hover:text-gray-800" th:text="#{header.consulta.titulo}"></a>
             <a href="/relatorio" class="text-white-600 hover:text-gray-800" th:text="#{header.relatorio.titulo}"></a>
+            <a sec:authorize="!isAuthenticated()" href="/login" class="text-white-600 hover:text-gray-800" th:text="#{login.titulo}"></a>
+            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+                <button class="text-white-600 hover:text-gray-800" th:text="#{logout.titulo}"></button></form>
         </nav>
     </div>
 </header>

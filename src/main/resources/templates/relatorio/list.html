@@ -35,10 +35,15 @@
                 <td class="p-3" th:text="${relatorio.status}">STATUS</td>
                 <td class="p-3" th:text="${relatorio.dataEnvioRelatorio}">YYYY-MM-DD</td>
                 <td class="p-3">
-                    <a class="text-blue-600 hover:underline" th:href="@{/relatorio/{id}(id=${relatorio.id})}" th:text="#{lista.acoes.detalhar}"></a> |
-                    <a class="text-blue-600 hover:underline" th:href="@{/relatorio/update/{id}(id=${relatorio.id})}" th:text="#{lista.acoes.editar}"></a> |
-                    <a class="text-red-600 hover:underline" th:href="@{/relatorio/negar/{id}(id=${relatorio.id})}" th:text="#{lista.acoes.negar}"></a> |
-                    <a class="text-green-600 hover:underline" th:href="@{/relatorio/aprovar/{id}(id=${relatorio.id})}" th:text="#{lista.acoes.aprovar}"></a>
+                    <a class="text-blue-600 hover:underline" th:href="@{/relatorio/{id}(id=${relatorio.id})}" th:text="#{lista.acoes.detalhar}"></a>
+                    <th:block sec:authorize="hasAuthority('ROLE_ADMIN')">
+                        |
+                        <a class="text-blue-600 hover:underline" th:href="@{/relatorio/update/{id}(id=${relatorio.id})}" th:text="#{lista.acoes.editar}"></a>
+                        |
+                        <a class="text-red-600 hover:underline" th:href="@{/relatorio/negar/{id}(id=${relatorio.id})}" th:text="#{lista.acoes.negar}"></a>
+                        |
+                        <a class="text-green-600 hover:underline" th:href="@{/relatorio/aprovar/{id}(id=${relatorio.id})}" th:text="#{lista.acoes.aprovar}"></a>
+                    </th:block>
                 </td>
             </tr>
             </tbody>
