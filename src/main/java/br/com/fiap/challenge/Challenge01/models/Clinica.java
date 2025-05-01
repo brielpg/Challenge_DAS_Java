@@ -2,12 +2,18 @@ package br.com.fiap.challenge.Challenge01.models;
 
 import br.com.fiap.challenge.Challenge01.dto.clinica.DtoAtualizarClinica;
 import br.com.fiap.challenge.Challenge01.dto.clinica.DtoCriarClinica;
+import br.com.fiap.challenge.Challenge01.enums.DasRoles;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -17,7 +23,7 @@ import java.util.List;
 @Data
 @ToString
 @EqualsAndHashCode(of = "id")
-public class Clinica {
+public class Clinica implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,6 +36,8 @@ public class Clinica {
     @JsonIgnore
     private String senha;
     private String fotoClinica;
+    @Enumerated(EnumType.STRING)
+    private DasRoles role;
     @ManyToOne
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;
@@ -37,17 +45,18 @@ public class Clinica {
     @ManyToMany(mappedBy = "clinicas", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Paciente> pacientes = new ArrayList<>();
 
-    public Clinica(DtoCriarClinica dados) {
+    public Clinica(DtoCriarClinica dados, String encryptedPassword) {
         this.nome = dados.nome();
         this.cnpj = dados.cnpj();
         this.telefone = dados.telefone();
         this.email = dados.email();
         this.razaoSocial = dados.razaoSocial();
         this.dataCadastro = LocalDate.now();
-        this.senha = dados.senha();
+        this.senha = encryptedPassword;
+        this.role = DasRoles.USER;
     }
 
-    public void atualizarClinica(DtoAtualizarClinica dados) {
+    public void atualizarClinica(DtoAtualizarClinica dados, String encryptedPassword) {
         if (dados.nome() != null) {
             this.nome = dados.nome();
         }
@@ -60,8 +69,8 @@ public class Clinica {
         if (dados.razaoSocial() != null) {
             this.razaoSocial = dados.razaoSocial();
         }
-        if (dados.senha() != null) {
-            this.senha = dados.senha();
+        if (encryptedPassword != null) {
+            this.senha = encryptedPassword;
         }
         if (dados.endereco() != null) {
             this.endereco.atualizarEndereco(dados.endereco());
@@ -72,5 +81,20 @@ public class Clinica {
         if (!this.pacientes.contains(paciente)) {
             this.pacientes.add(paciente);
         }
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singleton(new SimpleGrantedAuthority("ROLE_" + this.role));
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 }

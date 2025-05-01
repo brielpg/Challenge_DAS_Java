@@ -11,16 +11,22 @@ import br.com.fiap.challenge.Challenge01.repositories.ClinicaRepository;
 import br.com.fiap.challenge.Challenge01.repositories.EnderecoRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class ClinicaService {
+public class ClinicaService implements UserDetailsService {
     @Autowired
     private ClinicaRepository clinicaRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private EnderecoRepository enderecoRepository;
@@ -30,7 +36,7 @@ public class ClinicaService {
         if (clinicaRepository.existsByCnpj(dados.cnpj())) throw new ConflictException("CNPJ already registered");
 
         var endereco = enderecoRepository.save(new Endereco(dados.endereco()));
-        var clinica = new Clinica(dados);
+        var clinica = new Clinica(dados, senhaEncriptada(dados.senha()));
         clinica.setEndereco(endereco);
         this.save(clinica);
         return new DtoListarClinica(clinica);
@@ -40,10 +46,15 @@ public class ClinicaService {
     public DtoListarClinica updateClinica(Long id, @Valid DtoAtualizarClinica dados) {
         if (!clinicaRepository.existsById(id)) throw new ObjectNotFoundException("Clinica not found");
         var clinica = clinicaRepository.getReferenceById(id);
-        clinica.atualizarClinica(dados);
+        clinica.atualizarClinica(dados, senhaEncriptada(dados.senha()));
         this.save(clinica);
 
         return new DtoListarClinica(clinica);
+    }
+
+    private String senhaEncriptada(String senha){
+        if (senha != null) return passwordEncoder.encode(senha);
+        return null;
     }
 
     @Transactional
@@ -74,5 +85,11 @@ public class ClinicaService {
     @Transactional
     private void save(Clinica clinica){
         clinicaRepository.save(clinica);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return clinicaRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Clinica not found with email: " + username));
     }
 }
