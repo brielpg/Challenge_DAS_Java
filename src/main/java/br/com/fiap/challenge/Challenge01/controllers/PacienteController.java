@@ -28,7 +28,7 @@ public class PacienteController {
         return "paciente/create";
     }
 
-    @PostMapping("/create")
+    @PostMapping
     @Transactional
     public String createPaciente(@Valid DtoCriarPaciente dados, Model model) {
         var paciente = pacienteService.createPaciente(dados);

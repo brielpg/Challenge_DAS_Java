@@ -25,7 +25,7 @@ public class ClinicaController {
         return "clinica/create";
     }
 
-    @PostMapping("/create")
+    @PostMapping
     @Transactional
     public String createClinica(@Valid DtoCriarClinica dados, Model model) {
         var clinica = clinicaService.createClinica(dados);

@@ -28,7 +28,7 @@ public class ConsultaController {
         return "consulta/create";
     }
 
-    @PostMapping("/create")
+    @PostMapping
     @Transactional
     public String createConsulta(@Valid DtoCriarConsulta dados, Model model) {
         var consulta = consultaService.createConsulta(dados);
