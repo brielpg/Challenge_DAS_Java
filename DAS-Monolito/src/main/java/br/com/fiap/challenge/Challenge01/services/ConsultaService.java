@@ -68,7 +68,7 @@ public class ConsultaService {
 
     @Transactional
     public DtoListarConsulta updateConsulta(Long id, DtoAtualizarConsulta dados) {
-        if (consultaRepository.existsById(id)) throw new ObjectNotFoundException("Consulta not found");
+        if (!consultaRepository.existsById(id)) throw new ObjectNotFoundException("Consulta not found");
 
         var consulta = consultaRepository.getReferenceById(id);
         consulta.atualizarConsulta(dados);
