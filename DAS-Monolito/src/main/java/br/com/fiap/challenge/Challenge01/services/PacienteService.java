@@ -1,5 +1,6 @@
 package br.com.fiap.challenge.Challenge01.services;
 
+import br.com.fiap.challenge.Challenge01.dto.EmailMessageDto;
 import br.com.fiap.challenge.Challenge01.dto.paciente.DtoAtualizarPaciente;
 import br.com.fiap.challenge.Challenge01.dto.paciente.DtoCriarPaciente;
 import br.com.fiap.challenge.Challenge01.dto.paciente.DtoListarPaciente;
@@ -25,6 +26,9 @@ public class PacienteService {
     @Autowired
     private EnderecoRepository enderecoRepository;
 
+    @Autowired
+    private EmailProducer emailProducer;
+
     @Transactional
     public DtoListarPaciente createPaciente(DtoCriarPaciente dados) {
         if (pacienteRepository.existsByCpf(dados.cpf())) throw new ConflictException("Cpf already registered");
@@ -34,6 +38,9 @@ public class PacienteService {
         var paciente = new Paciente(dados);
         paciente.setEndereco(endereco);
         this.save(paciente);
+
+        this.sendEmail(paciente.getEmail(), paciente.getNome());
+
         return new DtoListarPaciente(paciente);
     }
 
@@ -70,5 +77,16 @@ public class PacienteService {
     public void deleteById(Long id) {
         if (!pacienteRepository.existsById(id)) throw new ObjectNotFoundException("Pacient not found");
         pacienteRepository.deleteById(id);
+    }
+
+    private void sendEmail(String email, String nome){
+        var titulo = "Bem-vindo(a) ao Dental Analytics Safe";
+        var mensagem = "Olá " + nome + ",\n" +
+                "Você acaba de ser cadastrado na nossa plataforma!\n" +
+                "Estamos à disposição para qualquer dúvida. Seja bem-vindo(a)!\n" +
+                "Atenciosamente, Dental Analytics Safe";
+
+        var emailDto = new EmailMessageDto(email, titulo, mensagem);
+        emailProducer.sendEmailMessage(emailDto);
     }
 }

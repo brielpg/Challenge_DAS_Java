@@ -60,7 +60,8 @@ public class ConsultaService {
         consultaRepository.save(consulta);
         relatorioRepository.save(relatorio);
 
-        this.sendEmail(clinica.getEmail(), clinica.getNome(), paciente.getNome());
+        this.sendEmail(clinica.getEmail(), clinica.getNome(), paciente.getNome(), true);
+        this.sendEmail(paciente.getEmail(), clinica.getNome(), paciente.getNome(), false);
 
         return new DtoListarConsulta(consulta);
     }
@@ -92,12 +93,23 @@ public class ConsultaService {
         consultaRepository.save(consulta);
     }
 
-    private void sendEmail(String email, String nomeClinica, String nomePaciente){
-        var titulo = "Novo relatório gerado para o paciente "+nomePaciente;
-        var mensagem = "Olá " + nomeClinica + ",\n" +
-                "Informamos que um novo relatório da consulta do paciente "+nomePaciente+" foi gerado e está disponível na plataforma.\n" +
-                "Se precisar de algo, não hesite em nos contatar.\n" +
-                "Atenciosamente, Dental Analytics Safe";
+    private void sendEmail(String email, String nomeClinica, String nomePaciente, boolean isClinica){
+        var titulo = "";
+        var mensagem = "";
+
+        if (isClinica) {
+            titulo = "Novo relatório gerado para o paciente " + nomePaciente;
+            mensagem = "Olá " + nomeClinica + ",\n" +
+                    "Informamos que um novo relatório da consulta do paciente " + nomePaciente + " foi gerado e está disponível na plataforma.\n" +
+                    "Se precisar de algo, não hesite em nos contatar.\n" +
+                    "Atenciosamente, Dental Analytics Safe";
+        }else{
+            titulo = "Seu relatório de consulta está disponível!";
+            mensagem = "Olá " + nomePaciente + ",\n" +
+                    "O relatório da sua última consulta na clínica "+nomeClinica+" foi gerado e está disponível na nossa plataforma. Fique à vontade para acessá-lo quando necessário.\n" +
+                    "Caso tenha dúvidas, entre em contato com a clínica.\n" +
+                    "Atenciosamente, Dental Analytics Safe";
+        }
 
         var emailDto = new EmailMessageDto(email, titulo, mensagem);
         emailProducer.sendEmailMessage(emailDto);

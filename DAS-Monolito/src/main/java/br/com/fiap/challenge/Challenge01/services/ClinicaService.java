@@ -112,8 +112,7 @@ public class ClinicaService implements UserDetailsService {
     private void sendEmail(String email, String nome){
         var titulo = "Bem-vindo à nossa plataforma!";
         var mensagem = "Olá "+nome+",\n" +
-                "Estamos muito felizes em tê-los conosco! A partir de agora, sua clínica poderá aproveitar todos os" +
-                "benefícios da nossa plataforma para facilitar o gerenciamento e o atendimento aos seus pacientes.\n" +
+                "Estamos muito felizes em tê-los conosco! A partir de agora, sua clínica poderá aproveitar todos os benefícios da nossa plataforma para facilitar o gerenciamento e o atendimento aos seus pacientes.\n" +
                 "Caso precise de qualquer ajuda, nossa equipe está à disposição.\n" +
                 "Bem-vindos à comunidade!\n" +
                 "Atenciosamente, Dental Analytics Safe";
