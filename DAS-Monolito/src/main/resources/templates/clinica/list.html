@@ -11,7 +11,7 @@
 <div class="container mx-auto px-4 flex-grow">
     <h1 class="text-3xl font-bold mt-8 mb-8 text-center" th:text="#{lista.titulo}"></h1>
 
-    <div sec:authorize="hasAuthority('ROLE_ADMIN')" class="text-center mb-6">
+    <div class="text-center mb-6">
         <a th:href="@{/clinica/create}" class="bg-blue-500 text-white text-lg font-semibold px-4 py-2 rounded hover:bg-blue-600" th:text="#{lista.cadastrarLink}"></a>
     </div>
 
@@ -26,7 +26,7 @@
             <th class="p-3 text-left" th:text="#{template.clinica.dataCadastro}"></th>
             <th class="p-3 text-left" th:text="#{template.endereco.cep}"></th>
             <th class="p-3 text-left" th:text="#{template.endereco.cidade}"></th>
-            <th class="p-3 text-center" th:text="#{template.clinica.role}" sec:authorize="hasAuthority('ROLE_ADMIN')"></th>
+            <th class="p-3 text-center" th:text="#{template.clinica.role}"></th>
             <th class="p-3 text-left" th:text="#{lista.acoes}"></th>
         </tr>
         </thead>
@@ -39,7 +39,7 @@
             <td class="p-3" th:text="${@localeConfig.formatDate(clinica.dataCadastro, #locale)}">DATA DE CADASTRO</td>
             <td class="p-3" th:text="${clinica.endereco.cep}">CEP</td>
             <td class="p-3" th:text="${clinica.endereco.cidade}">CIDADE</td>
-            <td class="p-3" sec:authorize="hasAuthority('ROLE_ADMIN')">
+            <td class="p-3">
                 <form th:action="@{/clinica/changeRole}" method="post" class="inline">
                     <input type="hidden" name="id" th:value="${clinica.id}" />
                     <select name="role" class="border rounded px-2 py-1 text-sm" onchange="this.form.submit()">
@@ -50,12 +50,10 @@
             </td>
             <td class="p-3">
                 <a class="text-blue-600 hover:underline" th:href="@{/clinica/{cnpj}(cnpj=${clinica.cnpj})}" th:text="#{lista.acoes.detalhar}"></a>
-                <th:block sec:authorize="hasAuthority('ROLE_ADMIN')">
-                    |
-                    <a class="text-blue-600 hover:underline" th:href="@{/clinica/update/{id}(id=${clinica.id})}" th:text="#{lista.acoes.editar}"></a>
-                    |
-                    <a class="text-red-600 hover:underline" th:href="@{/clinica/delete/{id}(id=${clinica.id})}" th:text="#{lista.acoes.deletar}"></a>
-                </th:block>
+                |
+                <a class="text-blue-600 hover:underline" th:href="@{/clinica/update/{id}(id=${clinica.id})}" th:text="#{lista.acoes.editar}"></a>
+                |
+                <a class="text-red-600 hover:underline" th:href="@{/clinica/delete/{id}(id=${clinica.id})}" th:text="#{lista.acoes.deletar}"></a>
             </td>
         </tr>
         </tbody>

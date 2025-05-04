@@ -52,7 +52,6 @@ public class ClinicaController {
 
     @PostMapping("/changeRole")
     @Transactional
-    @PreAuthorize("hasRole('ADMIN')")
     public String changeRole(@RequestParam Long id, @RequestParam String role) {
         clinicaService.changeRole(id, role);
         return "redirect:/clinica";
