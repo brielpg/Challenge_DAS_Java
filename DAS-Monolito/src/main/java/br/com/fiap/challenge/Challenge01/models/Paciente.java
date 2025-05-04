@@ -24,6 +24,7 @@ public class Paciente {
     private String nome;
     private String cpf;
     private String telefone;
+    private String email;
     private String nmrCarteiraOdonto;
     private LocalDate dataNascimento;
     private Integer qtdConsultas;
@@ -39,6 +40,7 @@ public class Paciente {
         this.nome = dados.nome();
         this.cpf = dados.cpf();
         this.telefone = dados.telefone();
+        this.email = dados.email();
         this.dataNascimento = dados.dataNascimento();
         this.nmrCarteiraOdonto = dados.nmrCarteiraOdonto();
         this.qtdConsultas = 0;
@@ -53,6 +55,9 @@ public class Paciente {
         }
         if (dados.dataNascimento() != null){
             this.dataNascimento = dados.dataNascimento();
+        }
+        if (dados.email() != null){
+            this.email = dados.email();
         }
         if (dados.nmrCarteiraOdonto() != null){
             this.nmrCarteiraOdonto = dados.nmrCarteiraOdonto();

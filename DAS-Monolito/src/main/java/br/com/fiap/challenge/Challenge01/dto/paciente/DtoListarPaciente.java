@@ -13,6 +13,7 @@ public class DtoListarPaciente {
         public String nome;
         public String cpf;
         public String telefone;
+        public String email;
         public String nmrCarteiraOdonto;
         public LocalDate dataNascimento;
         public Integer qtdConsultas;
@@ -24,6 +25,7 @@ public class DtoListarPaciente {
         this.nome = paciente.getNome();
         this.cpf = paciente.getCpf();
         this.telefone = paciente.getTelefone();
+        this.email = paciente.getEmail();
         this.nmrCarteiraOdonto = paciente.getNmrCarteiraOdonto();
         this.dataNascimento = paciente.getDataNascimento();
         this.qtdConsultas = paciente.getQtdConsultas();

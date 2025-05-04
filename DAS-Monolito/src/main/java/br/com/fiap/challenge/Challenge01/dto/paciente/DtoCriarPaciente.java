@@ -19,6 +19,9 @@ public record DtoCriarPaciente(
         @NotBlank(message = "Telefone é obrigatório")
         String telefone,
 
+        @NotBlank(message = "Email é obrigatório")
+        String email,
+
         @NotNull(message = "Data de nascimento é obrigatória")
         LocalDate dataNascimento,
 

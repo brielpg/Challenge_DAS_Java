@@ -25,6 +25,10 @@
             <input type="text" name="telefone" th:placeholder="#{template.paciente.telefone}" class="mt-2 p-2 border rounded w-full" required>
         </div>
         <div class="mb-4">
+            <label class="block text-gray-700" th:text="#{template.clinica.email}">:</label>
+            <input type="email" name="email" th:placeholder="#{template.clinica.email}" class="mt-2 p-2 border rounded w-full" required>
+        </div>
+        <div class="mb-4">
             <label class="block text-gray-700" th:text="#{template.paciente.dataNascimento}">:</label>
             <input type="date" name="dataNascimento" class="mt-2 p-2 border rounded w-full" required>
         </div>

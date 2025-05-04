@@ -7,6 +7,7 @@ import java.time.LocalDate;
 public record DtoAtualizarPaciente(
         String nome,
         String telefone,
+        String email,
         LocalDate dataNascimento,
         String nmrCarteiraOdonto,
         DtoEndereco endereco
