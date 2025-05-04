@@ -1,5 +1,6 @@
 package br.com.fiap.challenge.Challenge01.services;
 
+import br.com.fiap.challenge.Challenge01.dto.EmailMessageDto;
 import br.com.fiap.challenge.Challenge01.dto.clinica.DtoAtualizarClinica;
 import br.com.fiap.challenge.Challenge01.dto.clinica.DtoCriarClinica;
 import br.com.fiap.challenge.Challenge01.dto.clinica.DtoListarClinica;
@@ -32,6 +33,9 @@ public class ClinicaService implements UserDetailsService {
     @Autowired
     private EnderecoRepository enderecoRepository;
 
+    @Autowired
+    private EmailProducer emailProducer;
+
     @Transactional
     public DtoListarClinica createClinica(DtoCriarClinica dados) {
         if (clinicaRepository.existsByCnpj(dados.cnpj())) throw new ConflictException("CNPJ already registered");
@@ -40,6 +44,9 @@ public class ClinicaService implements UserDetailsService {
         var clinica = new Clinica(dados, senhaEncriptada(dados.senha()));
         clinica.setEndereco(endereco);
         this.save(clinica);
+
+        this.sendEmail(clinica.getEmail(), clinica.getNome());
+
         return new DtoListarClinica(clinica);
     }
 
@@ -100,5 +107,17 @@ public class ClinicaService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return clinicaRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Clinica not found with email: " + username));
+    }
+
+    private void sendEmail(String email, String nome){
+        var titulo = "Bem-vindo à nossa plataforma!";
+        var mensagem = "Olá "+nome+",\n" +
+                "Estamos muito felizes em tê-los conosco! A partir de agora, sua clínica poderá aproveitar todos os" +
+                "benefícios da nossa plataforma para facilitar o gerenciamento e o atendimento aos seus pacientes.\n" +
+                "Caso precise de qualquer ajuda, nossa equipe está à disposição.\n" +
+                "Bem-vindos à comunidade!\n" +
+                "Atenciosamente, Dental Analytics Safe";
+        var emailDto = new EmailMessageDto(email, titulo, mensagem);
+        emailProducer.sendEmailMessage(emailDto);
     }
 }
