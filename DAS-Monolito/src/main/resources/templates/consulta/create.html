@@ -28,10 +28,7 @@
             <label class="block text-gray-700" th:text="#{template.consulta.valorConsulta}">:</label>
             <input type="number" step="0.01" name="valorConsulta" th:placeholder="#{template.consulta.valorConsulta}" required class="mt-2 p-2 border rounded w-full">
         </div>
-        <div class="mb-4">
-            <label class="block text-gray-700" th:text="#{template.consulta.clinica.id}">:</label>
-            <input type="number" name="clinica_id" th:placeholder="#{template.consulta.clinica.id}" required class="mt-2 p-2 border rounded w-full">
-        </div>
+        <input type="hidden" name="clinica_id" th:value="${clinica.id}">
         <div class="mb-4">
             <label class="block text-gray-700" th:text="#{template.consulta.paciente.cpf}">:</label>
             <input type="text" name="paciente_cpf" th:placeholder="#{template.consulta.paciente.cpf}" required class="mt-2 p-2 border rounded w-full">

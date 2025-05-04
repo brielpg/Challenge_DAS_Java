@@ -3,6 +3,7 @@ package br.com.fiap.challenge.Challenge01.controllers;
 import br.com.fiap.challenge.Challenge01.dto.consulta.DtoAtualizarConsulta;
 import br.com.fiap.challenge.Challenge01.dto.consulta.DtoCriarConsulta;
 import br.com.fiap.challenge.Challenge01.models.Consulta;
+import br.com.fiap.challenge.Challenge01.services.ClinicaService;
 import br.com.fiap.challenge.Challenge01.services.ConsultaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +15,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/consulta")
 public class ConsultaController {
     @Autowired
     private ConsultaService consultaService;
+    @Autowired
+    private ClinicaService clinicaService;
 
     @GetMapping("/create")
-    public String createPage(Model model){
+    public String createPage(Model model, Principal principal){
+        var clinica = clinicaService.getClinicaByEmail(principal.getName());
 
+        model.addAttribute("clinica", clinica);
         model.addAttribute("consulta", new Consulta());
 
         return "consulta/create";

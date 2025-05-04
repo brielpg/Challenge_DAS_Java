@@ -86,6 +86,14 @@ public class ClinicaService implements UserDetailsService {
     }
 
     @Transactional
+    public DtoListarClinica getClinicaByEmail(String email){
+        var clinica = clinicaRepository.findByEmail(email)
+                .orElseThrow(() -> new ObjectNotFoundException("Clinica not found"));
+
+        return new DtoListarClinica((Clinica) clinica);
+    }
+
+    @Transactional
     public void deleteById(Long id) {
         if (!clinicaRepository.existsById(id)) throw new ObjectNotFoundException("Clinica not found");
         clinicaRepository.deleteById(id);
