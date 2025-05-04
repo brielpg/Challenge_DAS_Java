@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/consulta")
@@ -27,7 +30,7 @@ public class ConsultaController {
 
     @PostMapping
     @Transactional
-    public String createConsulta(@Valid @RequestBody DtoCriarConsulta dados, Model model) {
+    public String createConsulta(@Valid DtoCriarConsulta dados, Model model) {
         var consulta = consultaService.createConsulta(dados);
         model.addAttribute("consulta", consulta);
         return "redirect:consulta";

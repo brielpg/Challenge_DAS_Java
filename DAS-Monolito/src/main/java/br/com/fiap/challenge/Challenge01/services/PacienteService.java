@@ -10,11 +10,9 @@ import br.com.fiap.challenge.Challenge01.models.Endereco;
 import br.com.fiap.challenge.Challenge01.models.Paciente;
 import br.com.fiap.challenge.Challenge01.repositories.EnderecoRepository;
 import br.com.fiap.challenge.Challenge01.repositories.PacienteRepository;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -28,7 +26,7 @@ public class PacienteService {
     private EnderecoRepository enderecoRepository;
 
     @Transactional
-    public DtoListarPaciente createPaciente(@Valid @RequestBody DtoCriarPaciente dados) {
+    public DtoListarPaciente createPaciente(DtoCriarPaciente dados) {
         if (pacienteRepository.existsByCpf(dados.cpf())) throw new ConflictException("Cpf already registered");
         if (dados.dataNascimento().isAfter(LocalDate.now())) throw new InvalidDataException();
 

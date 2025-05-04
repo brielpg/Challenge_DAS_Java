@@ -2,7 +2,6 @@ package br.com.fiap.challenge.Challenge01.controllers;
 
 import br.com.fiap.challenge.Challenge01.dto.clinica.DtoAtualizarClinica;
 import br.com.fiap.challenge.Challenge01.dto.clinica.DtoCriarClinica;
-import br.com.fiap.challenge.Challenge01.enums.DasRoles;
 import br.com.fiap.challenge.Challenge01.models.Clinica;
 import br.com.fiap.challenge.Challenge01.services.ClinicaService;
 import jakarta.validation.Valid;
@@ -29,7 +28,7 @@ public class ClinicaController {
 
     @PostMapping
     @Transactional
-    public String createClinica(@Valid @RequestBody DtoCriarClinica dados, Model model) {
+    public String createClinica(@Valid DtoCriarClinica dados, Model model) {
         var clinica = clinicaService.createClinica(dados);
         model.addAttribute("clinica", clinica);
         return "redirect:clinica";
