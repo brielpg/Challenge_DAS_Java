@@ -22,7 +22,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/login", "/", "/login/**").permitAll();
-                    auth.requestMatchers("/*/delete/**", "/*/create", "/*/update/**", "/relatorio/aprovar/**", "/relatorio/negar/**").hasRole("ADMIN");
+                    auth.requestMatchers("/*/delete/**", "/clinica/create", "/clinica/update/**", "/relatorio/aprovar/**", "/relatorio/negar/**").hasRole("ADMIN");
                     auth.requestMatchers(HttpMethod.POST, "/*/").hasRole("ADMIN");
                     auth.anyRequest().authenticated();
                 })
