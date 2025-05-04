@@ -29,7 +29,7 @@ public class ClinicaController {
 
     @PostMapping
     @Transactional
-    public String createClinica(@Valid DtoCriarClinica dados, Model model) {
+    public String createClinica(@Valid @RequestBody DtoCriarClinica dados, Model model) {
         var clinica = clinicaService.createClinica(dados);
         model.addAttribute("clinica", clinica);
         return "redirect:clinica";
