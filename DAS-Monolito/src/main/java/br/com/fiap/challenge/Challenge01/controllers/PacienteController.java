@@ -55,8 +55,8 @@ public class PacienteController {
     }
 
     @GetMapping
-    public String getAllPacientes(Model model) {
-        var pacientes = pacienteService.getAllPacientes();
+    public String getAllPacientes(Model model, Principal principal) {
+        var pacientes = pacienteService.getAllPacientes(principal.getName());
         model.addAttribute("pacientes", pacientes);
         return "paciente/list";
     }

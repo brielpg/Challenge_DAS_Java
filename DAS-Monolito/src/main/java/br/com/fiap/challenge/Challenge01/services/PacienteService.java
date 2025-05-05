@@ -4,6 +4,8 @@ import br.com.fiap.challenge.Challenge01.dto.EmailMessageDto;
 import br.com.fiap.challenge.Challenge01.dto.paciente.DtoAtualizarPaciente;
 import br.com.fiap.challenge.Challenge01.dto.paciente.DtoCriarPaciente;
 import br.com.fiap.challenge.Challenge01.dto.paciente.DtoListarPaciente;
+import br.com.fiap.challenge.Challenge01.enums.DasRoles;
+import br.com.fiap.challenge.Challenge01.enums.DasStatus;
 import br.com.fiap.challenge.Challenge01.exceptions.ConflictException;
 import br.com.fiap.challenge.Challenge01.exceptions.InvalidDataException;
 import br.com.fiap.challenge.Challenge01.exceptions.ObjectNotFoundException;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -36,22 +39,35 @@ public class PacienteService {
     public DtoListarPaciente createPaciente(DtoCriarPaciente dados, String emailClinica) {
         if (pacienteRepository.existsByCpf(dados.cpf())) throw new ConflictException("Cpf already registered");
         if (dados.dataNascimento().isAfter(LocalDate.now())) throw new InvalidDataException();
-        var clinica = clinicaService.getClinicaByEmail(emailClinica);
+        var dtoClinica = clinicaService.getClinicaByEmail(emailClinica);
+        var clinica = clinicaService.getClinicaEntityById(dtoClinica.id);
 
         var endereco = enderecoRepository.save(new Endereco(dados.endereco()));
         var paciente = new Paciente(dados);
         paciente.setEndereco(endereco);
+        paciente.adicionarClinica(clinica);
         this.save(paciente);
 
-        this.sendEmail(paciente.getEmail(), paciente.getNome(), clinica.email, clinica.nome, true);
-        this.sendEmail(paciente.getEmail(), paciente.getNome(), clinica.email, clinica.nome, false);
+        this.sendEmail(paciente.getEmail(), paciente.getNome(), clinica.getEmail(), clinica.getNome(), true);
+        this.sendEmail(paciente.getEmail(), paciente.getNome(), clinica.getEmail(), clinica.getNome(), false);
 
         return new DtoListarPaciente(paciente);
     }
 
     @Transactional
-    public List<DtoListarPaciente> getAllPacientes() {
-        return pacienteRepository.findAll().stream().map(DtoListarPaciente::new).toList();
+    public List<DtoListarPaciente> getAllPacientes(String emailClinicaLogada) {
+        var dtoClinica = clinicaService.getClinicaByEmail(emailClinicaLogada);
+        var clinica = clinicaService.getClinicaEntityById(dtoClinica.id);
+
+        if (clinica.getRole().equals(DasRoles.ADMIN)) {
+            return pacienteRepository.findAll().stream()
+                    .map(DtoListarPaciente::new)
+                    .toList();
+        }
+
+        return pacienteRepository.findByClinicasContaining(clinica).stream()
+                .map(DtoListarPaciente::new)
+                .toList();
     }
 
     @Transactional
