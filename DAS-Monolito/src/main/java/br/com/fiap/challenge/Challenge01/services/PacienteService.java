@@ -27,19 +27,24 @@ public class PacienteService {
     private EnderecoRepository enderecoRepository;
 
     @Autowired
+    private ClinicaService clinicaService;
+
+    @Autowired
     private EmailProducer emailProducer;
 
     @Transactional
-    public DtoListarPaciente createPaciente(DtoCriarPaciente dados) {
+    public DtoListarPaciente createPaciente(DtoCriarPaciente dados, String emailClinica) {
         if (pacienteRepository.existsByCpf(dados.cpf())) throw new ConflictException("Cpf already registered");
         if (dados.dataNascimento().isAfter(LocalDate.now())) throw new InvalidDataException();
+        var clinica = clinicaService.getClinicaByEmail(emailClinica);
 
         var endereco = enderecoRepository.save(new Endereco(dados.endereco()));
         var paciente = new Paciente(dados);
         paciente.setEndereco(endereco);
         this.save(paciente);
 
-        this.sendEmail(paciente.getEmail(), paciente.getNome());
+        this.sendEmail(paciente.getEmail(), paciente.getNome(), clinica.email, clinica.nome, true);
+        this.sendEmail(paciente.getEmail(), paciente.getNome(), clinica.email, clinica.nome, false);
 
         return new DtoListarPaciente(paciente);
     }
@@ -79,14 +84,23 @@ public class PacienteService {
         pacienteRepository.deleteById(id);
     }
 
-    private void sendEmail(String email, String nome){
-        var titulo = "Bem-vindo(a) ao Dental Analytics Safe";
-        var mensagem = "Olá " + nome + ",\n" +
-                "Você acaba de ser cadastrado na nossa plataforma!\n" +
-                "Estamos à disposição para qualquer dúvida. Seja bem-vindo(a)!\n" +
-                "Atenciosamente, Dental Analytics Safe";
-
-        var emailDto = new EmailMessageDto(email, titulo, mensagem);
-        emailProducer.sendEmailMessage(emailDto);
+    private void sendEmail(String emailPaciente, String nomePaciente, String emailClinica, String nomeClinica, boolean isClinica){
+        if (isClinica) {
+            var titulo = "Novo paciente cadastrado com sucesso!";
+            var mensagem = "Olá " + nomeClinica + ",\n" +
+                    "Queremos informar que o paciente "+nomePaciente+" foi cadastrado com sucesso na nossa plataforma. Agora, vocês podem utilizar as ferramentas disponíveis para melhorar ainda mais o atendimento.\n" +
+                    "Qualquer dúvida, estamos aqui para ajudar.\n" +
+                    "Atenciosamente, Dental Analytics Safe";
+            var emailDto = new EmailMessageDto(emailClinica, titulo, mensagem);
+            emailProducer.sendEmailMessage(emailDto);
+        } else {
+            var titulo = "Bem-vindo(a) ao Dental Analytics Safe";
+            var mensagem = "Olá " + nomePaciente + ",\n" +
+                    "A clínica "+nomeClinica+" acaba de cadastrá-lo na nossa plataforma!\n" +
+                    "Estamos à disposição para qualquer dúvida. Seja bem-vindo(a)!\n" +
+                    "Atenciosamente, Dental Analytics Safe";
+            var emailDto = new EmailMessageDto(emailPaciente, titulo, mensagem);
+            emailProducer.sendEmailMessage(emailDto);
+        }
     }
 }

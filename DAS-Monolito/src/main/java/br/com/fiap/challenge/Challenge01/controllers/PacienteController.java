@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/paciente")
 public class PacienteController {
@@ -30,8 +32,8 @@ public class PacienteController {
 
     @PostMapping
     @Transactional
-    public String createPaciente(@Valid DtoCriarPaciente dados, Model model) {
-        var paciente = pacienteService.createPaciente(dados);
+    public String createPaciente(@Valid DtoCriarPaciente dados, Model model, Principal principal) {
+        var paciente = pacienteService.createPaciente(dados, principal.getName());
         model.addAttribute("paciente", paciente);
         return "redirect:paciente";
     }
