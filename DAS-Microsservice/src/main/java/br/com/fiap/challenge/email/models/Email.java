@@ -23,15 +23,15 @@ public class Email {
     private Long id;
     private String emailFrom;
     private String emailTo;
-    private String title;
-    private String message;
+    private String messageType;
     private LocalDateTime sendDateEmail;
     @Enumerated(EnumType.STRING)
     private StatusEmail statusEmail;
 
-    public Email(ConsumeDto data){
+    public Email(ConsumeDto data, String emailFrom){
+        this.emailFrom = emailFrom;
         this.emailTo = data.emailTo();
-        this.title = data.title();
-        this.message = data.message();
+        this.messageType = data.messageType();
+        this.sendDateEmail = LocalDateTime.now();
     }
 }
