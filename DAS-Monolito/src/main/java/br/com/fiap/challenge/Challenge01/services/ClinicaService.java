@@ -94,6 +94,12 @@ public class ClinicaService implements UserDetailsService {
     }
 
     @Transactional
+    public Clinica getClinicaEntityById(Long id){
+        return clinicaRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Clinica not found"));
+    }
+
+    @Transactional
     public void deleteById(Long id) {
         if (!clinicaRepository.existsById(id)) throw new ObjectNotFoundException("Clinica not found");
         clinicaRepository.deleteById(id);
