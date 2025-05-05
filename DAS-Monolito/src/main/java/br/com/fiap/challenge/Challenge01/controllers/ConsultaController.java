@@ -60,8 +60,8 @@ public class ConsultaController {
     }
 
     @GetMapping
-    public String getAllConsultas(Model model) {
-        var consultas = consultaService.getAllConsultas();
+    public String getAllConsultas(Model model, Principal principal) {
+        var consultas = consultaService.getAllConsultas(principal.getName());
         model.addAttribute("consultas", consultas);
         return "consulta/list";
     }

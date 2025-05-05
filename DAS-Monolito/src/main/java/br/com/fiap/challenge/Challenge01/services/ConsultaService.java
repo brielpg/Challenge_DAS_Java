@@ -4,6 +4,8 @@ import br.com.fiap.challenge.Challenge01.dto.EmailMessageDto;
 import br.com.fiap.challenge.Challenge01.dto.consulta.DtoAtualizarConsulta;
 import br.com.fiap.challenge.Challenge01.dto.consulta.DtoCriarConsulta;
 import br.com.fiap.challenge.Challenge01.dto.consulta.DtoListarConsulta;
+import br.com.fiap.challenge.Challenge01.dto.paciente.DtoListarPaciente;
+import br.com.fiap.challenge.Challenge01.enums.DasRoles;
 import br.com.fiap.challenge.Challenge01.exceptions.InvalidDataException;
 import br.com.fiap.challenge.Challenge01.exceptions.ObjectNotFoundException;
 import br.com.fiap.challenge.Challenge01.models.Consulta;
@@ -28,6 +30,8 @@ public class ConsultaService {
     private PacienteRepository pacienteRepository;
     @Autowired
     private ClinicaRepository clinicaRepository;
+    @Autowired
+    private ClinicaService clinicaService;
     @Autowired
     private RelatorioRepository relatorioRepository;
     @Autowired
@@ -76,8 +80,19 @@ public class ConsultaService {
     }
 
     @Transactional
-    public List<DtoListarConsulta> getAllConsultas() {
-        return consultaRepository.findAll().stream().map(DtoListarConsulta::new).toList();
+    public List<DtoListarConsulta> getAllConsultas(String emailClinicaLogada) {
+        var dtoClinica = clinicaService.getClinicaByEmail(emailClinicaLogada);
+        var clinica = clinicaService.getClinicaEntityById(dtoClinica.id);
+
+        if (clinica.getRole().equals(DasRoles.ADMIN)) {
+            return consultaRepository.findAll().stream()
+                    .map(DtoListarConsulta::new)
+                    .toList();
+        }
+
+        return consultaRepository.findByClinica(clinica).stream()
+                .map(DtoListarConsulta::new)
+                .toList();
     }
 
     @Transactional
