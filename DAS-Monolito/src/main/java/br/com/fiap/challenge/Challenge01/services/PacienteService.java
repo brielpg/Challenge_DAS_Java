@@ -4,6 +4,7 @@ import br.com.fiap.challenge.Challenge01.dto.EmailMessageDto;
 import br.com.fiap.challenge.Challenge01.dto.paciente.DtoAtualizarPaciente;
 import br.com.fiap.challenge.Challenge01.dto.paciente.DtoCriarPaciente;
 import br.com.fiap.challenge.Challenge01.dto.paciente.DtoListarPaciente;
+import br.com.fiap.challenge.Challenge01.enums.DasMessageType;
 import br.com.fiap.challenge.Challenge01.enums.DasRoles;
 import br.com.fiap.challenge.Challenge01.enums.DasStatus;
 import br.com.fiap.challenge.Challenge01.exceptions.ConflictException;
@@ -107,7 +108,7 @@ public class PacienteService {
                     "Queremos informar que o paciente "+nomePaciente+" foi cadastrado com sucesso na nossa plataforma. Agora, vocês podem utilizar as ferramentas disponíveis para melhorar ainda mais o atendimento.\n" +
                     "Qualquer dúvida, estamos aqui para ajudar.\n" +
                     "Atenciosamente, Dental Analytics Safe";
-            var emailDto = new EmailMessageDto(emailClinica, titulo, mensagem);
+            var emailDto = new EmailMessageDto(emailClinica, titulo, mensagem, DasMessageType.PACIENTE_CADASTRADO.name());
             emailProducer.sendEmailMessage(emailDto);
         } else {
             var titulo = "Bem-vindo(a) ao Dental Analytics Safe";
@@ -115,7 +116,7 @@ public class PacienteService {
                     "A clínica "+nomeClinica+" acaba de cadastrá-lo na nossa plataforma!\n" +
                     "Estamos à disposição para qualquer dúvida. Seja bem-vindo(a)!\n" +
                     "Atenciosamente, Dental Analytics Safe";
-            var emailDto = new EmailMessageDto(emailPaciente, titulo, mensagem);
+            var emailDto = new EmailMessageDto(emailPaciente, titulo, mensagem, DasMessageType.PACIENTE_CADASTRADO.name());
             emailProducer.sendEmailMessage(emailDto);
         }
     }

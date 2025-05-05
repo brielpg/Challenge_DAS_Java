@@ -4,6 +4,7 @@ import br.com.fiap.challenge.Challenge01.dto.EmailMessageDto;
 import br.com.fiap.challenge.Challenge01.dto.clinica.DtoAtualizarClinica;
 import br.com.fiap.challenge.Challenge01.dto.clinica.DtoCriarClinica;
 import br.com.fiap.challenge.Challenge01.dto.clinica.DtoListarClinica;
+import br.com.fiap.challenge.Challenge01.enums.DasMessageType;
 import br.com.fiap.challenge.Challenge01.enums.DasRoles;
 import br.com.fiap.challenge.Challenge01.exceptions.ConflictException;
 import br.com.fiap.challenge.Challenge01.exceptions.ObjectNotFoundException;
@@ -130,7 +131,7 @@ public class ClinicaService implements UserDetailsService {
                 "Caso precise de qualquer ajuda, nossa equipe está à disposição.\n" +
                 "Bem-vindos à comunidade!\n" +
                 "Atenciosamente, Dental Analytics Safe";
-        var emailDto = new EmailMessageDto(email, titulo, mensagem);
+        var emailDto = new EmailMessageDto(email, titulo, mensagem, DasMessageType.CLINICA_CADASTRADA.name());
         emailProducer.sendEmailMessage(emailDto);
     }
 }

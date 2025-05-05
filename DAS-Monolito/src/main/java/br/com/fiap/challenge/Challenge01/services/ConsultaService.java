@@ -5,6 +5,7 @@ import br.com.fiap.challenge.Challenge01.dto.consulta.DtoAtualizarConsulta;
 import br.com.fiap.challenge.Challenge01.dto.consulta.DtoCriarConsulta;
 import br.com.fiap.challenge.Challenge01.dto.consulta.DtoListarConsulta;
 import br.com.fiap.challenge.Challenge01.dto.paciente.DtoListarPaciente;
+import br.com.fiap.challenge.Challenge01.enums.DasMessageType;
 import br.com.fiap.challenge.Challenge01.enums.DasRoles;
 import br.com.fiap.challenge.Challenge01.exceptions.InvalidDataException;
 import br.com.fiap.challenge.Challenge01.exceptions.ObjectNotFoundException;
@@ -114,7 +115,7 @@ public class ConsultaService {
                     "Se precisar de algo, não hesite em nos contatar.\n" +
                     "Atenciosamente, Dental Analytics Safe";
 
-        var emailDto = new EmailMessageDto(email, titulo, mensagem);
+        var emailDto = new EmailMessageDto(email, titulo, mensagem, DasMessageType.CONSULTA_REALIZADA.name());
         emailProducer.sendEmailMessage(emailDto);
     }
 }
