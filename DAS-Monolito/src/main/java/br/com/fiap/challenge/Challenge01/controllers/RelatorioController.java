@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/relatorio")
 public class RelatorioController {
@@ -31,8 +33,8 @@ public class RelatorioController {
     }
 
     @GetMapping
-    public String getAllRelatorio(Model model) {
-        var relatorios = relatorioService.getAllRelatorio();
+    public String getAllRelatorio(Model model, Principal principal) {
+        var relatorios = relatorioService.getAllRelatorio(principal.getName());
         model.addAttribute("relatorios", relatorios);
         return "relatorio/list";
     }

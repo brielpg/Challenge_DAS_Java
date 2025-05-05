@@ -2,6 +2,7 @@ package br.com.fiap.challenge.Challenge01.services;
 
 import br.com.fiap.challenge.Challenge01.dto.relatorio.DtoAtualizarRelatorio;
 import br.com.fiap.challenge.Challenge01.dto.relatorio.DtoListarRelatorio;
+import br.com.fiap.challenge.Challenge01.enums.DasRoles;
 import br.com.fiap.challenge.Challenge01.enums.DasStatus;
 import br.com.fiap.challenge.Challenge01.exceptions.ObjectNotFoundException;
 import br.com.fiap.challenge.Challenge01.models.Relatorio;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RelatorioService {
@@ -19,9 +19,23 @@ public class RelatorioService {
     @Autowired
     private RelatorioRepository relatorioRepository;
 
+    @Autowired
+    private ClinicaService clinicaService;
+
     @Transactional
-    public List<DtoListarRelatorio> getAllRelatorio(){
-        return relatorioRepository.findAll().stream().map(DtoListarRelatorio::new).toList();
+    public List<DtoListarRelatorio> getAllRelatorio(String emailClinicaLogada){
+        var dtoClinica = clinicaService.getClinicaByEmail(emailClinicaLogada);
+        var clinica = clinicaService.getClinicaEntityById(dtoClinica.id);
+
+        if (clinica.getRole().equals(DasRoles.ADMIN)) {
+            return relatorioRepository.findAll().stream()
+                    .map(DtoListarRelatorio::new)
+                    .toList();
+        }
+
+        return relatorioRepository.findByClinica(clinica).stream()
+                .map(DtoListarRelatorio::new)
+                .toList();
     }
 
     @Transactional
