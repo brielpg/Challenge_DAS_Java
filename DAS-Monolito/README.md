@@ -15,14 +15,16 @@ Nosso projeto consiste em uma API desenvolvida em Java utilizando o framework Sp
 - **JPA / Hibernate**
 - **Prometheus / Grafana**
 - **Thymeleaf**
+- **Docker**
 - **Banco de Dados Oracle**
 - **Maven**
 
 ### Sumário
 - [Integrantes](#1-integrantes)
 - [Passos para rodar a Aplicação](#2-passos-para-rodar-a-aplicação-sem-docker)
-- [Diagramas](#31-imagens)
-- [Relacionamento e Constraints](#32-relacionamentos-e-constraints)
+- [Diagramas](#31-arquitetura)
+- [Telas](#32-telas)
+- [Relacionamento e Constraints](#33-relacionamentos-e-constraints)
 - [Endpoints Disponíveis](#4-endpoints-disponíveis)
 - [Testes](#5-testes)
 - [Prometheus e Grafana](#6-integração-spring-boot-actuator-com-prometheus-e-grafana)
@@ -56,9 +58,9 @@ Nosso projeto consiste em uma API desenvolvida em Java utilizando o framework Sp
    java -jar Challenge01-0.0.1-SNAPSHOT.jar  
 
 ---
-## 3. Imagem do Diagrama
+## 3. Imagens:
 
-### 3.1 Imagens:
+### 3.1 Arquitetura:
 
 ![Diagrama de Arquitetura Geral](./imagens/diagramaArquiteturaGeral.png)
 
@@ -68,7 +70,11 @@ Nosso projeto consiste em uma API desenvolvida em Java utilizando o framework Sp
 
 ![Diagrama de Classe](./imagens/diagramaDeClasses.PNG)
 
-![Imagem Listagem de Clinicas](./imagens/listagemClinicas.jpg)
+### 3.2 Telas:
+
+![Imagem_Home](./imagens/home_deslogado.jpg)
+
+![Imagem Listagem de Clinicas](./imagens/listagem_clinica_admin.jpg)
 
 ![Imagem Editar Clinica](./imagens/editarClinica.jpg)
 
@@ -80,16 +86,17 @@ Nosso projeto consiste em uma API desenvolvida em Java utilizando o framework Sp
 
 ![Imagem Listagem de Relatorios](./imagens/listagemRelatorios.jpg)
 
-### 3.2 Relacionamentos e Constraints:
+### 3.3 Relacionamentos e Constraints:
 
-#### 3.2.1 Relacionamentos:  
-Um cliente pode estar relacionado a vários relatórios, mas cada relatório pertence a apenas um cliente.  
-Uma clínica pode estar relacionado a vários relatórios, mas cada relatório pertence a apenas uma clínica.  
-Um cliente pode estar relacionado a várias clínicas e uma clínica pode estar relacionada a vários clientes.  
+#### Relacionamentos:  
+> - Um cliente pode estar relacionado a vários relatórios, mas cada relatório pertence a apenas um cliente.  
+> - Uma clínica pode estar relacionado a vários relatórios, mas cada relatório pertence a apenas uma clínica.  
+> - Um cliente pode estar relacionado a várias clínicas e uma clínica pode estar relacionada a vários clientes.  
 
-#### 3.2.2 Chaves Estrangeiras:  
-cliente_id e clinica_id no relatório referenciam as tabelas Cliente e Clínica, garantindo que um relatório sempre esteja associado a um cliente e a uma clínica.  
-Clinica e Cliente possuem uma tabela de junçao com os IDs cliente_id e clinica_id que são chaves estrangeiras que referenciam Cliente e Clínica, respectivamente.  
+#### Chaves Estrangeiras:  
+> cliente_id e clinica_id no relatório referenciam as tabelas Cliente e Clínica, garantindo que um relatório sempre esteja associado a um cliente e a uma clínica.  
+
+> Clinica e Cliente possuem uma tabela de junçao com os IDs cliente_id e clinica_id que são chaves estrangeiras que referenciam Cliente e Clínica, respectivamente.  
 
 ---
 ## 4. Endpoints Disponíveis
@@ -170,10 +177,10 @@ Clinica e Cliente possuem uma tabela de junçao com os IDs cliente_id e clinica_
 | `GET`        | `/login?logout` | Faz o logout da conta      | USER / ADMIN |
 
 ---
-## 5. Testes  
+## 5. Testes
 > Os testes podem ser feitos via `Postman` através do arquivo collection postman disponibilizado, `"Challenge Odontoprev.postman_collection.json"`, ou nas próprias páginas thymeleaf com os exemplos abaixo.  
 >
-> Temos um usuário "ADMIN" cadastrado por padrão, email: admin@email.com, senha: admin
+> Temos um perfil `ADMIN` cadastrado por padrão, email: **admin@email.com**, senha: **admin**
 
 ### Login
 ```
@@ -231,9 +238,9 @@ Imagem:         www.imagem.com
 ---
 ## 6. Integração Spring Boot Actuator com Prometheus e Grafana
 
-### 6.1 Endpoints
+### - Endpoints
 
-Alguns dos Endpoints relacionados ao actuator disponíveis.
+> Alguns dos Endpoints relacionados ao actuator disponíveis.
 
 | Endpoint                   | Descrição                                                     |
 |:---------------------------|:--------------------------------------------------------------|
@@ -244,28 +251,25 @@ Alguns dos Endpoints relacionados ao actuator disponíveis.
 | `/actuator/metrics/{nome}` | Exibe dados de uma métrica específica, como 'jvm.memory.used' |
 | `/actuator/prometheus`     | Exibe métricas formatadas para o Prometheus.                  |
 
-### 6.2 Configuração do Grafana
+### - Configuração do Grafana
 
-1. Faça login (usuário padrão: admin, senha: admin)  
+* **Faça login** (usuário padrão: admin, senha: admin)  
 
 
-2. Adicione uma nova fonte de dados:  
+* **Adicione uma nova fonte de dados:**  
    - Tipo: Prometheus  
    - URL: http://prometheus:9090 (endereço padrão do Prometheus)
 
 
-3. Importe um dashboard para Spring Boot Actuator:  
+* **Importe um dashboard para Spring Boot Actuator:**
    - Vá em "Create" > "Import"  
    - Use o ID do dashboard oficial: 4701 (Spring Boot Actuator Metrics)  
    - Configure a fonte de dados Prometheus criada  
 
-### 6.3 Testando a Integração Localmente
+### - Testando a Integração Localmente
 
-Antes de testar a integração, volte para o passo a passo inicie a aplicação e suba os serviços do Prometheus
-e do Grafana usando o comando `docker-compose up`.
+**Prometheus** - Acesse `http://localhost:8080/actuator/prometheus` para verificar as métricas expostas.
 
-1. Inicie a aplicação (`java -jar Challenge01-0.0.1-SNAPSHOT.jar`)
-2. Acesse `http://localhost:8080/actuator/prometheus` para verificar as métricas expostas  
-3. Acesse `http://localhost:3000` para abrir o Grafana e visualizar o dashboard  
+**Grafana** - Acesse `http://localhost:3000` para abrir o Grafana e visualizar o dashboard.
 
 ---
