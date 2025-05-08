@@ -9,7 +9,7 @@
 
 ### Descrição Geral sobre o Projeto
 Nosso projeto consiste em duas API desenvolvidas em Java utilizando o framework Spring Boot.  
-As API estão divididas em dois diretórios: "DAS-Monolito" e "DAS-Microsservice", em cada um deles você encontrará um README detalhando a arquitetura, endpoints, testes e outras informações sobre a respectiva api.
+As API estão divididas em dois diretórios: 📂**DAS-Monolito/** e 📂**DAS-Microsservice/**", em cada um deles você encontrará um README detalhando a arquitetura, endpoints, testes e outras informações sobre a respectiva api.
 
 
 ### Sumário
@@ -61,8 +61,8 @@ Link do vídeo: https://www.youtube.com/watch?v=6F3w8023OTM
 
 | Método  | Endpoint     | Descrição                                      | Autenticação |
 |:--------|:-------------|:-----------------------------------------------|:-------------|
-| `GET`   | `/`          | Acessa a página home                           | Deslogado    |
-| `GET`   | `/login`     | Acessa a página para realizar o login          | Deslogado    |
+| `GET`   | `/`          | Acessa a página home                           | N/A          |
+| `GET`   | `/login`     | Acessa a página para realizar o login          | N/A          |
 | `GET`   | `/clinica`   | Acessa a página com a listagem das clínicas    | ADMIN        |
 | `GET`   | `/paciente`  | Acessa a página com a listagem dos pacientes   | USER         |
 | `GET`   | `/consulta`  | Acessa a página com a listagem das consultas   | USER         |
