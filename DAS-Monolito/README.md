@@ -20,39 +20,42 @@ Nosso projeto consiste em uma API desenvolvida em Java utilizando o framework Sp
 
 ### Sumário
 - [Integrantes](#1-integrantes)
-- [Passos para rodar a Aplicação](#2-passos-para-rodar-a-aplicação)
+- [Passos para rodar a Aplicação](#2-passos-para-rodar-a-aplicação-sem-docker)
 - [Diagramas](#31-imagens)
 - [Relacionamento e Constraints](#32-relacionamentos-e-constraints)
-- [Video](#4-vídeo-apresentando-a-aplicação)
-- [Endpoints Disponíveis](#5-endpoints-disponíveis)
-- [Testes](#6-testes)
-- [Prometheus e Grafana](#7-integração-spring-boot-actuator-com-prometheus-e-grafana)
+- [Endpoints Disponíveis](#4-endpoints-disponíveis)
+- [Testes](#5-testes)
+- [Prometheus e Grafana](#6-integração-spring-boot-actuator-com-prometheus-e-grafana)
 
-## 2. Passos para rodar a aplicação:
+---
+## 2. Passos para rodar a aplicação (Sem Docker):
+> É necessário que o RabbitMq esteja rodando para garantir o funcionamento da aplicação.
+>
+> Recomendamos que você suba a aplicação utilizando o Docker, dessa forma, todos os serviços necessários para o funcionamento também serão iniciados.
+> 
+> Deixamos um passo a passo para você rodar a aplicação com o Docker na documentação raíz do projeto.
+
 1. Clone o repositório:  
    ```bash
    git clone https://github.com/brielpg/Challenge_Java_01.git
 
 2. Abra o diretório do projeto clonado:  
     ```bash
-   cd Challenge_DAS_JAVA
-
-3. Execute o comando para subir os serviços do Prometheus e Grafana
-    ```bash
-   docker-compose up
+   cd Challenge_DAS_JAVA/DAS-Monolito
    
-4. Execute o comando para gerar um .jar da aplicação  
+3. Execute o comando para gerar um .jar da aplicação  
     ```bash
    mvn clean package
 
-5. Acesse o diretório target para acessar o .jar  
+4. Acesse o diretório target para acessar o .jar  
     ```bash
     cd target
 
-6. Rode a aplicação
+5. Rode a aplicação
     ```bash
    java -jar Challenge01-0.0.1-SNAPSHOT.jar  
 
+---
 ## 3. Imagem do Diagrama
 
 ### 3.1 Imagens:
@@ -88,76 +91,95 @@ Um cliente pode estar relacionado a várias clínicas e uma clínica pode estar 
 cliente_id e clinica_id no relatório referenciam as tabelas Cliente e Clínica, garantindo que um relatório sempre esteja associado a um cliente e a uma clínica.  
 Clinica e Cliente possuem uma tabela de junçao com os IDs cliente_id e clinica_id que são chaves estrangeiras que referenciam Cliente e Clínica, respectivamente.  
 
-## 4. Vídeo apresentando a aplicação
-Link do vídeo: https://www.youtube.com/watch?v=6F3w8023OTM
+---
+## 4. Endpoints Disponíveis
+> Ao lado da descrição de cada endpoint está o requisito de autenticação para utiliza-lo.
+>
+> A aplicação é inicializada com um login `ADMIN` por padrão, email: **admin@email.com**, senha: **admin**
 
-## 5. Endpoints Disponíveis
-
-### 5.1 Endpoints de Clínica
+### 4.1 Endpoints de Clínica
 
 ```http
   /clinica
 ```
 
-| Método   | Endpoint       | Descrição                           |
-| :---------- |:---------------| :---------------------------------- |
-| `GET` | `/`            | Acessa a página que lista todas as clínicas |
-| `GET` | `/create`      | Acessa a página para cadastro de clínicas |
-| `GET` | `/update/{id}` | Acessa a página para atualizar as informações de uma clínica |
-| `GET` | `/{cnpj}`      | Acessa a página que lista as informações de uma clínica |
-| `GET` | `/delete/{id}` | Endpoint para deletar uma clínica |
-| `POST` | `/create`      | Endpoint para criar uma nova clínica |
-| `POST` | `/update/{id}` | Endpoint para atualizar informações da clínica |
+| Método     | Endpoint       | Descrição                                                    | Autenticação |
+|:-----------|:---------------|:-------------------------------------------------------------|:-------------|
+| `GET`      | `/`            | Acessa a página que lista todas as clínicas                  | ADMIN        |
+| `GET`      | `/create`      | Acessa a página para cadastro de clínicas                    | ADMIN        |
+| `GET`      | `/update/{id}` | Acessa a página para atualizar as informações de uma clínica | ADMIN        |
+| `GET`      | `/{cnpj}`      | Acessa a página que lista as informações de uma clínica      | ADMIN        |
+| `GET`      | `/delete/{id}` | Endpoint para deletar uma clínica                            | ADMIN        |
+| `POST`     | `/`            | Endpoint para criar uma nova clínica                         | ADMIN        |
+| `POST`     | `/update/{id}` | Endpoint para atualizar informações da clínica               | ADMIN        |
+| `POST`     | `/changeRole`  | Endpoint para atualizar a role/cargo da clínica              | ADMIN        |
 
-### 5.2 Endpoints de Paciente
+### 4.2 Endpoints de Paciente
 
 ```http
   /paciente
 ```
 
-| Método   | Endpoint       | Descrição                           |
-| :---------- |:---------------| :---------------------------------- |
-| `GET` | `/`            | Acessa a página que lista todos os pacientes |
-| `GET` | `/create`      | Acessa a página para cadastro de paciente |
-| `GET` | `/update/{id}` | Acessa a página para atualizar as informações de um paciente |
-| `GET` | `/{cpf}`       | Acessa a página que lista as informações de um paciente |
-| `GET` | `/delete/{id}` | Endpoint para deletar um paciente |
-| `POST` | `/create`      | Endpoint para criar um novo paciente |
-| `POST` | `/update/{id}` | Endpoint para atualizar informações de um paciente |
+| Método     | Endpoint        | Descrição                                                    | Autenticação |
+|:-----------|:----------------|:-------------------------------------------------------------|:-------------|
+| `GET`      | `/`             | Acessa a página que lista todos os pacientes                 | USER         |
+| `GET`      | `/create`       | Acessa a página para cadastro de paciente                    | USER         |
+| `GET`      | `/update/{cpf}` | Acessa a página para atualizar as informações de um paciente | USER         |
+| `GET`      | `/{cpf}`        | Acessa a página que lista as informações de um paciente      | USER         |
+| `GET`      | `/delete/{id}`  | Endpoint para deletar um paciente                            | ADMIN        |
+| `POST`     | `/`             | Endpoint para criar um novo paciente                         | USER         |
+| `POST`     | `/update/{cpf}` | Endpoint para atualizar informações de um paciente           | USER         |
 
-### 5.3 Endpoints de Consulta
+### 4.3 Endpoints de Consulta
 
 ```http
   /consulta
 ```
 
-| Método   | Endpoint       | Descrição                           |
-| :---------- |:---------------| :---------------------------------- |
-| `GET` | `/`            | Acessa a página que lista todas as consultas |
-| `GET` | `/create`      | Acessa a página para cadastro de consulta |
-| `GET` | `/update/{id}` | Acessa a página para atualizar as informações de uma consulta |
-| `GET` | `/{id}`        | Acessa a página que lista as informações de uma consulta |
-| `POST` | `/create`      | Endpoint para criar uma nova consulta |
-| `POST` | `/update/{id}` | Endpoint para atualizar informações de uma consulta |
+| Método     | Endpoint       | Descrição                                                     | Autenticação |
+|:-----------|:---------------|:--------------------------------------------------------------|:-------------|
+| `GET`      | `/`            | Acessa a página que lista todas as consultas                  | USER         |
+| `GET`      | `/create`      | Acessa a página para cadastro de consulta                     | USER         |
+| `GET`      | `/update/{id}` | Acessa a página para atualizar as informações de uma consulta | USER         |
+| `GET`      | `/{id}`        | Acessa a página que lista as informações de uma consulta      | USER         |
+| `POST`     | `/`            | Endpoint para criar uma nova consulta                         | USER         |
+| `POST`     | `/update/{id}` | Endpoint para atualizar informações de uma consulta           | USER         |
 
 
-### 5.4 Endpoints de Relatorio
+### 4.4 Endpoints de Relatorio
 
 ```http
   /relatorio
 ```
 
-| Método   | Endpoint       | Descrição                           |
-| :---------- | :--------- | :---------------------------------- |
-| `GET` | `/` | Acessa a página que lista todos os relatórios |
-| `GET` | `/{id}` | Acessa a página que lista as informações de um relatório |
-| `GET` | `/negar/{id}` | Endpoint para negar um pedido de um relatório |
-| `GET` | `/aprovar/{id}` | Endpoint para aprovar um pedido de um relatório |
-| `GET` | `/update/{id}` |  Acessa a página para atualizar as informações de um relatório |
-| `POST` | `/update/{id}` | Endpoint para atualizar informações de um relatório |
+| Método       | Endpoint        | Descrição                                                        | Autenticação |
+|:-------------|:----------------|:-----------------------------------------------------------------|:-------------|
+| `GET`        | `/`             | Acessa a página que lista todos os relatórios                    | USER         |
+| `GET`        | `/{id}`         | Acessa a página que lista as informações de um relatório         | USER         |
+| `GET`        | `/negar/{id}`   | Endpoint para negar um pedido de um relatório                    | ADMIN        |
+| `GET`        | `/aprovar/{id}` | Endpoint para aprovar um pedido de um relatório                  | ADMIN        |
+| `GET`        | `/update/{id}`  | Acessa a página para atualizar as informações de um relatório    | USER         |
+| `POST`       | `/update/{id}`  | Endpoint para atualizar informações de um relatório              | USER         |
 
-## 6. Testes  
-Os testes podem ser feitos via `Postman` através do arquivo collection postman disponibilizado, `"Challenge Odontoprev.postman_collection.json"`, ou nas próprias páginas thymeleaf com os exemplos abaixo.
+### 4.5 Outros Endpoints
+
+| Método       | Endpoint        | Descrição                  | Autenticação |
+|:-------------|:----------------|:---------------------------|:-------------|
+| `GET`        | `/`             | Acessa a home da aplicação | N/A          |
+| `GET`        | `/login`        | Acessa a página de login   | N/A          |
+| `GET`        | `/login?logout` | Faz o logout da conta      | USER / ADMIN |
+
+---
+## 5. Testes  
+> Os testes podem ser feitos via `Postman` através do arquivo collection postman disponibilizado, `"Challenge Odontoprev.postman_collection.json"`, ou nas próprias páginas thymeleaf com os exemplos abaixo.  
+>
+> Temos um usuário "ADMIN" cadastrado por padrão, email: admin@email.com, senha: admin
+
+### Login
+```
+Email:   admin@email.com --padrão
+Senha:   admin           --padrão
+```
 
 ### Endereço
 ```
@@ -206,33 +228,38 @@ Descrição:      O paciente realizou uma avaliação completa da saúde bucal. 
 Imagem:         www.imagem.com
 ```
 
-## 7. Integração Spring Boot Actuator com Prometheus e Grafana
+---
+## 6. Integração Spring Boot Actuator com Prometheus e Grafana
 
-### 7.1 Endpoints
+### 6.1 Endpoints
 
 Alguns dos Endpoints relacionados ao actuator disponíveis.
 
-| Endpoint   | Descrição                           |
-| :---------- | :---------------------------------- |
-| `/actuator	` | Lista todos os endpoints disponíveis. |
-| `/actuator/health	` | Retorna o estado da aplicação (UP/DOWN). |
-| `/actuator/info	` | Exibe informações da aplicação. |
-| `/actuator/metrics	` | Lista todas as métricas disponíveis. |
-| `/actuator/metrics/{nome}	` | Exibe dados de uma métrica específica, como 'jvm.memory.used' |
-| `/actuator/prometheus	` | Exibe métricas formatadas para o Prometheus. |
+| Endpoint                   | Descrição                                                     |
+|:---------------------------|:--------------------------------------------------------------|
+| `/actuator`                | Lista todos os endpoints disponíveis.                         |
+| `/actuator/health`         | Retorna o estado da aplicação (UP/DOWN).                      |
+| `/actuator/info`           | Exibe informações da aplicação.                               |
+| `/actuator/metrics`        | Lista todas as métricas disponíveis.                          |
+| `/actuator/metrics/{nome}` | Exibe dados de uma métrica específica, como 'jvm.memory.used' |
+| `/actuator/prometheus`     | Exibe métricas formatadas para o Prometheus.                  |
 
-### 7.2 Configuração do Grafana
+### 6.2 Configuração do Grafana
 
 1. Faça login (usuário padrão: admin, senha: admin)  
+
+
 2. Adicione uma nova fonte de dados:  
    - Tipo: Prometheus  
    - URL: http://prometheus:9090 (endereço padrão do Prometheus)
+
+
 3. Importe um dashboard para Spring Boot Actuator:  
    - Vá em "Create" > "Import"  
    - Use o ID do dashboard oficial: 4701 (Spring Boot Actuator Metrics)  
    - Configure a fonte de dados Prometheus criada  
 
-### 7.3 Testando a Integração Localmente
+### 6.3 Testando a Integração Localmente
 
 Antes de testar a integração, volte para o passo a passo inicie a aplicação e suba os serviços do Prometheus
 e do Grafana usando o comando `docker-compose up`.
