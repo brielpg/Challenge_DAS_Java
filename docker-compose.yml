@@ -10,7 +10,56 @@ services:
       RABBITMQ_DEFAULT_PASS: admin
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - backend
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - 9090:9090
+    networks:
+      - monitoring
+    volumes:
+      - ./DAS-Monolito/config/prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - 3000:3000
+    networks:
+      - monitoring
+
+  monolito:
+    build: ./DAS-Monolito
+    container_name: monolito
+    depends_on:
+      - rabbitmq
+    ports:
+      - "8080:8080"
+    environment:
+      - spring.rabbitmq.host=rabbitmq
+    networks:
+      - backend
+      - monitoring
+
+  microservice:
+    build: ./DAS-Microsservice
+    container_name: microservice
+    depends_on:
+      - rabbitmq
+    ports:
+      - "8082:8082"
+    environment:
+      - spring.rabbitmq.host=rabbitmq
+    networks:
+      - backend
 
 volumes:
   rabbitmq_data:
     driver: local
+
+networks:
+  monitoring:
+    driver: bridge
+  backend:
+    driver: bridge
