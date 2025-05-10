@@ -9,7 +9,7 @@
 
 ### Descrição Geral sobre o Projeto
 Nosso projeto consiste em duas API desenvolvidas em Java utilizando o framework Spring Boot.  
-As API estão divididas em dois diretórios: 📂**DAS-Monolito/** e 📂**DAS-Microsservice/**", em cada um deles você encontrará um README detalhando a arquitetura, endpoints, testes e outras informações sobre a respectiva api.
+As API estão divididas em dois diretórios: 📂**DAS-Monolito/** e 📂**DAS-Microsservice/**, em cada um deles você encontrará um README detalhando a arquitetura, endpoints, testes e outras informações sobre a respectiva api.
 
 
 ### Sumário
@@ -25,7 +25,7 @@ As API estão divididas em dois diretórios: 📂**DAS-Monolito/** e 📂**DAS-M
 
 1. Clone o repositório:  
    ```bash
-   git clone https://github.com/brielpg/Challenge_Java_01.git
+   git clone https://github.com/brielpg/Challenge_DAS_Java.git
 
 2. Abra o diretório do projeto clonado:  
     ```bash

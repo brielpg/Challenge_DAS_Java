@@ -40,7 +40,7 @@ ação feita relacionada a eles na nossa aplicação.
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/brielpg/Challenge_Java_01.git
+   git clone https://github.com/brielpg/Challenge_DAS_Java.git
 
 2. Abra o diretório do projeto clonado:
     ```bash
