@@ -45,6 +45,7 @@ public class ConsultaService {
         if (dados.dataConsulta().isAfter(LocalDate.now())) throw new InvalidDataException();
 
         var paciente = pacienteRepository.getReferenceByCpf(dados.paciente_cpf());
+        if (!paciente.getAtivo()) throw new ObjectNotFoundException("Paciente not found");
         var clinica = clinicaRepository.getReferenceById(dados.clinica_id());
 
         var relatorio = new Relatorio(dados.relatorio());

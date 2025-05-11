@@ -25,6 +25,7 @@ public class Paciente {
     private String cpf;
     private String telefone;
     private String email;
+    private Boolean ativo;
     private String nmrCarteiraOdonto;
     private LocalDate dataNascimento;
     private Integer qtdConsultas;
@@ -41,6 +42,7 @@ public class Paciente {
         this.cpf = dados.cpf();
         this.telefone = dados.telefone();
         this.email = dados.email();
+        this.ativo = true;
         this.dataNascimento = dados.dataNascimento();
         this.nmrCarteiraOdonto = dados.nmrCarteiraOdonto();
         this.qtdConsultas = 0;

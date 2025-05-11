@@ -62,11 +62,13 @@ public class PacienteService {
 
         if (clinica.getRole().equals(DasRoles.ADMIN)) {
             return pacienteRepository.findAll().stream()
+                    .filter(Paciente::getAtivo)
                     .map(DtoListarPaciente::new)
                     .toList();
         }
 
         return pacienteRepository.findByClinicasContaining(clinica).stream()
+                .filter(Paciente::getAtivo)
                 .map(DtoListarPaciente::new)
                 .toList();
     }
@@ -75,7 +77,7 @@ public class PacienteService {
     public DtoListarPaciente getPacienteByCpf(String cpf) {
         var paciente = pacienteRepository.findByCpf(cpf);
 
-        if (paciente == null) throw new ObjectNotFoundException("Pacient not found");
+        if (paciente == null || !paciente.getAtivo()) throw new ObjectNotFoundException("Pacient not found");
 
         return new DtoListarPaciente(paciente);
     }
@@ -86,6 +88,8 @@ public class PacienteService {
         if (dados.dataNascimento().isAfter(LocalDate.now())) throw new InvalidDataException();
 
         var paciente = pacienteRepository.getReferenceByCpf(cpf);
+        if (!paciente.getAtivo()) throw new ObjectNotFoundException("Pacient not found");
+
         paciente.atualizarPaciente(dados);
         this.save(paciente);
         return new DtoListarPaciente(paciente);
@@ -98,8 +102,11 @@ public class PacienteService {
 
     @Transactional
     public void deleteById(Long id) {
-        if (!pacienteRepository.existsById(id)) throw new ObjectNotFoundException("Pacient not found");
-        pacienteRepository.deleteById(id);
+        var paciente = pacienteRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Pacient not found"));
+
+        paciente.setAtivo(false);
+        pacienteRepository.save(paciente);
     }
 
     private void sendEmail(String emailPaciente, String nomePaciente, String emailClinica, String nomeClinica, boolean isClinica){
