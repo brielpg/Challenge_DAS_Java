@@ -83,6 +83,7 @@ public class PacienteService {
     @Transactional
     public DtoListarPaciente updatePaciente(String cpf, DtoAtualizarPaciente dados) {
         if (!pacienteRepository.existsByCpf(cpf)) throw new ObjectNotFoundException("Pacient not found");
+        if (dados.dataNascimento().isAfter(LocalDate.now())) throw new InvalidDataException();
 
         var paciente = pacienteRepository.getReferenceByCpf(cpf);
         paciente.atualizarPaciente(dados);
