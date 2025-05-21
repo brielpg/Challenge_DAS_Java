@@ -42,7 +42,7 @@ As API estão divididas em dois diretórios: 📂**DAS-Monolito/** e 📂**DAS-M
 
 ---
 ## 2. Vídeo apresentando o projeto
-Link do vídeo: https://www.youtube.com/watch?v=6F3w8023OTM
+Link do vídeo: https://www.youtube.com/watch?v=je7I91GxRYU
 
 ---
 ## 3. Endpoints Disponíveis
